@@ -14,5 +14,11 @@ namespace SportsEvents.Controllers
             ViewBag.Name = "dfsadfhd";
             return View();
         }
+        [Route("abc")]
+        public string Something()
+        {
+            return "sdfg";
+        }
+
     }
 }

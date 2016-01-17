@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using SportsEvents.Models;
+using SportsEvents.Common;
+using SportsEvents.EntityFramework;
 
 namespace SportsEvents.ApiControllers
 {
@@ -12,11 +14,13 @@ namespace SportsEvents.ApiControllers
         public IHttpActionResult Get()
         {
             var event_ = new Event() { Id = 0, Name = "ladsfds" };
-            var auction = new Event() { Id = 12, Name = "GoldChest" };
+            var context = new SportsEventsDbContext();
 
-            return Ok(new { auction, event_ });
+
+            return Ok(context.SaveChanges());
 
         }
 
+       
     }
 }

@@ -1,0 +1,1 @@
+﻿var sportsEvents = angular.module('SportsEvents', []);

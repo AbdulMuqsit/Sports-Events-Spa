@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 
@@ -9,26 +10,44 @@ namespace SportsEvents.Common.Entities
     {
         public int Id { get; set; }
         public bool IsFeatured { get; set; }
+        [Display(Name="Price")]
+        [Required(ErrorMessage="{0} is required")]
         public double? StartingPrice { get; set; }
+        [Display(Name = "Starting Date")]
+        [Required(ErrorMessage = "{0} is required")]
         public DateTime? BeginDate { get; set; }
+        [Display(Name = "Ending Date")]
+        [Required(ErrorMessage = "{0} is required")]
         public DateTime? EndDate { get; set; }
+        [Required(ErrorMessage = "{0} is required")]
         public Address Address { get; set; }
+        [Required]
+        [MaxLength(150, ErrorMessage = "Length exceeded. Maximum 150 characters allowed.")]
         public string Description { get; set; }
+        [MaxLength(500, ErrorMessage = "Length exceeded. Maximum 500 characters allowed.")]
         public string Details { get; set; }
         public string Icon { get; set; }
         public List<string> Pictures { get; set; }
         public string VideoLink { get; set; }
         public string ExternalLink { get; set; }
+        [Required]
         public DbGeography Coordinates { get; set; }
+        [Display(Name="Starting Time")]
+        [Required(ErrorMessage = "{0} is required.")]
         public DateTime BeginTime { get; set; }
+        [Display(Name = "Ending Time")]
+        [Required(ErrorMessage = "{0} is required.")]
         public DateTime EndTime { get; set; }
+        
         public int CityId { get; set; }
         [ForeignKey("CityId")]
         public City City { get; set; }
+        
         public string AddressString { get; set; }
         public int SportId { get; set; }
         [ForeignKey("SportId")]
         public Sport Sport { get; set; }
+        
         public string SportName { get; set; }
 
         public int EventTypeId { get; set; }
@@ -37,7 +56,7 @@ namespace SportsEvents.Common.Entities
         [ForeignKey("EventTypeId")]
         public EventType EventType { get; set; }
         public string EventTypeName { get; set; }
-
+        
         public string OrganizerId { get; set; }
         [ForeignKey("OrganizerId")]
         public User Organizer { get; set; }
@@ -51,21 +70,27 @@ namespace SportsEvents.Common.Entities
     public class EventType
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "{0} is required.")]
         public string Name { get; set; }
-        public ICollection<Event> Enents { get; set; }
+        public ICollection<Event> Events { get; set; }
 
     }
     public class Address
     {
+        [Display(Name = "Address Line One")]
+        [Required(ErrorMessage = "{0} is required.")]
         public string LineOne { get; set; }
+        [Display(Name = "Address Line Two")]
         public string LineTwo { get; set; }
+        [Display(Name = "City ID")]
+        [Required(ErrorMessage = "{0} is required.")]
+        public int? CityId { get; set; }
         public string CityName { get; set; }
         public string CountryName { get; set; }
-        public int CityId { get; set; }
-
+        [Required(ErrorMessage = "{0} is required.")]
         public string Zip { get; set; }
+        [Required(ErrorMessage = "{0} is required.")]
         public string State { get; set; }
-
     }
 
     public class City
@@ -83,6 +108,7 @@ namespace SportsEvents.Common.Entities
 
     {
         public int Id { get; set; }
+        [Required(ErrorMessage="{0} is required.")]
         public string Name { get; set; }
 
     }
@@ -90,6 +116,7 @@ namespace SportsEvents.Common.Entities
     public class Sport
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "{0} is required.")]
         public string Name { get; set; }
         public ICollection<Event> Events { get; set; }
 

@@ -51,7 +51,7 @@ namespace SportsEvents.ApiControllers
         {
             var _event = await DbContext.Events.SingleOrDefaultAsync();
 
-
+            throw new NotImplementedException();
         }
 
     }

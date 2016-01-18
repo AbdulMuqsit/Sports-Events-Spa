@@ -1,5 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../app/app.js" />
+/// <reference path="../app/features/events/addevent/addeventcontroller.js" />
+/// <reference path="../app/features/home/homecontroller.js" />
 /// <reference path="angular.min.js" />
 /// <reference path="angular-animate.min.js" />
 /// <reference path="angular-aria.min.js" />

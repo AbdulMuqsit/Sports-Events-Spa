@@ -1,6 +1,6 @@
 using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using SportsEvents.Common;
+using SportsEvents.Common.Entities;
 
 namespace SportsEvents.EntityFramework
 {

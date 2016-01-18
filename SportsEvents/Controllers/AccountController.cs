@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using SportsEvents.Common;
+using SportsEvents.Common.Entities;
 using SportsEvents.Models;
 using SportsEvents.Providers;
 using SportsEvents.Results;

@@ -11,7 +11,7 @@ namespace SportsEvents.Infrastructure
             {
                 return default(Event);
             }
-            return new Event() { Name = model.Name };
+            return new Event() { Description = model.Description };
         }
     }
 }

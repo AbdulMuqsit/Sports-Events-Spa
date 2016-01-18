@@ -50,7 +50,7 @@ namespace SportsEvents.ApiControllers
         public async Task<IHttpActionResult> Delete(int id)
         {
             var _event = await DbContext.Events.SingleOrDefaultAsync();
-
+            throw new NotImplementedException();
 
         }
 

@@ -6,6 +6,7 @@ namespace SportsEvents.Models
 {
     public class EventPostViewModel
     {
+        [Display(Name = "Featured")]
         public bool IsFeatured { get; set; }
 
         [Display(Name = "Price")]
@@ -42,7 +43,6 @@ namespace SportsEvents.Models
         [Required(ErrorMessage = "{0} is required.")]
         public string Zip { get; set; }
 
-        [Required(ErrorMessage = "{0} is required.")]
         public string State { get; set; }
 
         [Required]

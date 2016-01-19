@@ -30,7 +30,7 @@ namespace SportsEvents.Common.Entities
         public List<string> Pictures { get; set; }
         public string VideoLink { get; set; }
         public string ExternalLink { get; set; }
-        [Required]
+        //[Required]
         public DbGeography Coordinates { get; set; }
         [Display(Name="Starting Time")]
         [Required(ErrorMessage = "{0} is required.")]
@@ -42,7 +42,9 @@ namespace SportsEvents.Common.Entities
         public int CityId { get; set; }
         [ForeignKey("CityId")]
         public City City { get; set; }
-        
+        [Required(ErrorMessage = "{0} is required.")]
+        public string Zip { get; set; }
+
         public string AddressString { get; set; }
         public int SportId { get; set; }
         [ForeignKey("SportId")]
@@ -92,7 +94,7 @@ namespace SportsEvents.Common.Entities
         [Required(ErrorMessage = "{0} is required.")]
         public string State { get; set; }
     }
-
+    
     public class City
     {
         public int Id { get; set; }

@@ -31,7 +31,7 @@
                 "CityId": model.cityId,
                 "CountryId": model.CountryId,
                 "SportId": model.sportId,
-                "SportTypeId": model.sportTypeId,
+                "EventTypeId": model.eventTypeId,
                 "Zip": model.zip,
                 "StartingPrice": model.startingPrice,
                 "LineOne": model.lineOne,

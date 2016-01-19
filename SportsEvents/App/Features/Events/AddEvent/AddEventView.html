@@ -5,7 +5,7 @@
     </div>
     <div>
         <span>Featured</span>
-        <input type="checkbox" name="Featured" />
+        <input type="checkbox" name="Featured" ng-model="model.isFeatured"/>
     </div>
     
     <div>
@@ -19,11 +19,11 @@
     </div>
     <div>
         <span>Video Link to your Event</span>
-        <input type="url" />
+        <input type="url" ng-model="model.videoLink"/>
     </div>
     <div>
         <span>Externel Link to your Event</span>
-        <input type="url" />
+        <input type="url" ng-model="model.externalLink"/>
     </div>
     <div>
         <span>Sports Type</span>
@@ -44,7 +44,7 @@
     </div>
     <div>
         <span>Starting Price</span>
-        <input placeholder="Starting price" type="text" />
+        <input placeholder="Starting price" type="text" ng-model="model.startingPrice" />
     </div>
     <div>
         <span>Starting Date</span>
@@ -65,11 +65,11 @@
     <div>
         <div>
             <span>Address Line One</span>
-            <input placeholder="Line One" type="text" />
+            <input placeholder="Line One" type="text" ng-model="model.lineOne"/>
         </div>
         <div>
             <span>Address Line Two</span>
-            <input placeholder="Line Two" type="text" />
+            <input placeholder="Line Two" type="text" ng-model="model.lineTwo" />
         </div>
         <div>
             <span>Country</span>
@@ -88,6 +88,10 @@
             <select>
                 <option>Select a State</option>
             </select>
+        </div>
+        <div>
+            <span>Zip Code</span>
+            <input type="text" placeholder="Enter Zip Code" ng-model="model.zip" />
         </div>
 
     </div>

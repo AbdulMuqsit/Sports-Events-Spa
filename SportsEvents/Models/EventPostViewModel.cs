@@ -43,7 +43,6 @@ namespace SportsEvents.Models
         [Required(ErrorMessage = "{0} is required.")]
         public string Zip { get; set; }
 
-        [Required(ErrorMessage = "{0} is required.")]
         public string State { get; set; }
 
         [Required]

@@ -1,12 +1,12 @@
 ﻿events.controller("AddEventController", [
-    "$http", function($http) {
-        $scope.submit = function(model) {
+    "$http", function ($http) {
+        $scope.submit = function (model) {
 
 
             function generateBase64String(url, callback, outputFormat) {
                 var img = new Image();
                 img.crossOrigin = "Anonymous";
-                img.onload = function() {
+                img.onload = function () {
                     var canvas = document.createElement("CANVAS");
                     var ctx = canvas.getContext("2d");
                     var dataURL;
@@ -44,15 +44,28 @@
 
             };
             var picturesStirngs = [];
-            event.Icon = generateBase64String(model.icon);
-            for (var i = 0; i < model.pictures.length; i++) {
-                picturesStirngs[i] = generateBase64String(model.pictures[i]);
+            var funcs = [];
+            generateBase64String(model.icon, function (base64String) {
+                event.Icon = base64String;
             }
+            );
+            function createfunc(i) {
+                return function (base64String) {
+                    picturesStirngs[i] = base64String;
+                };
+            }
+            for (var i = 0; i < model.pictures.length; i++) {
+                funcs[i] = createfunc(i);
 
+                generateBase64String(model.pictures[i], funcs[i]);
+            }
+            for (var j = 0; j < model.pictures.length; j++) {
+                funcs[j]();
+            }
             event.Pictures = picturesStirngs;
-            $http.post(url, user).then(function(data) {
-
-            }, function(data) {
+            $http.post(url, event).then(function (data) {
+                toastr.success("Event Created");
+            }, function (data) {
 
             });
         };

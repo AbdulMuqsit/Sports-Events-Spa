@@ -11,7 +11,13 @@ namespace SportsEvents.Infrastructure
             {
                 return default(Event);
             }
-            return new Event() { Description = model.Description };
+            return new Event()
+            {
+                Description = model.Description,
+                BeginDate=model.BeginDate,
+                BeginTime=model.BeginTime,
+                EndDate = model.EndDate,
+            };
         }
     }
 }

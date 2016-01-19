@@ -5,6 +5,7 @@ namespace SportsEvents.Models
 {
     public class EventPostViewModel
     {
+        [Display(Name = "Featured")]
         public bool IsFeatured { get; set; }
         [Display(Name = "Price")]
         [Required(ErrorMessage = "{0} is required")]

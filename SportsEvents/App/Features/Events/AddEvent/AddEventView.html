@@ -1,49 +1,93 @@
 ﻿<div ng-controller="AddEventController">
     <div>
-        <span></span>
-        <input placeholder="Description" type="text" />
+        <span>Description</span>
+        <input placeholder="Description" ng-model="model.description" type="text" />
     </div>
     <div>
-        <span></span>
-        <input placeholder="Details" type="text" />
+        <span>Featured</span>
+        <input type="checkbox" name="Featured" />
+    </div>
+    
+    <div>
+        <span>Select icon</span>
+        <input type="file" accept="image/*" />
+    </div>
+
+    <div>
+        <span>Upload pictures</span>
+        <input type="file" accept="image/*" multiple />
     </div>
     <div>
-        <span></span>
-        <input placeholder="Begin Date" type="date" />
+        <span>Video Link to your Event</span>
+        <input type="url" />
     </div>
     <div>
-        <span></span>
-        <input placeholder="End Date" type="date" />
+        <span>Externel Link to your Event</span>
+        <input type="url" />
     </div>
     <div>
-        <span></span>
-        <input placeholder="Start Time" type="time" />
+        <span>Sports Type</span>
+        <select>
+            <option>Football</option>
+        </select>
     </div>
     <div>
-        <span></span>
-        <input placeholder="End Time" type="time" />
+        <span>Event Type</span>
+        <select>
+            <option>Training Session</option>
+        </select>
+    </div>
+
+    <div>
+        <span>Details</span>
+        <input placeholder="Details" type="text" ng-model ="mode.details"/>
+    </div>
+    <div>
+        <span>Starting Price</span>
+        <input placeholder="Starting price" type="text" />
+    </div>
+    <div>
+        <span>Starting Date</span>
+        <input placeholder="Starting Date" type="date" ng-model="model.beginDate" />
+    </div>
+    <div>
+        <span>Ending Date</span>
+        <input placeholder="End Date" type="date" ng-model="model.endDate"/>
+    </div>
+    <div>
+        <span>Starting Time</span>
+        <input placeholder="Start Time" type="time" ng-model="model.beginTime" />
+    </div>
+    <div>
+        <span>Ending Time</span>
+        <input placeholder="End Time" type="time" ng-model="model.endTime" />
     </div>
     <div>
         <div>
-            <span></span>
+            <span>Address Line One</span>
             <input placeholder="Line One" type="text" />
         </div>
         <div>
-            <span></span>
+            <span>Address Line Two</span>
             <input placeholder="Line Two" type="text" />
         </div>
         <div>
-            <span></span>
-            <input placeholder="City" type="text" />
-        </div>
-
-        <div>
-            <span></span>
-            <input placeholder="State" type="text" />
+            <span>Country</span>
+            <select>
+                <option>Select a Country</option>
+            </select>
         </div>
         <div>
-            <span></span>
-            <input placeholder="Country" type="text" />
+            <span>City</span>
+            <select>
+                <option>Select a City</option>
+            </select>
+        </div>
+        <div>
+            <span>State</span>
+            <select>
+                <option>Select a State</option>
+            </select>
         </div>
 
     </div>

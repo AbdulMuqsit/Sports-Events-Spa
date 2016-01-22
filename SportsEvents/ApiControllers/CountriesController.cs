@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace SportsEvents.ApiControllers
 {
-    public class CitiesController : ApiControllerBase
+    public class CountriesController : ApiControllerBase
     {
         [HttpGet]
         public IHttpActionResult Get()
@@ -18,7 +18,7 @@ namespace SportsEvents.ApiControllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Post(CityPostViewModel model)
+        public async Task<IHttpActionResult> Post(CountryPostViewModel model)
         {
             try
             {
@@ -26,18 +26,18 @@ namespace SportsEvents.ApiControllers
                 {
                     return BadRequest(ModelState);
                 }
-                var city = ModelFactory.Get(model);
+                var country = ModelFactory.Get(model);
 
-                DbContext.Cities.Add(city);
+                DbContext.Countries.Add(country);
                 var result = await DbContext.SaveChangesAsync();
 
                 if (result > 0)
                 {
-                    return Ok(city);
+                    return Ok(country);
                 }
                 return InternalServerError();
             }
-            catch   (Exception ex)
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

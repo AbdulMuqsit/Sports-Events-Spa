@@ -36,6 +36,7 @@ namespace SportsEvents.Infrastructure
                 EventTypeId = model.EventTypeId
              };
         }
+
         public static City Get(CityPostViewModel model)
         {
             if (model == null)
@@ -46,6 +47,18 @@ namespace SportsEvents.Infrastructure
             {
                 Name = model.Name,
                 CountryId = model.CountryId.Value
+            };
+        }
+
+        public static Country Get(CountryPostViewModel model)
+        {
+            if (model == null)
+            {
+                return default(Country);
+            }
+            return new Country()
+            {
+                Name = model.Name
             };
         }
     }

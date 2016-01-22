@@ -10,8 +10,7 @@ namespace SportsEvents.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-            ViewBag.Name = "dfsadfhd";
+            
             return View();
         }
         [Route("abc")]

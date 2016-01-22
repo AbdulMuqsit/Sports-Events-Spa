@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    background: #eee;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -9,9 +9,113 @@
     padding-right: 15px;
 }
 
+.content {
+    margin: 90px 100px 0 100px;
+}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+}
+
+select {
+    display: block;
+    padding: 6px 4px;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background: #042b69;
+}
+
+.form-view {
+    width: 500px;
+}
+
+    .form-view > div, .form-view > div > div {
+        margin-bottom: 30px;
+    }
+
+        .form-view > div > div > span, .form-view > div > span {
+            padding-top: 5px;
+            font-size: 14px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .form-view > div select,
+        .form-view > div textarea,
+        .form-view > div input[type=text],
+        .form-view > div input[type=url],
+        .form-view > div input[type=date],
+        .form-view > div input[type=time],
+        .form-view > div input[type=date],
+        .form-view > div input[type=number] {
+            width: 300px;
+            max-width: 300px;
+            margin-top: -5px;
+            height: 25px;
+            -ms-border-radius: 10px;
+            border: 1px solid #d5d5d5;
+            border-radius: 10px;
+            font-size: 16px;
+            padding: 5px;
+            float: right;
+            outline: none;
+        }
+
+            .form-view > div select:hover,
+            .form-view > div textarea:hover,
+            .form-view > div input[type=text]:hover,
+            .form-view > div input[type=url]:hover,
+            .form-view > div input[type=date]:hover,
+            .form-view > div input[type=time]:hover,
+            .form-view > div input[type=date]:hover,
+            .form-view > div input[type=number] {
+                border: 1px solid #acd3f2;
+            }
+
+            .form-view > div select:focus,
+            .form-view > div textarea:focus,
+            .form-view > div input[type=text]:focus,
+            .form-view > div input[type=url]:focus,
+            .form-view > div input[type=date]:focus,
+            .form-view > div input[type=time]:focus,
+            .form-view > div input[type=date]:focus,
+            .form-view > div input[type=number] {
+                border: 1px solid #42A5F5;
+            }
+
+        .form-view > div textarea {
+            height: 300px;
+        }
+
+        .form-view > div > input[type=checkbox],
+        .form-view > div > input[type=file] {
+            float: right;
+        }
+
+        .form-view > div input[type=submit] {
+            float: right;
+            background: #0D47A1;
+            -ms-border-radius: 30px;
+            border-radius: 30px;
+            height: 40px;
+            width: 100px;
+        }
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
 }

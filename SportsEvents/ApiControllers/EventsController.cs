@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using SportsEvents.Common.Entities;
-using SportsEvents.Models;
-using SportsEvents.EntityFramework;
 using SportsEvents.Infrastructure;
+using SportsEvents.Models;
 
 namespace SportsEvents.ApiControllers
 {
@@ -17,12 +12,9 @@ namespace SportsEvents.ApiControllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-
             throw new NotImplementedException();
-
-
-
         }
+
         [HttpPost]
         public async Task<IHttpActionResult> Post(EventPostViewModel model)
         {
@@ -32,12 +24,11 @@ namespace SportsEvents.ApiControllers
                 {
                     return BadRequest(ModelState);
                 }
-                var something= new Event();
-                something.Description = model.Description;
                 var _event = ModelFactory.Get(model);
 
                 //saving to database
                 DbContext.Events.Add(_event);
+
                 var result = await DbContext.SaveChangesAsync();
 
 
@@ -49,12 +40,9 @@ namespace SportsEvents.ApiControllers
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
-        
-
 
         public async Task<IHttpActionResult> Delete(int id)
         {
@@ -62,6 +50,5 @@ namespace SportsEvents.ApiControllers
 
             throw new NotImplementedException();
         }
-
     }
 }

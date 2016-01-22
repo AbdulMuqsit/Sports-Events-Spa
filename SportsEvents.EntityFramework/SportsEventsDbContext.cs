@@ -9,7 +9,7 @@ namespace SportsEvents.EntityFramework
     public class SportsEventsDbContext : IdentityDbContext<User>
     {
         public DbSet<Event> Events { get; set; }
-
+        public DbSet<City> Cities { get; set; }
 
 
 

@@ -233,9 +233,12 @@
     <Content Include="App\Features\Events\AddEvent\AddEventController.js" />
     <Content Include="App\Features\Events\AddEvent\AddEventView.html" />
     <Content Include="App\Features\Home\HomeController.js" />
+    <Content Include="App\Features\User\Admin\Country\AddCountry\AddCountryView.html" />
     <Content Include="App\Features\User\Admin\Country\AddCountry\AddCoutryController.js" />
+    <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeView.html" />
     <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
+    <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
     <Content Include="App\Services\NotificationService.js" />

@@ -1,11 +1,11 @@
-﻿admin.controller('AddCityController', ['repository', 'notification',
-function (repository, notification) {
+﻿admin.controller('AddCityController', ['dataRepository', 'notification',
+function (dataRepository, notification) {
     $scope.submit = function (model) {
         var city = {
             "Name": model.Name,
             "CountryId": model.countryId
         }
-        repository.add("city", city).then(
+        dataRepository.add("city", city).then(
             function (data) {
                 notification.success("City Created Successfuly");
 

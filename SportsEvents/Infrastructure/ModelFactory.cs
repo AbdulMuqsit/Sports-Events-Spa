@@ -36,5 +36,17 @@ namespace SportsEvents.Infrastructure
                 EventTypeId = model.EventTypeId
              };
         }
+        public static City Get(CityPostViewModel model)
+        {
+            if (model == null)
+            {
+                return default(City);
+            }
+            return new City()
+            {
+                Name = model.Name,
+                CountryId = model.CountryId.Value
+            };
+        }
     }
 }

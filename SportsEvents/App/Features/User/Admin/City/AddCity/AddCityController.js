@@ -2,7 +2,7 @@
 function (dataRepository, notification) {
     $scope.submit = function (model) {
         var city = {
-            "Name": model.Name,
+            "Name": model.name,
             "CountryId": model.countryId
         }
         dataRepository.add("city", city).then(

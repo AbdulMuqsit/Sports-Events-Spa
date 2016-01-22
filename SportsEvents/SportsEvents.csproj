@@ -226,18 +226,20 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\Features\User\Admin\Citites\AddCity\AddCityController.js" />
-    <Content Include="App\Features\User\Admin\Citites\AddCity\AddCityView.html" />
+    <Content Include="App\Features\User\Admin\City\AddCity\AddCityController.js" />
+    <Content Include="App\Features\User\Admin\City\AddCity\AddCityView.html" />
     <Content Include="App\App.js" />
     <Content Include="App\CustomDirectives\FileReadDirective.js" />
     <Content Include="App\Features\Events\AddEvent\AddEventController.js" />
     <Content Include="App\Features\Events\AddEvent\AddEventView.html" />
     <Content Include="App\Features\Home\HomeController.js" />
-    <Content Include="App\Features\User\Admin\Country\AddCountry\AddCountryView.html" />
-    <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeView.html" />
-    <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
+    <Content Include="App\Features\User\Admin\Country\AddCountry\AddCoutryController.js" />
+    <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeController.js" />
+    <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
+    <Content Include="App\Services\NotificationService.js" />
+    <Content Include="App\Services\SportsEventsDataRepository.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

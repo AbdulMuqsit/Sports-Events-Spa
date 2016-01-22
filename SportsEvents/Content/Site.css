@@ -101,6 +101,7 @@ select {
         .form-view > div > input[type=file] {
             float: right;
         }
+
         .form-view > div input[type=submit] {
             float: right;
             background: #0D47A1;
@@ -109,7 +110,12 @@ select {
             height: 40px;
             width: 100px;
         }
-        hr {
-            color: #999;
-            margin: 50px
-        }
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}

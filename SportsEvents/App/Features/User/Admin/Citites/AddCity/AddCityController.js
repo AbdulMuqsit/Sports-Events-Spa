@@ -2,7 +2,7 @@
 function (repository, notification) {
     $scope.submit = function (model) {
         var city = {
-            "Name": model.Name,
+            "Name": model.name,
             "CountryId": model.countryId
         }
         repository.add("city", city).then(

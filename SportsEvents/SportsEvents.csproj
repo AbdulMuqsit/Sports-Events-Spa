@@ -231,6 +231,9 @@
     <Content Include="App\Features\Events\AddEvent\AddEventController.js" />
     <Content Include="App\Features\Events\AddEvent\AddEventView.html" />
     <Content Include="App\Features\Home\HomeController.js" />
+    <Content Include="App\Features\User\Admin\Country\AddCountry\AddCountryView.html" />
+    <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeView.html" />
+    <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -1119,7 +1122,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15406</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

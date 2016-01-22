@@ -5,9 +5,9 @@
     </div>
     <div>
         <span>Featured</span>
-        <input type="checkbox" name="Featured" ng-model="model.isFeatured"/>
+        <input type="checkbox" name="Featured" ng-model="model.isFeatured" />
     </div>
-    
+
     <div>
         <span>Select icon</span>
         <input type="file" accept="image/*" />
@@ -19,28 +19,28 @@
     </div>
     <div>
         <span>Video Link to your Event</span>
-        <input type="url" ng-model="model.videoLink"/>
+        <input type="url" ng-model="model.videoLink" />
     </div>
     <div>
         <span>Externel Link to your Event</span>
-        <input type="url" ng-model="model.externalLink"/>
+        <input type="url" ng-model="model.externalLink" />
     </div>
     <div>
         <span>Sports Type</span>
         <select>
-            <option>Football</option>
+            <option value="0">Football</option>
         </select>
     </div>
     <div>
         <span>Event Type</span>
         <select>
-            <option>Training Session</option>
+            <option value="0">Training Session</option>
         </select>
     </div>
 
     <div>
         <span>Details</span>
-        <input placeholder="Details" type="text" ng-model ="mode.details"/>
+        <input placeholder="Details" type="text" ng-model="mode.details" />
     </div>
     <div>
         <span>Starting Price</span>
@@ -52,7 +52,7 @@
     </div>
     <div>
         <span>Ending Date</span>
-        <input placeholder="End Date" type="date" ng-model="model.endDate"/>
+        <input placeholder="End Date" type="date" ng-model="model.endDate" />
     </div>
     <div>
         <span>Starting Time</span>
@@ -65,7 +65,7 @@
     <div>
         <div>
             <span>Address Line One</span>
-            <input placeholder="Line One" type="text" ng-model="model.lineOne"/>
+            <input placeholder="Line One" type="text" ng-model="model.lineOne" />
         </div>
         <div>
             <span>Address Line Two</span>
@@ -73,19 +73,19 @@
         </div>
         <div>
             <span>Country</span>
-            <select>
-                <option>Select a Country</option>
+            <select ng-model="model.countryId">
+                <option value="0">Select a Country</option>
             </select>
         </div>
         <div>
             <span>City</span>
-            <select>
-                <option>Select a City</option>
+            <select ng-model="model.cityId">
+                <option value="0">Select a City</option>
             </select>
         </div>
         <div>
             <span>State</span>
-            <select>
+            <select ng-model="model.State">
                 <option>Select a State</option>
             </select>
         </div>
@@ -93,6 +93,8 @@
             <span>Zip Code</span>
             <input type="text" placeholder="Enter Zip Code" ng-model="model.zip" />
         </div>
-
+        <div>
+            <input type="button" ng-click="submit(model)" value="Create Event" />
+        </div>
     </div>
 </div>

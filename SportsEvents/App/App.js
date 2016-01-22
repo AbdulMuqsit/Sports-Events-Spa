@@ -1,8 +1,10 @@
 ﻿var customDirectives = angular.module('customDirectives', []);
-var events = angular.module('events', ['customDirectives']);
-var user = angular.module('user', []);
-
-var sportsEvents = angular.module('SportsEvents', ['events', 'user', 'customDirectives', 'ngRoute']).config([
+var repository = angular.module('repository', []);
+var notification = angular.module('notification', []);
+var events = angular.module('events', ['customDirectives', 'repository']);
+var user = angular.module('user', ['repository']);
+var admin = angular.module('admin', ['repository']);
+var sportsEvents = angular.module('SportsEvents', ['repository', 'events', 'user', 'customDirectives', 'ngRoute']).config([
         "$locationProvider", "$routeProvider",
         function ($locationProvider, $routeProvider) {
             $locationProvider.html5Mode({
@@ -12,31 +14,10 @@ var sportsEvents = angular.module('SportsEvents', ['events', 'user', 'customDire
             var base = "/App/Features/";
             $routeProvider.when("/", {
                 templateUrl: base + "Events/AddEvent/AddEventView.html",
-                controller: "FeaturedProductsController"
+                controller: "AddEventController"
             }).when("/postevent", {
                 templateUrl: base + "Events/AddEvent/AddEventView.html",
                 controller: "FeaturedProductsController"
-            }).when("/featuredservices", {
-                templateUrl: base + "FeaturedServices/FeaturedServicesView.html",
-                controller: "FeaturedServicesController"
-            }).when("/product/:productId", {
-                templateUrl: base + "ProductDetails/ProductDetailsView.html",
-                controller: "ProductDetailsController"
-            }).when("/signup", {
-                templateUrl: base + "SignUp/SignUpView.html",
-                controller: "SignUpController"
-            }).when("/signin", {
-                templateUrl: base + "SignIn/SignInView.html",
-                controller: "SignInController"
-            }).when("/controlpanel", {
-                templateUrl: base + "ControlPanel/ControlPanelView.html",
-                controller: "ControlPanelController"
-            }).when("/searchproducts/:q?", {
-                templateUrl: base + "SearchProducts/SearchProductsView.html",
-                controller: "SearchProductsController"
-            }).when("/searchservices/:q?", {
-                templateUrl: base + "SearchServices/SearchServicesView.html",
-                controller: "SearchServicesController"
             }).otherwise({
                 redirectTo: "/"
             });

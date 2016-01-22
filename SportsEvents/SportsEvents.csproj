@@ -224,6 +224,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Features\User\Admin\Citites\AddCity\AddCityController.js" />
+    <Content Include="App\Features\User\Admin\Citites\AddCity\AddCityView.html" />
     <Content Include="App\App.js" />
     <Content Include="App\CustomDirectives\FileReadDirective.js" />
     <Content Include="App\Features\Events\AddEvent\AddEventController.js" />

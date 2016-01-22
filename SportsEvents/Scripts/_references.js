@@ -3,6 +3,7 @@
 /// <reference path="../app/customdirectives/filereaddirective.js" />
 /// <reference path="../app/features/events/addevent/addeventcontroller.js" />
 /// <reference path="../app/features/home/homecontroller.js" />
+/// <reference path="../app/features/user/admin/citites/addcity/addcitycontroller.js" />
 /// <reference path="../app/features/user/signup/signupcontroller.js" />
 /// <reference path="angular.min.js" />
 /// <reference path="angular-animate.min.js" />

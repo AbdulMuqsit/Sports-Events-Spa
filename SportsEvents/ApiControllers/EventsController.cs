@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using SportsEvents.Common.Entities;
 using SportsEvents.Models;
 using SportsEvents.EntityFramework;
 using SportsEvents.Infrastructure;
@@ -31,9 +32,15 @@ namespace SportsEvents.ApiControllers
                 {
                     return BadRequest(ModelState);
                 }
+                var something= new Event();
+                something.Description = model.Description;
                 var _event = ModelFactory.Get(model);
+
+                //saving to database
                 DbContext.Events.Add(_event);
                 var result = await DbContext.SaveChangesAsync();
+
+
                 if (result > 0)
                 {
                     return Ok(_event);
@@ -47,6 +54,8 @@ namespace SportsEvents.ApiControllers
             }
         }
         
+
+
         public async Task<IHttpActionResult> Delete(int id)
         {
             var _event = await DbContext.Events.SingleOrDefaultAsync();

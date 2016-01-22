@@ -1,12 +1,12 @@
 ﻿events.controller("AddEventController", [
-    "$http", function ($http) {
-        $scope.submit = function (model) {
+    "$http", '$scope', function($http, $scope) {
+        $scope.submit = function(model) {
 
 
             function generateBase64String(url, callback, outputFormat) {
                 var img = new Image();
                 img.crossOrigin = "Anonymous";
-                img.onload = function () {
+                img.onload = function() {
                     var canvas = document.createElement("CANVAS");
                     var ctx = canvas.getContext("2d");
                     var dataURL;
@@ -29,7 +29,7 @@
                 "BeginDate": model.beginDate,
                 "EndDate": model.endDate,
                 "CityId": model.cityId,
-                "CountryId": model.CountryId,
+                "CountryId": model.countryId,
                 "SportId": model.sportId,
                 "EventTypeId": model.eventTypeId,
                 "Zip": model.zip,
@@ -45,27 +45,31 @@
             };
             var picturesStirngs = [];
             var funcs = [];
-            generateBase64String(model.icon, function (base64String) {
-                event.Icon = base64String;
-            }
+            generateBase64String(model.icon, function(base64String) {
+                    event.Icon = base64String;
+                }
             );
+
             function createfunc(i) {
-                return function (base64String) {
+                return function(base64String) {
                     picturesStirngs[i] = base64String;
                 };
             }
-            for (var i = 0; i < model.pictures.length; i++) {
-                funcs[i] = createfunc(i);
 
-                generateBase64String(model.pictures[i], funcs[i]);
-            }
-            for (var j = 0; j < model.pictures.length; j++) {
-                funcs[j]();
+            if (model.pictures) {
+                for (var i = 0; i < model.pictures.length; i++) {
+                    funcs[i] = createfunc(i);
+
+                    generateBase64String(model.pictures[i], funcs[i]);
+                }
+                for (var j = 0; j < model.pictures.length; j++) {
+                    funcs[j]();
+                }
             }
             event.Pictures = picturesStirngs;
-            $http.post(url, event).then(function (data) {
+            $http.post(url, event).then(function(data) {
                 toastr.success("Event Created");
-            }, function (data) {
+            }, function(data) {
 
             });
         };

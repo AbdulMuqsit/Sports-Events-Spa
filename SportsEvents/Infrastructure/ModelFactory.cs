@@ -61,5 +61,29 @@ namespace SportsEvents.Infrastructure
                 Name = model.Name
             };
         }
+
+        public static EventType Get(EventTypePostViewModel model)
+        {
+            if (model == null)
+            {
+                return default(EventType);
+            }
+            return new EventType()
+            {
+                Name = model.Name
+            };
+        }
+
+        public static Sport Get(SportPostViewModel model)
+        {
+            if (model == null)
+            {
+                return default(Sport);
+            }
+            return new Sport()
+            {
+                Name = model.Name
+            };
+        }
     }
 }

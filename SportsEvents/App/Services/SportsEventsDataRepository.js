@@ -14,7 +14,7 @@
                 }, function (data) {
                     defered.reject(data);
                 });
-                return defered;
+                return defered.promise;
             }
 
         };

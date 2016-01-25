@@ -1,11 +1,20 @@
 ﻿repository.factory('notification', [function () {
 
     var notificationServiceInstance = {
-        success: function (message) {
-            toastr.success(message);
+        success: function (title, message) {
+            if (message) {
+                toastr.success(title,message);
+            } else {
+                toastr.success(title);
+            }
         },
-        error: function (message) {
-            toastr.error(message);
+        error: function (title, message) {
+            if (message) {
+                toastr.error(message, title);
+            } else {
+                toastr.error(title);
+
+            }
         }
 
     };

@@ -1,5 +1,5 @@
-﻿admin.controller('AddCityController', ['dataRepository', 'notification',
-function (dataRepository, notification) {
+﻿admin.controller('AddCityController', ['$scope','dataRepository', 'notification',
+function ($scope,dataRepository, notification) {
     $scope.submit = function (model) {
         var city = {
             "Name": model.name,

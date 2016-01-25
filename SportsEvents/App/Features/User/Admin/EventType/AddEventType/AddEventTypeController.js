@@ -1,5 +1,5 @@
-﻿admin.controller('AddEventyTypeController', ['dataRepository', 'notification',
-function (dataRepository, notification) {
+﻿admin.controller('AddEventyTypeController', ['$scope','dataRepository', 'notification',
+function ($scope,dataRepository, notification) {
     $scope.submit = function (model) {
         var country = {
             "Name": model.name

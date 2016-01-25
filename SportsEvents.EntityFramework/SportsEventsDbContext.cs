@@ -22,6 +22,13 @@ namespace SportsEvents.EntityFramework
 
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ComplexType<Address>();
+        }
+
         public static SportsEventsDbContext Create()
         {
             return new SportsEventsDbContext();

@@ -1,16 +1,16 @@
-﻿admin.controller('AddCountryController', ['dataRepository', 'notification',
-function (dataRepository, notification) {
+﻿admin.controller('AddCountryController', ['$scope', 'dataRepository', 'notification',
+function ($scope, dataRepository, notification) {
     $scope.submit = function (model) {
         var country = {
-            "Name": model.name
+            "Name": model.countryName
         }
         dataRepository.add("country", country).then(
-            function (data) {
+            function(data) {
                 notification.success("Country Created Successfuly");
 
-            }, function (data) {
+            }, function(data) {
                 notification.error("Something bad happened while creating new Country");
             });
-    }
+    };
 }
 ]);

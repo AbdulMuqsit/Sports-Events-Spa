@@ -17,6 +17,9 @@ namespace SportsEvents
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js", "~/Scripts/angular-route.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/thirdParty").Include(
+                
+               "~/Scripts/toastr.js"));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -28,7 +31,7 @@ namespace SportsEvents
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 
-                "~/Content/site.css"));
+                "~/Content/site.css", "~/Content/toastr.css"));
         }
     }
 }

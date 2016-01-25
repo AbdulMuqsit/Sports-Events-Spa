@@ -2,6 +2,7 @@
 using SportsEvents.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,6 +10,7 @@ using System.Web.Http;
 
 namespace SportsEvents.ApiControllers
 {
+    [RoutePrefix("api/Countries")]
     public class CountriesController : ApiControllerBase
     {
         [HttpGet]
@@ -16,8 +18,16 @@ namespace SportsEvents.ApiControllers
         {
             throw new NotImplementedException();
         }
+        [HttpGet]
+        [Route("{id}/Cities")]
+        public async Task<IHttpActionResult> GetCities(int id)
+        {
+            var cities = await DbContext.Cities.Where(e => e.CountryId == id).ToListAsync();
+            return Ok(cities);
+        }
 
         [HttpPost]
+        
         public async Task<IHttpActionResult> Post(CountryPostViewModel model)
         {
             try

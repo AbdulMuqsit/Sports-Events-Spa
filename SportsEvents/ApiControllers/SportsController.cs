@@ -1,6 +1,7 @@
 ﻿using SportsEvents.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -12,9 +13,10 @@ namespace SportsEvents.ApiControllers
     public class SportsController : ApiControllerBase
     {
         [HttpGet]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            throw new NotImplementedException();
+            var sports = await DbContext.Sports.ToListAsync();
+            return Ok(sports);
         }
 
         [HttpPost]

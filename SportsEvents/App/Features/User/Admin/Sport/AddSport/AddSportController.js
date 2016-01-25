@@ -1,5 +1,5 @@
-﻿admin.controller('AddSportController', ['dataRepository', 'notification',
-function (dataRepository, notification) {
+﻿admin.controller('AddSportController', ['$scope','dataRepository', 'notification',
+function ($scope,dataRepository, notification) {
     $scope.submit = function (model) {
         var sport = {
             "Name": model.name

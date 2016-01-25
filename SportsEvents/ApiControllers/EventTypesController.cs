@@ -2,6 +2,7 @@
 using SportsEvents.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,9 +13,10 @@ namespace SportsEvents.ApiControllers
     public class EventTypesController : ApiControllerBase
     {
         [HttpGet]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            throw new NotImplementedException();
+            var eventTypes = await DbContext.EventTypes.ToListAsync();
+            return Ok(eventTypes);
         }
 
         [HttpPost]
@@ -33,7 +35,7 @@ namespace SportsEvents.ApiControllers
 
                 if (result > 0)
                 {
-                    return Ok(eventType); 
+                    return Ok(eventType);
                 }
                 return InternalServerError();
             }
@@ -42,7 +44,7 @@ namespace SportsEvents.ApiControllers
                 return InternalServerError(ex);
             }
         }
-        
+
         public async Task<IHttpActionResult> Delete(int id)
         {
             throw new NotImplementedException();

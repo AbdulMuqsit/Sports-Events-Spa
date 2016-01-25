@@ -14,9 +14,13 @@
     @RenderBody()
 
 
-    @Scripts.Render("~/bundles/jquery")
+
+
+    @Scripts.Render("~/bundles/jquery")@Scripts.Render("~/bundles/thirdParty")
+
     @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app")    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

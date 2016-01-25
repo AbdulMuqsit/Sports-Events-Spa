@@ -57,6 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201601250449400_Init.cs" />
+    <Compile Include="Migrations\201601250449400_Init.Designer.cs">
+      <DependentUpon>201601250449400_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SportsEventsDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +74,11 @@
       <Project>{12f0b2d8-dea6-4ec0-ac7c-b129273d68e8}</Project>
       <Name>SportsEvents.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601250449400_Init.resx">
+      <DependentUpon>201601250449400_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

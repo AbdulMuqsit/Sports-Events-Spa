@@ -4,7 +4,7 @@ var notification = angular.module('notification', []);
 var events = angular.module('events', ['customDirectives', 'repository']);
 var user = angular.module('user', ['repository','notification']);
 var admin = angular.module('admin', ['repository','notification']);
-var sportsEvents = angular.module('SportsEvents', ['repository', 'events', 'user', 'customDirectives', 'ngRoute']).config([
+var sportsEvents = angular.module('SportsEvents', ['repository', 'admin','events', 'user', 'customDirectives', 'ngRoute']).config([
         "$locationProvider", "$routeProvider",
         function ($locationProvider, $routeProvider) {
             $locationProvider.html5Mode({

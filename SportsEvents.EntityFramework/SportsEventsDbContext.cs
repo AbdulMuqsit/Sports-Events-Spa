@@ -27,6 +27,11 @@ namespace SportsEvents.EntityFramework
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ComplexType<Address>();
+            modelBuilder.Entity<Event>().HasMany(e => e.BookmarkerVisitors).WithMany(e => e.BookmarkedEvents).Map(config => config.MapLeftKey("BookmarkedEventId").MapRightKey("BookMarkerId").ToTable("Bookmarks_User_Event"));
+            modelBuilder.Entity<Event>().HasMany(e => e.RegisteredVisitors).WithMany(e => e.RegisteredEvents).Map(e => e.MapLeftKey("RegisteredUserId").MapRightKey("RegisteredEventId").ToTable("Registrations_User_Event"));
+            modelBuilder.Entity<Event>().HasMany(e => e.RegisterRequestVisitors).WithMany(e => e.RegistrationRequests).Map(e => e.MapLeftKey("RegisterRequestVisitorId").MapRightKey("RegisterationRequestId").ToTable("RegistrationRequests_User_Event"));
+            modelBuilder.Entity<Event>().HasMany(e => e.ClickerUsers).WithMany(e => e.ClickedEvents).Map(e => e.MapLeftKey("ClickerUserId").MapRightKey("ClickedEventId").ToTable("ClickedEvents_User_Events"));
+
         }
 
         public static SportsEventsDbContext Create()

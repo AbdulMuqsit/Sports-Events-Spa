@@ -12,7 +12,11 @@ namespace SportsEvents.Common.Entities
         public string LastName { get; set; }
 
         public ICollection<Event> RegisteredEvents { get; set; }
+        public ICollection<Event> BookmarkedEvents { get; set; }
+        public ICollection<Event> RegistrationRequests { get; set; }
 
+        public ICollection<Event> ClickedEvents { get; set; }
+        
 
 
 

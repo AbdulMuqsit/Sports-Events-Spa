@@ -4,15 +4,26 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using SportsEvents.Infrastructure;
 using SportsEvents.Models;
+using Microsoft.AspNet.Identity;
+using System.Linq;
 
 namespace SportsEvents.ApiControllers
 {
+    [RoutePrefix("api/Events")]
     public class EventsController : ApiControllerBase
     {
         [HttpGet]
         public IHttpActionResult Get()
         {
             throw new NotImplementedException();
+        }
+        [HttpGet]
+        [Route("MyEvents")]
+        public async Task<IHttpActionResult> GetMyEvents()
+        {
+            var userId = User.Identity.GetUserId();
+            var events = await DbContext.Events.Where(_event => _event.OrganizerId == userId).ToListAsync();
+            return Ok(events);
         }
 
         [HttpPost]

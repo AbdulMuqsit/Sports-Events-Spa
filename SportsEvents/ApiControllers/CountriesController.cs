@@ -19,10 +19,10 @@ namespace SportsEvents.ApiControllers
             throw new NotImplementedException();
         }
         [HttpGet]
-        [Route("{id}/Cities")]
+        [Route("{id:int}/Cities")]
         public async Task<IHttpActionResult> GetCities(int id)
         {
-            var cities = await DbContext.Cities.Where(e => e.CountryId == id).ToListAsync();
+            var cities = await DbContext.Cities.Where(city => city.CountryId == id).ToListAsync();
             return Ok(cities);
         }
 

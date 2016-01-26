@@ -176,6 +176,7 @@
     <Compile Include="ApiControllers\CountriesController.cs" />
     <Compile Include="ApiControllers\EventsController.cs" />
     <Compile Include="ApiControllers\EventTypesController.cs" />
+    <Compile Include="ApiControllers\OrganizersController.cs" />
     <Compile Include="ApiControllers\SportsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

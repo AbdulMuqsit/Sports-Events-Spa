@@ -1,8 +1,8 @@
-﻿<div ng-controller="AddEventTypeController">
+﻿<div >
     <div>
         <span>Event Type</span>
-        <input type="text" placeholder="Event Type" ng-model="model.eventType" />
+        <input type="text" placeholder="Event Type" ng-model="model.name" />
     </div>
 
-    <input type="submit" value="Submit" onclick="Submit(model)" />
+    <input type="submit" value="Submit" ng-click="submit(model)" />
 </div>

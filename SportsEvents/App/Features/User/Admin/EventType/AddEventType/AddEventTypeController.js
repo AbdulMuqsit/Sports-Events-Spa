@@ -1,10 +1,10 @@
-﻿admin.controller('AddEventyTypeController', ['$scope','dataRepository', 'notification',
+﻿admin.controller('AddEventTypeController', ['$scope','dataRepository', 'notification',
 function ($scope,dataRepository, notification) {
     $scope.submit = function (model) {
-        var country = {
+        var eventType = {
             "Name": model.name
         }
-        dataRepository.add("eventType", country).then(
+        dataRepository.add("eventType", eventType).then(
             function (data) {
                 notification.success("Event Type Created Successfuly");
 

@@ -16,7 +16,6 @@ namespace SportsEvents.Common.Entities
         public string CountryName { get; set; }
         [Required(ErrorMessage = "{0} is required.")]
         public string Zip { get; set; }
-        [Required(ErrorMessage = "{0} is required.")]
         public string State { get; set; }
     }
 }

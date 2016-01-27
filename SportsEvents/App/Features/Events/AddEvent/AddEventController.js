@@ -1,12 +1,46 @@
 ﻿events.controller("AddEventController", [
-    "$http", '$scope', function($http, $scope) {
-        $scope.submit = function(model) {
+    "$http", '$scope', 'dataRepository', 'notification', function ($http, $scope, dataRepository, notification) {
+        (function getCountries() {
+            dataRepository.getAll("countries").then(function (data) {
+                $scope.countries = data;
+                $scope.country = data[0];
+
+            }, function (data) {
+                notification.error("countries could not be loaded while loading the form, please refresh the page");
+            });
+        })();
+        (function getEventTypes() {
+            dataRepository.getAll("eventTypes").then(function (data) {
+                $scope.eventTypes = data;
+                $scope.eventType = data[0];
+
+            }, function (data) {
+                notification.error("Event Types could not be loaded while loading the form, please refresh the page");
+            });
+        })();
+        (function refreshSorts() {
+            dataRepository.getAll("sports").then(function (data) {
+                $scope.sports = data;
+                $scope.sport = data[0];
+
+            }, function (data) {
+                notification.error("Sports could not be loaded while loading the form, please refresh the page");
+            });
+        })();
+        $scope.getCities = function (country) {
+            dataRepository.getSubCollection("country", country.Id, "cities").then(function (data) {
+                $scope.cities = data;
+            }, function (data) {
+                // refreshCities();
+            });
+        };
+        $scope.submit = function (model) {
 
 
             function generateBase64String(url, callback, outputFormat) {
                 var img = new Image();
                 img.crossOrigin = "Anonymous";
-                img.onload = function() {
+                img.onload = function () {
                     var canvas = document.createElement("CANVAS");
                     var ctx = canvas.getContext("2d");
                     var dataURL;
@@ -45,13 +79,13 @@
             };
             var picturesStirngs = [];
             var funcs = [];
-            generateBase64String(model.icon, function(base64String) {
-                    event.Icon = base64String;
-                }
+            generateBase64String(model.icon, function (base64String) {
+                event.Icon = base64String;
+            }
             );
 
             function createfunc(i) {
-                return function(base64String) {
+                return function (base64String) {
                     picturesStirngs[i] = base64String;
                 };
             }
@@ -67,11 +101,12 @@
                 }
             }
             event.Pictures = picturesStirngs;
-            $http.post(url, event).then(function(data) {
+            $http.post(url, event).then(function (data) {
                 toastr.success("Event Created");
-            }, function(data) {
+            }, function (data) {
 
             });
+
         };
     }
 ]);

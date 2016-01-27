@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201601250449400_Init.Designer.cs">
       <DependentUpon>201601250449400_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601271343051_Many.cs" />
+    <Compile Include="Migrations\201601271343051_Many.Designer.cs">
+      <DependentUpon>201601271343051_Many.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SportsEventsDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +82,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201601250449400_Init.resx">
       <DependentUpon>201601250449400_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601271343051_Many.resx">
+      <DependentUpon>201601271343051_Many.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

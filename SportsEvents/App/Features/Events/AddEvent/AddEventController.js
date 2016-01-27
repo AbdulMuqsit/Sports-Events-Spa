@@ -62,10 +62,10 @@
                 "EndTime": model.endTime,
                 "BeginDate": model.beginDate,
                 "EndDate": model.endDate,
-                "CityId": model.cityId,
-                "CountryId": model.countryId,
-                "SportId": model.sportId,
-                "EventTypeId": model.eventTypeId,
+                "CityId": model.city.Id,
+                "CountryId": model.country.Id,
+                "SportId": model.sport.Id,
+                "EventTypeId": model.eventType.Id,
                 "Zip": model.zip,
                 "StartingPrice": model.startingPrice,
                 "LineOne": model.lineOne,
@@ -102,8 +102,9 @@
             }
             event.Pictures = picturesStirngs;
             $http.post(url, event).then(function (data) {
-                toastr.success("Event Created");
+                notification.success("Event Created");
             }, function (data) {
+                notification.error("charlie foxtrot");
 
             });
 

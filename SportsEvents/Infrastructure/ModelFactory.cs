@@ -14,16 +14,16 @@ namespace SportsEvents.Infrastructure
             return new Event()
             {
                 Description = model.Description,
-                BeginDate=model.BeginDate,
-                BeginTime=model.BeginTime,
+                BeginDate = model.BeginDate,
+                BeginTime = model.BeginTime,
                 EndDate = model.EndDate,
                 Address = new Address()
                 {
-                    CityId=model.CityId,
-                    LineOne=model.LineOne,
-                    LineTwo=model.LineTwo,
-                    State=model.State,
-                    Zip=model.Zip
+                    CityId = model.CityId,
+                    LineOne = model.LineOne,
+                    LineTwo = model.LineTwo,
+                    State = model.State,
+                    Zip = model.Zip
                 },
                 Details = model.Details,
                 EndTime = model.EndTime,
@@ -32,9 +32,11 @@ namespace SportsEvents.Infrastructure
                 IsFeatured = model.IsFeatured,
                 SportId = model.SportId,
                 CityId = model.CityId.Value,
+                StartingPrice = model.StartingPrice,
+                EventTypeId = model.EventTypeId,
+
                 Zip = model.Zip,
-                EventTypeId = model.EventTypeId
-             };
+            };
         }
 
         public static City Get(CityPostViewModel model)

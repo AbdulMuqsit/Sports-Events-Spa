@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -14,6 +13,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using SportsEvents.Common.Entities;
+using SportsEvents.Infrastructure;
 using SportsEvents.Models;
 using SportsEvents.Providers;
 using SportsEvents.Results;
@@ -22,7 +22,7 @@ namespace SportsEvents.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : ApiControllerBase
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
@@ -40,24 +40,17 @@ namespace SportsEvents.Controllers
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
-
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; }
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             return new UserInfoViewModel
             {
@@ -75,6 +68,81 @@ namespace SportsEvents.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("RegisterOrganizer")]
+        public async Task<IHttpActionResult> RegisterOrganizer(RegisterOrganizerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            City city = null;
+            var contactCity = await DbContext.Cities.FindAsync(model.ContactCityId);
+
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var identity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
+
+            if (identity.HasClaim(ClaimTypes.Role, "Organizer"))
+            {
+                return Conflict();
+            }
+            if (model.CityId != null)
+            {
+                city = await DbContext.Cities.FindAsync(model.CityId.Value);
+            }
+
+
+            user.OrganiztionName = model.OrganizationName;
+            user.OrganizationDecription = model.OrganizationDecription;
+
+            user.Address = new Address
+            {
+                LineOne = model.LineOne,
+                LineTwo = model.LineTwo,
+                CityId = city?.Id ?? 0,
+                CityName = city?.Name,
+                Zip = model.Zip,
+                State = model.State,
+                CountryName = city?.CountryName
+            };
+            user.Link = model.Link;
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.Phone;
+
+
+            user.ContactDetails = new ContactDetails
+            {
+                BillingAddress =
+                    new Address
+                    {
+                        CityId = model.ContactCityId,
+                        CityName = contactCity.Name,
+                        CountryName = contactCity.CountryName,
+                        LineOne = model.ContactLineOne,
+                        LineTwo = model.ContactLineTwo,
+                        State = model.ContactState,
+                        Zip = model.ContactZip
+                    },
+                Email = model.ConatactEmail,
+                FirstName = model.ContactFirstName,
+                LastName = model.ContactLastName,
+                Phone = model.ContactPhone
+            };
+
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
+            await UserManager.AddClaimAsync(User.Identity.GetUserId(), new Claim(ClaimTypes.Role, "Organizer"));
+
+            return Ok(user);
+        }
+
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
@@ -86,9 +154,9 @@ namespace SportsEvents.Controllers
                 return null;
             }
 
-            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
+            var logins = new List<UserLoginInfoViewModel>();
 
-            foreach (IdentityUserLogin linkedAccount in user.Logins)
+            foreach (var linkedAccount in user.Logins)
             {
                 logins.Add(new UserLoginInfoViewModel
                 {
@@ -102,7 +170,7 @@ namespace SportsEvents.Controllers
                 logins.Add(new UserLoginInfoViewModel
                 {
                     LoginProvider = LocalLoginProvider,
-                    ProviderKey = user.UserName,
+                    ProviderKey = user.UserName
                 });
             }
 
@@ -124,9 +192,9 @@ namespace SportsEvents.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -144,7 +212,7 @@ namespace SportsEvents.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+            var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -165,23 +233,24 @@ namespace SportsEvents.Controllers
 
             Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
-            AuthenticationTicket ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
+            var ticket = AccessTokenFormat.Unprotect(model.ExternalAccessToken);
 
             if (ticket == null || ticket.Identity == null || (ticket.Properties != null
-                && ticket.Properties.ExpiresUtc.HasValue
-                && ticket.Properties.ExpiresUtc.Value < DateTimeOffset.UtcNow))
+                                                              && ticket.Properties.ExpiresUtc.HasValue
+                                                              &&
+                                                              ticket.Properties.ExpiresUtc.Value < DateTimeOffset.UtcNow))
             {
                 return BadRequest("External login failure.");
             }
 
-            ExternalLoginData externalData = ExternalLoginData.FromIdentity(ticket.Identity);
+            var externalData = ExternalLoginData.FromIdentity(ticket.Identity);
 
             if (externalData == null)
             {
                 return BadRequest("The external login is already associated with an account.");
             }
 
-            IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
+            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
                 new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
 
             if (!result.Succeeded)
@@ -238,7 +307,7 @@ namespace SportsEvents.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             if (externalLogin == null)
             {
@@ -251,27 +320,27 @@ namespace SportsEvents.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            User user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            var user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
-            bool hasRegistered = user != null;
+            var hasRegistered = user != null;
 
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+
+                var oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                var cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                var properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
             {
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
-                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+                var identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 Authentication.SignIn(identity);
             }
 
@@ -283,8 +352,8 @@ namespace SportsEvents.Controllers
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
-            IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
-            List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
+            var descriptions = Authentication.GetExternalAuthenticationTypes();
+            var logins = new List<ExternalLoginViewModel>();
 
             string state;
 
@@ -298,9 +367,9 @@ namespace SportsEvents.Controllers
                 state = null;
             }
 
-            foreach (AuthenticationDescription description in descriptions)
+            foreach (var description in descriptions)
             {
-                ExternalLoginViewModel login = new ExternalLoginViewModel
+                var login = new ExternalLoginViewModel
                 {
                     Name = description.Caption,
                     Url = Url.Route("ExternalLogin", new
@@ -309,7 +378,7 @@ namespace SportsEvents.Controllers
                         response_type = "token",
                         client_id = Startup.PublicClientId,
                         redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
-                        state = state
+                        state
                     }),
                     State = state
                 };
@@ -329,16 +398,18 @@ namespace SportsEvents.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            var user = new User { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            user.Address = new Address();
+            user.ContactDetails = new ContactDetails() { BillingAddress = new Address() };
+            var result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(user);
         }
 
         // POST api/Account/RegisterExternal
@@ -358,9 +429,9 @@ namespace SportsEvents.Controllers
                 return InternalServerError();
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            var user = new User { UserName = model.Email, Email = model.Email };
 
-            IdentityResult result = await UserManager.CreateAsync(user);
+            var result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -369,7 +440,7 @@ namespace SportsEvents.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
@@ -403,7 +474,7 @@ namespace SportsEvents.Controllers
             {
                 if (result.Errors != null)
                 {
-                    foreach (string error in result.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("", error);
                     }
@@ -447,10 +518,10 @@ namespace SportsEvents.Controllers
                     return null;
                 }
 
-                Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                var providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
-                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer)
-                    || String.IsNullOrEmpty(providerKeyClaim.Value))
+                if (providerKeyClaim == null || string.IsNullOrEmpty(providerKeyClaim.Issuer)
+                    || string.IsNullOrEmpty(providerKeyClaim.Value))
                 {
                     return null;
                 }
@@ -471,7 +542,7 @@ namespace SportsEvents.Controllers
 
         private static class RandomOAuthStateGenerator
         {
-            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
+            private static readonly RandomNumberGenerator _random = new RNGCryptoServiceProvider();
 
             public static string Generate(int strengthInBits)
             {
@@ -482,9 +553,9 @@ namespace SportsEvents.Controllers
                     throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
                 }
 
-                int strengthInBytes = strengthInBits / bitsPerByte;
+                var strengthInBytes = strengthInBits / bitsPerByte;
 
-                byte[] data = new byte[strengthInBytes];
+                var data = new byte[strengthInBytes];
                 _random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }

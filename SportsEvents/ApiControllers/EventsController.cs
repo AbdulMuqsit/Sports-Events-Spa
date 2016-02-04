@@ -13,9 +13,9 @@ namespace SportsEvents.ApiControllers
     public class EventsController : ApiControllerBase
     {
         [HttpGet]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            throw new NotImplementedException();
+            return Ok(await DbContext.Events.ToListAsync());
         }
         [HttpGet]
         [Route("MyEvents")]

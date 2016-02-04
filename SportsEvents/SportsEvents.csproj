@@ -226,6 +226,7 @@
     <Compile Include="Models\CountryPostViewModel.cs" />
     <Compile Include="Models\EventPostViewModel.cs" />
     <Compile Include="Models\EventTypePostViewModel.cs" />
+    <Compile Include="Models\RegisterOrganizerModel.cs" />
     <Compile Include="Models\SportPostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

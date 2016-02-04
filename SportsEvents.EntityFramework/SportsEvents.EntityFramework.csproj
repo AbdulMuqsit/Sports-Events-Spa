@@ -65,6 +65,22 @@
     <Compile Include="Migrations\201601271343051_Many.Designer.cs">
       <DependentUpon>201601271343051_Many.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601272009550_Unknown.cs" />
+    <Compile Include="Migrations\201601272009550_Unknown.Designer.cs">
+      <DependentUpon>201601272009550_Unknown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602031307451_ContactDetails.cs" />
+    <Compile Include="Migrations\201602031307451_ContactDetails.Designer.cs">
+      <DependentUpon>201602031307451_ContactDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602031323209_AddressUpdate.cs" />
+    <Compile Include="Migrations\201602031323209_AddressUpdate.Designer.cs">
+      <DependentUpon>201602031323209_AddressUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602031327065_ContactDetailsUpdate.cs" />
+    <Compile Include="Migrations\201602031327065_ContactDetailsUpdate.Designer.cs">
+      <DependentUpon>201602031327065_ContactDetailsUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SportsEventsDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +101,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601271343051_Many.resx">
       <DependentUpon>201601271343051_Many.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272009550_Unknown.resx">
+      <DependentUpon>201601272009550_Unknown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031307451_ContactDetails.resx">
+      <DependentUpon>201602031307451_ContactDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031323209_AddressUpdate.resx">
+      <DependentUpon>201602031323209_AddressUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031327065_ContactDetailsUpdate.resx">
+      <DependentUpon>201602031327065_ContactDetailsUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

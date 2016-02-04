@@ -18,6 +18,17 @@ select,
 textarea {
 }
 
+.brand {
+    font-size: 32px;
+    font-family: fantasy;
+    color: rgb(202, 11, 11);
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 15px;
+    left: 40px;
+}
+
 select {
     display: block;
     padding: 6px 4px;

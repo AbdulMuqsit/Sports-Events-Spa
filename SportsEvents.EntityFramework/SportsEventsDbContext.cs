@@ -25,7 +25,7 @@ namespace SportsEvents.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.ComplexType<ContactDetails>();
             modelBuilder.ComplexType<Address>();
             modelBuilder.Entity<Event>().HasMany(e => e.BookmarkerVisitors).WithMany(e => e.BookmarkedEvents).Map(config => config.MapLeftKey("BookmarkedEventId").MapRightKey("BookMarkerId").ToTable("Bookmarks_User_Event"));
             modelBuilder.Entity<Event>().HasMany(e => e.RegisteredVisitors).WithMany(e => e.RegisteredEvents).Map(e => e.MapLeftKey("RegisteredUserId").MapRightKey("RegisteredEventId").ToTable("Registrations_User_Event"));

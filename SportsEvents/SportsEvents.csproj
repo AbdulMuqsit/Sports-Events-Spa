@@ -252,6 +252,7 @@
     <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
+    <Content Include="App\Features\User\Organizer\Register\RegisterView.html" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
     <Content Include="App\Services\NotificationService.js" />

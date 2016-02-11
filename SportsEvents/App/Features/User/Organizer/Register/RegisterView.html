@@ -1,0 +1,126 @@
+﻿<div class="form-view">
+    <h2 class="header-lg">Register Organizer</h2>
+    <span class="information-text">Please enter the Organizer information below to register</span>
+    <hr />
+    <div>
+        <span>Personal Details</span>
+        <div>
+            <span>Organization Website</span>
+            <input type="text" placeholder="Organization Website Link" ng-model="model.link" />
+        </div>
+        <div>
+            <span>First Name</span>
+            <input type="text" placeholder="First Name" ng-model="model.firstName" />
+        </div>
+        <div>
+            <span>Last Name</span>
+            <input type="text" placeholder="Last Name" ng-model="model.lastName" />
+        </div>
+    </div>
+    <hr />
+    <div>
+        <span>Address</span>
+        <div>
+            <span>Line One</span>
+            <input type="text" placeholder="Address Line One" ng-model="model.lineOne" />
+        </div>
+        <div>
+            <span>Line One</span>
+            <input type="text" placeholder="Address Line Two" ng-model="model.lineTwo" />
+        </div>
+        <div>
+            <span>Country</span>
+            <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.countryId" ng-change="getCities(model.countryId)">
+                <option disabled>
+                    Select an country
+                </option>
+            </select>
+        </div>
+        <div>
+            <span>City</span>
+            <select ng-options="city as city.Name for city in cities track by city.Id" ng-model="model.cityId">
+                <option disabled>
+                    Select a city
+                </option>
+            </select>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <span>Billing Details</span>
+        <div>
+            <span>First Name</span>
+            <input type="text" placeholder="Contact first Name" ng-model="model.contactFirstName" />
+        </div>
+        <div>
+            <span>Last Name</span>
+            <input type="text" placeholder="Contact Last Name" ng-model="model.contactLastName" />
+        </div>
+    </div>
+    <hr />
+    <div>
+        <span>Contact Address</span>
+        <div>
+            <span>Contact Address Line One</span>
+            <input type="text" placeholder="Contact Address Line One" ng-model="model.lineOne" />
+        </div>
+        <div>
+            <span>Contact Address Line One</span>
+            <input type="text" placeholder="Contact Address Line Two" ng-model="model.lineTwo" />
+        </div>
+        <div>
+            <span>Country</span>
+            <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.contactCountryId" ng-change="getCities(model.contactCountryId)">
+                <option disabled>
+                    Select a country
+                </option>
+            </select>
+        </div>
+        <div>
+            <span>City</span>
+            <select ng-options="city as city.Name for city in cities track by city.Id" ng-model="model.contactCity">
+                <option disabled>
+                    Select a city
+                </option>
+            </select>
+        </div>
+        <div>
+            <span>Zip</span>
+            <input type="text" placeholder="Contact Zip" ng-model="model.contactZip" />
+        </div>
+        <div>
+            <span>Phone</span>
+            <input type="text" placeholder="Contact Phone Number" ng-model="model.contactPhone" />
+        </div>
+        <div>
+            <span>Email</span>
+            <input type="text" placeholder="Email" ng-model="model.contactEmail" />
+        </div>
+    </div>
+
+    <hr />
+    <div>
+        <span>Organization Details</span>
+        <div>
+            <span>Organization Name</span>
+            <input type="text" placeholder="Organization Name" ng-model="model.organizationName" />
+        </div>
+        <div>
+            <span>Organization Description</span>
+            <input type="text" placeholder="Organization Description" ng-model="model.organizationDescription" />
+        </div>
+        <div>
+            <span>Organization Logo</span>
+            <input type="file" ng-model="model.organizationLogo" />
+        </div>
+        <div>
+            <span>Zip</span>
+            <input type="text" placeholder="Zip" ng-model="model.zip" />
+        </div>
+        <div>
+            <span>Phone</span>
+            <input type="text" placeholder="Phone Number" ng-model="model.phone" />
+        </div>
+
+    </div>
+</div>

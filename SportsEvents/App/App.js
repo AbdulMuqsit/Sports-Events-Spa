@@ -13,11 +13,14 @@ var sportsEvents = angular.module('SportsEvents', ['repository', 'admin','events
             });
             var base = "/App/Features/";
             $routeProvider.when("/", {
-                templateUrl: base + "Events/AddEvent/AddEventView.html",
-                controller: "AddEventController"
+                templateUrl: base + "Home/HomeView.html",
+                controller: "HomeController"
             }).when("/addevent", {
                 templateUrl: base + "Events/AddEvent/AddEventView.html",
                 controller: "FeaturedProductsController"
+            }).when("/signup", {
+                templateUrl: base + "User/SignUp/SignUpView.html",
+                controller: "SignUpController"
             }).when("/admin/addcountry", {
                 templateUrl: base + "User/Admin/Country/AddCountry/AddCountryView.html",
                 controller: "AddCountryController"

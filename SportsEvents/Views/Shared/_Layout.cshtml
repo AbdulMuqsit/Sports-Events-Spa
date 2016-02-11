@@ -5,11 +5,26 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/app")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <nav class="navbar">
-        <h3 class="brand">Sports Events</h3>
+        @*<h3 class="brand">Sports Events</h3>*@
+        <div class="search-bar">
+            <input type="text" ng-model="model.text" />
+
+            <button ng-click="search(model)"> <span class="fa fa-search"></span></button>
+        </div>
+        <div class="account-section">
+            <a href="/signin">Sign In</a>
+            <a href="/signup">Sign Up</a>
+        </div>
+        <div class="navigation-section">
+            <a href="/home">Home</a>
+            <a href="/newsletter">News Letter</a>
+            <a href="/blog">Blog</a>
+        </div>
     </nav>
     @RenderBody()
 
@@ -19,8 +34,9 @@
     @Scripts.Render("~/bundles/jquery")@Scripts.Render("~/bundles/thirdParty")
 
     @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/app")    
+    @Scripts.Render("~/bundles/app")
 
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

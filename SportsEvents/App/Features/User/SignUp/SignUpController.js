@@ -1,4 +1,4 @@
-﻿user.controller('SignUpController', ['$http', function ($http) {
+﻿user.controller('SignUpController', ['$scope','$http', function ($scope,$http) {
     $scope.submit = function (model) {
         var url = "/Api/Account";
         var user = {

@@ -61,6 +61,16 @@
                 });
                 return defered.promise;
             }
+            this.getCalender = function (page, take) {
+                var defered = $q.defer();
+                var url = uriColection["event"] + "/Calender?page=" + page + "&take=" + take;
+                $http.get(url).then(function (data) {
+                    defered.resolve(data.data);
+                }, function (data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
         }
 
         var dataRepositoryInstacne = new dataRepository();

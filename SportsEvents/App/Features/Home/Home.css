@@ -1,0 +1,93 @@
+﻿
+.calender-event {
+    width: 600px;
+    height: 125px;
+    margin: 0 0 15px 150px;
+    position: relative;
+    background: white;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.39);
+}
+.calender-event .icon > img{
+    width: 70px;
+    height: 70px;
+    background: saddlebrown;
+}
+.calender-event .description {
+    position: absolute;
+    top: 5px;
+    left: 80px;
+
+    font-size: 18px;
+
+}
+.calender-event .begin-date {
+    position: absolute;
+    top: 30px;
+    left: 80px;
+    font-size: 16px;
+
+}
+.calender-event .end-date {
+    position: absolute;
+    top: 30px;
+    left: 170px;
+    font-size: 16px;
+
+}
+.calender-event span>span {
+    color: gray;
+}
+.calender-event .types {
+      position: absolute;
+    top: 55px;
+    left: 80px;
+    border-top: 1px solid lightgray;
+}
+.calender-event .sports-name,
+.calender-event .event-type-name {
+    position: relative;
+    
+    font-size: 16px;
+
+
+}
+.calender-event .sports-name
+ {
+    border-left: 1px solid lightgray;
+    padding: 5px;
+    line-height: 5px;
+    
+}
+.calender-event .starting-price {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    font-size: 16px;
+
+}
+
+.calender-event .details {
+    position: absolute;
+    border-top: 1px solid lightgray;
+    top: 65px;
+    left: 5px;
+        right: 10px;
+    padding-top: 5px;
+
+    font-size: 16px;
+
+}
+
+.calender-event .organizer-name {
+    position: absolute;
+    border-bottom: 1px solid lightgray;
+    top: 30px;
+    right: 10px;
+    font-size: 16px;
+
+}
+.calender-event .icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}

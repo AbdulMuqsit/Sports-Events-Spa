@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\City.cs" />
+    <Compile Include="Entities\ContactDetails.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\EventType.cs" />

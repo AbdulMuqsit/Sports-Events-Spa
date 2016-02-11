@@ -54,8 +54,9 @@
 .calender-event .sports-name
  {
     border-left: 1px solid lightgray;
-    padding: 5px;
-    line-height: 5px;
+    
+    padding: 0 5px;
+    margin: 0;
     
 }
 .calender-event .starting-price {

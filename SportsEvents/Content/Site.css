@@ -1,30 +1,49 @@
 ﻿body {
+    -moz-min-width: 1000px;
+    -ms-min-width: 1000px;
+    -o-min-width: 1000px;
+    -webkit-min-width: 1000px;
     background: #eee;
+    min-width: 1000px;
     padding-bottom: 20px;
+    _width: expression( document.body.clientWidth > 1000 ? "1000px" : "auto" );
 }
 
 /* Set padding to keep content from hitting the edges */
 
 .body-content {
+    -moz-min-width: 1000px;
+    -ms-min-width: 1000px;
+    -o-min-width: 1000px;
+    -webkit-min-width: 1000px;
+    min-width: 1000px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
 .content {
-    margin: 110px 100px 0 100px;
+    -moz-min-width: 1000px;
+    -ms-min-width: 1000px;
+    -o-min-width: 1000px;
+    -webkit-min-width: 1000px;
+    margin: 75px 100px 0 100px;
+    min-width: 1000px;
 }
+
+.content.show-advanced-search-options { margin-top: 110px; }
 
 /* Set width on the form input elements since they're 100% wide by default */
 
 input,
 select,
-textarea {
-}
+textarea { }
+
+.navbar.show-advanced-search-options { height: 90px; }
 
 .brand {
     color: rgb(202, 11, 11);
     font-family: fantasy;
-    font-size: 32px;
+    font-size: 25px;
     left: 40px;
     margin: 0;
     padding: 0;
@@ -32,20 +51,18 @@ textarea {
     top: 15px;
 }
 
-input {
-    outline: none;
-}
+input { outline: none; }
 
-    input[type=button],
-    input[type=submit] {
-        border: none;
-        color: white;
-        background: rgb(4, 43, 105);
-        padding: 10px;
-        -ms-border-radius: 5px;
-        border-radius: 5px;
-        float: right;
-    }
+input[type=button],
+input[type=submit] {
+    -ms-border-radius: 5px;
+    background: rgb(4, 43, 105);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    float: right;
+    padding: 10px;
+}
 
 select {
     -moz-box-sizing: content-box;
@@ -57,7 +74,7 @@ select {
 
 .navbar {
     background: #042b69;
-    height: 90px;
+    height: 60px;
     left: 0;
     position: fixed;
     top: 0;
@@ -65,81 +82,71 @@ select {
     z-index: 100;
 }
 
-.form-view {
-    width: 500px;
+advanced-search-options { }
+
+.form-view { width: 500px; }
+
+.form-view > div, .form-view > div > div { margin-bottom: 30px; }
+
+.form-view > div > div > span, .form-view > div > span {
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 5px;
 }
 
-    .form-view > div, .form-view > div > div {
-        margin-bottom: 30px;
-    }
+.form-view > div select,
+.form-view > div textarea,
+.form-view > div input[type=text],
+.form-view > div input[type=url],
+.form-view > div input[type=date],
+.form-view > div input[type=time],
+.form-view > div input[type=date],
+.form-view > div input[type=number] {
+    -ms-border-radius: 10px;
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+    float: right;
+    font-size: 16px;
+    height: 25px;
+    margin-top: -5px;
+    max-width: 300px;
+    outline: none;
+    padding: 5px;
+    width: 300px;
+}
 
-        .form-view > div > div > span, .form-view > div > span {
-            color: #666;
-            font-size: 14px;
-            font-weight: bold;
-            padding-top: 5px;
-        }
+.form-view > div select:hover,
+.form-view > div textarea:hover,
+.form-view > div input[type=text]:hover,
+.form-view > div input[type=url]:hover,
+.form-view > div input[type=date]:hover,
+.form-view > div input[type=time]:hover,
+.form-view > div input[type=date]:hover,
+.form-view > div input[type=number] { border: 1px solid #acd3f2; }
 
-        .form-view > div select,
-        .form-view > div textarea,
-        .form-view > div input[type=text],
-        .form-view > div input[type=url],
-        .form-view > div input[type=date],
-        .form-view > div input[type=time],
-        .form-view > div input[type=date],
-        .form-view > div input[type=number] {
-            -ms-border-radius: 10px;
-            border: 1px solid #d5d5d5;
-            border-radius: 10px;
-            float: right;
-            font-size: 16px;
-            height: 25px;
-            margin-top: -5px;
-            max-width: 300px;
-            outline: none;
-            padding: 5px;
-            width: 300px;
-        }
+.form-view > div select:focus,
+.form-view > div textarea:focus,
+.form-view > div input[type=text]:focus,
+.form-view > div input[type=url]:focus,
+.form-view > div input[type=date]:focus,
+.form-view > div input[type=time]:focus,
+.form-view > div input[type=date]:focus,
+.form-view > div input[type=number] { border: 1px solid #42A5F5; }
 
-            .form-view > div select:hover,
-            .form-view > div textarea:hover,
-            .form-view > div input[type=text]:hover,
-            .form-view > div input[type=url]:hover,
-            .form-view > div input[type=date]:hover,
-            .form-view > div input[type=time]:hover,
-            .form-view > div input[type=date]:hover,
-            .form-view > div input[type=number] {
-                border: 1px solid #acd3f2;
-            }
+.form-view > div textarea { height: 300px; }
 
-            .form-view > div select:focus,
-            .form-view > div textarea:focus,
-            .form-view > div input[type=text]:focus,
-            .form-view > div input[type=url]:focus,
-            .form-view > div input[type=date]:focus,
-            .form-view > div input[type=time]:focus,
-            .form-view > div input[type=date]:focus,
-            .form-view > div input[type=number] {
-                border: 1px solid #42A5F5;
-            }
+.form-view > div > input[type=checkbox],
+.form-view > div > input[type=file] { float: right; }
 
-        .form-view > div textarea {
-            height: 300px;
-        }
-
-        .form-view > div > input[type=checkbox],
-        .form-view > div > input[type=file] {
-            float: right;
-        }
-
-        .form-view > div input[type=submit] {
-            -ms-border-radius: 30px;
-            background: #0D47A1;
-            border-radius: 30px;
-            float: right;
-            height: 40px;
-            width: 100px;
-        }
+.form-view > div input[type=submit] {
+    -ms-border-radius: 30px;
+    background: #0D47A1;
+    border-radius: 30px;
+    float: right;
+    height: 40px;
+    width: 100px;
+}
 
 hr {
     border: 0;
@@ -158,42 +165,40 @@ hr {
     width: 321px;
 }
 
-    .search-bar button {
-        background: transparent;
-        border: none;
-        -ms-border-radius: 20px;
-        border-radius: 20px;
-        color: rgb(195, 0, 0);
-        font-size: 20px;
-        height: 35px;
-        margin: 0;
-        outline: none;
-        padding: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 35px;
-    }
+.search-bar button {
+    -ms-border-radius: 20px;
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    color: rgb(195, 0, 0);
+    font-size: 20px;
+    height: 35px;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 35px;
+}
 
-        .search-bar button :hover {
-            color: rgb(249, 35, 35);
-            cursor: pointer;
-        }
+.search-bar button :hover {
+    color: rgb(249, 35, 35);
+    cursor: pointer;
+}
 
-        .search-bar button :active {
-            color: rgb(128, 0, 0);
-        }
+.search-bar button :active { color: rgb(128, 0, 0); }
 
-    .search-bar input[type=text] {
-        border: 1px solid rgb(4, 43, 105);
-        -ms-border-radius: 20px;
-        border-radius: 20px;
-        font-size: 18px;
-        height: 35px;
-        margin: 0;
-        padding: 0 10px;
-        width: 300px;
-    }
+.search-bar input[type=text] {
+    -ms-border-radius: 20px;
+    border: 1px solid rgb(4, 43, 105);
+    border-radius: 20px;
+    font-size: 18px;
+    height: 35px;
+    margin: 0;
+    padding: 0 10px;
+    width: 300px;
+}
 
 
 
@@ -203,40 +208,53 @@ hr {
     right: 50px;
 }
 
-    .navigation-section a,
-    .account-section a {
-        color: ghostwhite;
-        cursor: pointer;
-        text-decoration: none;
-        margin-left: 20px;
-    }
+.account-section { top: 20px; }
 
-        .navigation-section a:hover,
-        .account-section a:hover {
-            color: white;
-        }
+.navigation-section a,
+.account-section a {
+    border-right: 1px solid rgb(0, 18, 48);
+    color: ghostwhite;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+}
 
-        .navigation-section a:active,
-        .account-section a:active {
-            color: gray;
-        }
+.navigation-section a:hover,
+.account-section a:hover {
+    background: rgb(1, 34, 89);
+    color: whitesmoke;
+}
+
+.navigation-section a:active,
+.account-section a:active { color: gray; }
 
 .navigation-section {
     left: 630px;
-    top: 20px;
     position: fixed;
+    top: 20px;
 }
 
-    .navigation-section a {
-        -ms-border-radius: 5px;
-        border-radius: 5px;
-        background: rgb(0, 30, 79);
-        color: red;
-        font-weight: bold;
-        padding: 10px;
+.account-section a:first-child,
+.navigation-section a:first-child { border-left: 1px solid rgb(0, 18, 48); }
+
+@media all and (max-width: 1150px) {
+    .navigation-section { visibility: collapse; }
+
+    .account-section {
+        left: 630px !important;
         margin: 0;
+        position: fixed !important;
+        top: 10px;
     }
-    .navigation-section a:hover {
-        color: white;
-        background: rgb(0, 56, 144);
+
+    .account-section a {
+        margin: 0;
+        position: fixed;
     }
+
+    .content.show-advanced-search-options { margin-top: 110px; }
+
+}

@@ -236,6 +236,7 @@
     <Content Include="App\CustomFilters\LimitToDirective.js" />
     <Content Include="App\Features\Home\Home.css" />
     <Content Include="App\Features\Home\HomeView.html" />
+    <Content Include="App\Features\Search\SearchController.js" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityController.js" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityView.html" />
     <Content Include="App\App.js" />
@@ -1102,7 +1103,6 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Features\Search\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

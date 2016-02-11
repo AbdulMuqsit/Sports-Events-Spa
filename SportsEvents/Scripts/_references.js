@@ -4,6 +4,7 @@
 /// <reference path="../app/customfilters/limittodirective.js" />
 /// <reference path="../app/features/events/addevent/addeventcontroller.js" />
 /// <reference path="../app/features/home/homecontroller.js" />
+/// <reference path="../app/features/search/searchcontroller.js" />
 /// <reference path="../app/features/user/admin/city/addcity/addcitycontroller.js" />
 /// <reference path="../app/features/user/admin/country/addcountry/addcountrycontroller.js" />
 /// <reference path="../app/features/user/admin/eventtype/addeventtype/addeventtypecontroller.js" />

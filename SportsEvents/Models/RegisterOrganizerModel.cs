@@ -37,9 +37,8 @@ namespace SportsEvents.Models
         public int? CityId { get; set; }
         [Display(Name = "Country")]
         public int? CountryId { get; set; }
+        //billing details
 
-
-        //Contact  Address
         [Required]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Contact Name can only have alphabets.")]
         [MaxLength(50, ErrorMessage = "Maximum 50 Characters Allowed")]
@@ -58,6 +57,7 @@ namespace SportsEvents.Models
         [MaxLength(120, ErrorMessage = "Maximum 120 Characters Allowed")]
         [Display(Name = "Address Line One*")]
         [MinLength(10)]
+        //Contact  Address
 
         public string ContactLineOne { get; set; }
 

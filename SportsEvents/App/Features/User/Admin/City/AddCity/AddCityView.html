@@ -1,11 +1,13 @@
-﻿<div >
+﻿<div class="form-view">
     <div>
-        <span>Name</span>
+        <span>Country Name</span>
         <input placeholder="City Name" ng-model="model.name" type="text" />
     </div>
-    <select ng-options="country as country.Name for country in countries track by country.Id"  ng-model="model.country">
-       
-    </select>
-    
+    <div>
+        <span>Country</span>
+
+        <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country"></select>
+    </div>
+    <!--wo-->
     <input type="submit" value="Submit" ng-click="submit(model)" />
 </div>

@@ -219,13 +219,16 @@
     </Compile>
     <Compile Include="Infrastructure\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\ModelFactory.cs" />
+    <Compile Include="Models\AcceptRegistrationRequestsModel.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BookmarkEventsModel.cs" />
     <Compile Include="Models\CityPostViewModel.cs" />
     <Compile Include="Models\CountryPostViewModel.cs" />
     <Compile Include="Models\EventPostViewModel.cs" />
     <Compile Include="Models\EventTypePostViewModel.cs" />
     <Compile Include="Models\RegisterOrganizerModel.cs" />
+    <Compile Include="Models\RegistrationRequestsModel.cs" />
     <Compile Include="Models\SportPostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -250,6 +253,7 @@
     <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
+    <Content Include="App\Features\User\Organizer\Register\RegisterView.html" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
     <Content Include="App\Services\NotificationService.js" />

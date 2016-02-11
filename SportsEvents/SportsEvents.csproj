@@ -220,12 +220,15 @@
     </Compile>
     <Compile Include="Infrastructure\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\ModelFactory.cs" />
+    <Compile Include="Models\AcceptRegistrationRequestsModel.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BookmarkEventsModel.cs" />
     <Compile Include="Models\CityPostViewModel.cs" />
     <Compile Include="Models\CountryPostViewModel.cs" />
     <Compile Include="Models\EventPostViewModel.cs" />
     <Compile Include="Models\EventTypePostViewModel.cs" />
+    <Compile Include="Models\RegistrationRequestsModel.cs" />
     <Compile Include="Models\SportPostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

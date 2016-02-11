@@ -1,0 +1,25 @@
+﻿<div class="calender-event" ng-repeat="event in events">
+    <a class="icon" ng-click="navigateToEvent(event)">
+        <img src="{{event.Icon}}" />
+    </a>
+    <a ng-click="navigateToEvent(event)" class="description">
+        <span>{{event.Description}}</span>
+    </a>
+    <span class="begin-date">{{event.BeginDate  | date:'MM/dd/yyyy'}}</span>
+    <span class="end-date">{{event.EndDate  | date:'MM/dd/yyyy'}}</span>
+     <span class="organizer-name"><span>by</span> {{event.OrganizerName}}</span>
+
+     <span class="starting-price"><span>starting</span>  {{(event.StartingPrice | number:2) + " €"}}</span>
+    <div class="types">
+        <a ng-click="navigateToEventType(event)" class="event-type-name">
+            <span><span>of</span> {{event.EventTypeName}}</span>
+        </a>
+        <a ng-click="navigateToSportType(event)" class="sports-name">
+            <span><span>in</span> {{event.SportName}}</span>
+        </a>
+    </div>
+    <p class="details">{{event.Details | truncate:150}}</p>
+
+
+</div>
+<input type="button" value="Load More" ng-click="loadMore()" />

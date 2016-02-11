@@ -18,6 +18,12 @@ namespace SportsEvents.ApiControllers
             return Ok(await DbContext.Events.ToListAsync());
         }
         [HttpGet]
+        [Route("Calender/{page?}/{take?}")]
+        public async Task<IHttpActionResult> GetCalender([FromUri]int page = 0, [FromUri]int take = 20)
+        {
+            return Ok(await DbContext.Events.Where(e => e.BeginDate > DateTime.UtcNow).OrderBy(e => e.BeginDate).Skip(page * take).Take(take).ToListAsync());
+        }
+        [HttpGet]
         [Route("MyEvents")]
         public async Task<IHttpActionResult> GetMyEvents()
         {
@@ -27,6 +33,7 @@ namespace SportsEvents.ApiControllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Organizer")]
         public async Task<IHttpActionResult> Post(EventPostViewModel model)
         {
             try
@@ -37,8 +44,13 @@ namespace SportsEvents.ApiControllers
                 }
                 var _event = ModelFactory.Get(model);
 
+                _event.CityId = model.CityId.Value;
+                _event.SportId = model.SportId;
+                _event.EventTypeId = model.EventTypeId;
+                _event.OrganizerId = User.Identity.GetUserId();
+                _event.OrganizerName = User.Identity.Name;
+
                 //saving to database
-                DbContext.Events.Add(_event);
 
                 var result = await DbContext.SaveChangesAsync();
 

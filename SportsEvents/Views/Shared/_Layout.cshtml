@@ -9,34 +9,80 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar">
-        @*<h3 class="brand">Sports Events</h3>*@
-        <div class="search-bar">
-            <input type="text" ng-model="model.text" />
+    <div ng-controller="SearchController">
+        <nav class="navbar">
+            <a href="/home">
+                <span class="brand">Find Sports</span>
+            </a>
+            <div class="search-bar">
+                <input type="text" ng-model="model.text" />
 
-            <button ng-click="search(model)"> <span class="fa fa-search"></span></button>
-        </div>
-        <div class="account-section">
-            <a href="/signin">Sign In</a>
-            <a href="/signup">Sign Up</a>
-        </div>
-        <div class="navigation-section">
-            <a href="/home">Home</a>
-            <a href="/newsletter">News Letter</a>
-            <a href="/blog">Blog</a>
-        </div>
-    </nav>
+                <button ng-click="search(model)">
+                    <span class="fa fa-search"></span>
+                </button>
+            </div>
+            <div class="account-section">
+                <a href="/signin">Sign In</a>
+                @*<a href="/signup">Sign Up</a>*@
+            </div>
+            <div class="navigation-section">
+                <a href="/">Home</a>
+                <a href="/newsletter">News Letter</a>
+                <a href="/blog">Blog</a>
+            </div>
+            <div ng-show="showAdvancedSearchOptions" class="advanced-search-options">
+                <hr />
+                <div>
+                    <div>
+                        <span>Sports Type</span>
+                        <select ng-options="sport as sport.Name for sport in sports track by sport.Id" ng-model="model.sport">
+                            <option disabled>
+                                Select an Sport
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>Event Type</span>
+                        <select ng-options="eventType as eventType.Name for eventType in eventTypes track by eventType.Id" ng-model="model.eventType">
+                            <option disabled>
+                                Select an EventType
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <span>Country</span>
+                        <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country" ng-change="getCities(model.country)">
+                            <option disabled>
+                                Select an country
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>City</span>
+                        <select ng-options="city as city.Name for city in cities track by city.Id" ng-model="model.city">
+                            <option disabled>
+                                Select an city
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
     @RenderBody()
 
 
 
 
-    @Scripts.Render("~/bundles/jquery")@Scripts.Render("~/bundles/thirdParty")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/thirdParty")
 
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/app")
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false)
 
 </body>
 </html>

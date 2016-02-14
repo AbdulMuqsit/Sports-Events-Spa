@@ -1,13 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace SportsEvents.Models
 {
-    public class RegisterOrganizerViewModel
+    public class UpdateOrganizerViewModel
     {
-
-        [Url(ErrorMessage = "Not a valid URL.")]
-        [Display(Name = "Organization Website")]
-        public string Link { get; set; }
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First Name can only have capital or small alphabets.")]
         [MaxLength(20, ErrorMessage = "Maximum 20 Characters Allowed.")]
@@ -18,25 +21,29 @@ namespace SportsEvents.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last Name can only have capital or small alphabets.")]
         [MaxLength(20, ErrorMessage = "Maximum 20 Characters Allowed")]
         [MinLength(3, ErrorMessage = "Minimum 3 characters required.")]
-
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        
         //address
         [MaxLength(120, ErrorMessage = "Maximum 120 Characters Allowed")]
         [Display(Name = "Line One")]
         [MinLength(10, ErrorMessage = "Minimum 10 characters required.")]
-
         public string LineOne { get; set; }
-        [Display(Name = "Line Two")]
 
+        [Display(Name = "Line Two")]
         [MaxLength(120, ErrorMessage = "Maximum 120 Characters Allowed")]
         public string LineTwo { get; set; }
 
         [Display(Name = "City")]
         public int? CityId { get; set; }
+
         [Display(Name = "Country")]
         public int? CountryId { get; set; }
+
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
 
         [Display(Name = "State")]
         public string State { get; set; }
@@ -45,13 +52,9 @@ namespace SportsEvents.Models
         [RegularExpression(@"^\d{5}(?:[-\s]\d{4})?$", ErrorMessage = "Invalid zip code.")]
         public string Zip { get; set; }
 
-        [Phone]
-        [Display(Name = "Phone Number")]
-        public string Phone { get; set; }
 
-
-        //billing details
-
+        //Specifically for Organizer
+        
         [Required]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Contact Name can only have alphabets.")]
         [MaxLength(50, ErrorMessage = "Maximum 50 Characters Allowed")]
@@ -65,8 +68,8 @@ namespace SportsEvents.Models
         [MaxLength(50, ErrorMessage = "Maximum 50 Characters Allowed")]
         [MinLength(3, ErrorMessage = "Minimum 3 characters required.")]
         public string ContactLastName { get; set; }
-        
-        //Contact  Address
+
+        //Contact Address
         [Required]
         [MaxLength(120, ErrorMessage = "Maximum 120 Characters Allowed")]
         [Display(Name = "Address Line One*")]
@@ -89,11 +92,11 @@ namespace SportsEvents.Models
         [Required(ErrorMessage = "State is required")]
         [Display(Name = "State*")]
         public string ContactState { get; set; }
-        
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email*")]
-        public string ConatactEmail { get; set; }
+        public string ContactEmail { get; set; }
 
         [Required]
         [Display(Name = "Zip*")]
@@ -104,10 +107,11 @@ namespace SportsEvents.Models
         [Required]
         [Display(Name = "Phone Number")]
         public string ContactPhone { get; set; }
+
+        //Organization Details
         [Required]
         [MaxLength(50, ErrorMessage = "Maximum 50 Characters Allowed")]
         [MinLength(5, ErrorMessage = "Minimum 5 characters required.")]
-
         [RegularExpression(@"^([a-zA-Z]+\s?)+$", ErrorMessage = "Organization Name can only have alphabets and spaces.")]
         [Display(Name = "Organization Name")]
         public string OrganizationName { get; set; }
@@ -119,8 +123,10 @@ namespace SportsEvents.Models
 
         public string OrganizationDecription { get; set; }
         [Display(Name = "Organization Logo")]
-
         public string OrganaiztionLogo { get; set; }
-    }
 
+        [Url(ErrorMessage = "Not a valid URL.")]
+        [Display(Name = "Organization Website")]
+        public string Link { get; set; }
+    }
 }

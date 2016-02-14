@@ -69,6 +69,110 @@ namespace SportsEvents.Controllers
             return Ok();
         }
 
+        [Route("UpdateUser")]
+        public async Task<IHttpActionResult> UpdateUser(UpdateUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.Phone;
+
+            City city = null;
+            if (model.CityId != null)
+            {
+                city = await DbContext.Cities.FindAsync(model.CityId.Value);
+            }
+            user.Address = new Address
+            {
+                LineOne = model.LineOne,
+                LineTwo = model.LineTwo,
+                CityId = city?.Id ?? 0,
+                CityName = city?.Name,
+                CountryName = city?.CountryName
+                Zip = model.Zip,
+                State = model.State,
+            };
+            var result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
+            return Ok(user);
+        }
+        [Route("UpdateOrganizer")]
+        public async Task<IHttpActionResult> UpdateOrganizer(UpdateOrganizerViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.Phone;
+            user.Email = model.Email;
+
+            City city = null;
+            var contactCity = await DbContext.Cities.FindAsync(model.ContactCityId);
+
+            if (model.CityId != null)
+            {
+                city = await DbContext.Cities.FindAsync(model.CityId.Value);
+            }
+            user.Address = new Address
+            {
+                LineOne = model.LineOne,
+                LineTwo = model.LineTwo,
+                CityId = city?.Id ?? 0,
+                CityName = city?.Name,
+                Zip = model.Zip,
+                State = model.State,
+                CountryName = city?.CountryName
+            };
+
+            //Specific to organizer
+            user.OrganiztionName = model.OrganizationName;
+            user.OrganizationDecription = model.OrganizationDecription;
+            user.OrganaiztionLogo = model.OrganaiztionLogo;
+            user.Link = model.Link;
+
+            user.ContactDetails = new ContactDetails
+            {
+                BillingAddress =
+                    new Address
+                    {
+                        CityId = model.ContactCityId,
+                        CityName = contactCity.Name,
+                        CountryName = contactCity.CountryName,
+                        LineOne = model.ContactLineOne,
+                        LineTwo = model.ContactLineTwo,
+                        State = model.ContactState,
+                        Zip = model.ContactZip
+                    },
+                Email = model.ContactEmail,
+                FirstName = model.ContactFirstName,
+                LastName = model.ContactLastName,
+                Phone = model.ContactPhone
+            };
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
+
+            return Ok(user);
+        }
+
         [HttpPost]
         [Route("RegisterOrganizer")]
         public async Task<IHttpActionResult> RegisterOrganizer(RegisterOrganizerViewModel model)

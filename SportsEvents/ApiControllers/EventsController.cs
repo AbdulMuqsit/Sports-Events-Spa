@@ -34,6 +34,15 @@ namespace SportsEvents.ApiControllers
             return Ok(events);
         }
 
+        [HttpGet]
+        [Route("Search/{searchPhrase?}/{sportType?}/{eventType?}/{startingDate?}/{zipCode?}/{city?}/{startingPrice?}")]
+        public async Task<IHttpActionResult> Search([FromUri] string searchPhrase = "", [FromUri]int sportType = 0, [FromUri]int eventType = 0, [FromUri]DateTime? startingDate = null , [FromUri]string zipCode = "", [FromUri]int city = 0, [FromUri]float? startingPrice = 0.0F)
+        {
+            var events = DbContext.Events.Where(e => e.Description.Contains(searchPhrase) && (e.SportId == sportType || sportType == 0) && (e.EventTypeId == eventType || eventType == 0) && (startingDate == null || e.BeginDate > startingDate) && (e.Zip == zipCode || zipCode == "") && (e.CityId == city || city == 0) && (startingPrice == null|| e.StartingPrice > startingPrice)).ToList();
+            return Ok(events);   
+        }
+
+
         [HttpPost]
         [Authorize(Roles = "Organizer")]
         public async Task<IHttpActionResult> Post(EventPostViewModel model)

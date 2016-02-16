@@ -13,6 +13,7 @@ namespace SportsEvents.EntityFramework
         public DbSet<Country> Countries { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<EventType> EventTypes { get; set; }
+        public DbSet<Advertisement> Advertisements { get; set; }
 
 
         public SportsEventsDbContext()

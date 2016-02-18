@@ -94,7 +94,7 @@ namespace SportsEvents.Controllers
                 LineTwo = model.LineTwo,
                 CityId = city?.Id ?? 0,
                 CityName = city?.Name,
-                CountryName = city?.CountryName
+                CountryName = city?.CountryName,
                 Zip = model.Zip,
                 State = model.State,
             };

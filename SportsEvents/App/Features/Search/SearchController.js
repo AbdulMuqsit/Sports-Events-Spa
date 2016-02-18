@@ -1,11 +1,11 @@
-﻿sportsEvents.controller('SearchController', ['$scope', 'dataRepository', function ($scope, dataRepository) {
+﻿sportsEvents.controller('SearchController', ['$scope', 'dataRepository', '$rootScope', function ($scope, dataRepository, $rootScope) {
 
 
     (function getCountries() {
         dataRepository.getAll("countries").then(function (data) {
             $scope.countries = data;
             $scope.country = data[0];
-            
+
         }, function (data) {
             notification.error("countries could not be loaded while loading the form, please refresh the page");
         });
@@ -55,8 +55,32 @@
         $('.content').removeClass('show-advanced-search-options');
         $scope.showAdvancedSearchOptions = false; //$scope.$apply();
     }
+    hideSearchOptions();
+    //$scope.searchPhrase = "";
+    //$scope.sportType = 0;
+    //$scope.eventType = 0;
+    //$scope.startingDate = null;
+    //$scope.zipCode = "";
+    //$scope.city = 0;
+    //$scope.StartingPrice = 0.0;
     $scope.search = function (model) {
+        dataRepository.search(model.text, model.sport, model.eventType, model.beginDate, model.zipCode, model.city, model.startingPrice).then(function (data) {
+            $rootScope.events = data;
+        });
 
-        hideSearchOptions();
     }
 }])
+
+//$scope.page = 0;
+//$scope.take = 20;
+//$scope.loadMore = function loadCalender() {
+//    dataRepository.getCalender($scope.page, $scope.take).then(function (data) {
+//        if ($rootScope.events) {
+//            $rootScope.events = $rootScope.events.concat(data);
+//        } else {
+//            $rootScope.events = data;
+//        }
+//        $scope.page++;
+//    });
+
+//}

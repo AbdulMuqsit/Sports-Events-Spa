@@ -88,16 +88,16 @@ namespace SportsEvents.Controllers
             {
                 city = await DbContext.Cities.FindAsync(model.CityId.Value);
             }
-            user.Address = new Address
-            {
-                LineOne = model.LineOne,
-                LineTwo = model.LineTwo,
-                CityId = city?.Id ?? 0,
-                CityName = city?.Name,
-                CountryName = city?.CountryName
-                Zip = model.Zip,
-                State = model.State,
-            };
+            //user.Address = new Address
+            //{
+            //    LineOne = model.LineOne,
+            //    LineTwo = model.LineTwo,
+            //    CityId = city?.Id ?? 0,
+            //    CityName = city?.Name,
+            //    CountryName = city?.CountryName,
+            //    Zip = model.Zip,
+            //    State = model.State,
+            //};
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
             {

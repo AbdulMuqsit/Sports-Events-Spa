@@ -1,4 +1,9 @@
-﻿body {
+﻿
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+body {
     -moz-min-width: 1000px;
     -ms-min-width: 1000px;
     -o-min-width: 1000px;
@@ -30,18 +35,29 @@
     min-width: 1000px;
 }
 
-.content.show-advanced-search-options { margin-top: 110px; }
+    .content.show-advanced-search-options {
+        margin-top: 170px;
+    }
 
 /* Set width on the form input elements since they're 100% wide by default */
 
 input,
 select,
-textarea { }
-
-.navbar.show-advanced-search-options { height: 90px; }
+textarea {
+}
+.x {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    height: 30px;
+    font-size: 30px;
+}
+.navbar.show-advanced-search-options {
+    height: 150px;
+}
 
 .brand {
-    color: rgb(202, 11, 11);
+    color: rgb(245, 36, 36);
     font-family: fantasy;
     font-size: 25px;
     left: 40px;
@@ -51,18 +67,20 @@ textarea { }
     top: 15px;
 }
 
-input { outline: none; }
-
-input[type=button],
-input[type=submit] {
-    -ms-border-radius: 5px;
-    background: rgb(4, 43, 105);
-    border: none;
-    border-radius: 5px;
-    color: white;
-    float: right;
-    padding: 10px;
+input {
+    outline: none;
 }
+
+    input[type=button],
+    input[type=submit] {
+        -ms-border-radius: 5px;
+        background: rgb(4, 43, 105);
+        border: none;
+        border-radius: 5px;
+        color: white;
+        float: right;
+        padding: 10px;
+    }
 
 select {
     -moz-box-sizing: content-box;
@@ -82,19 +100,50 @@ select {
     z-index: 100;
 }
 
-advanced-search-options { }
-
-.form-view { width: 500px; }
-
-.form-view > div, .form-view > div > div { margin-bottom: 30px; }
-
-.form-view > div > div > span, .form-view > div > span {
-    color: #666;
-    font-size: 14px;
-    font-weight: bold;
-    padding-top: 5px;
+.advanced-search-options {
+    position: fixed;
 }
 
+    .advanced-search-options div {
+        position: fixed;
+        display: inline-block;
+        top: 30px;
+        left: 10px;
+        color: white;
+    }
+
+        .advanced-search-options div div {
+            position: relative;
+            display: inline-block;
+            margin: 0 20px 10px 0;
+        }
+
+.navigation-section.hide,
+.account-section.hide {
+    visibility: hidden !important;
+}
+
+.form-view {
+    width: 500px;
+}
+
+    .form-view > div, .form-view > div > div {
+        margin-bottom: 30px;
+    }
+
+        .form-view > div > div > span, .form-view > div > span {
+            color: #666;
+            font-size: 14px;
+            font-weight: bold;
+            padding-top: 5px;
+        }
+
+.advanced-search-options span {
+    margin: 5px;
+}
+
+.advanced-search-options select,
+.advanced-search-options input,
 .form-view > div select,
 .form-view > div textarea,
 .form-view > div input[type=text],
@@ -116,6 +165,15 @@ advanced-search-options { }
     width: 300px;
 }
 
+.advanced-search-options select,
+.advanced-search-options input {
+    width: auto;
+    float: none;
+    height: 15px;
+    font-size: 14px;
+    margin-top: 0;
+}
+
 .form-view > div select:hover,
 .form-view > div textarea:hover,
 .form-view > div input[type=text]:hover,
@@ -123,7 +181,9 @@ advanced-search-options { }
 .form-view > div input[type=date]:hover,
 .form-view > div input[type=time]:hover,
 .form-view > div input[type=date]:hover,
-.form-view > div input[type=number] { border: 1px solid #acd3f2; }
+.form-view > div input[type=number] {
+    border: 1px solid #acd3f2;
+}
 
 .form-view > div select:focus,
 .form-view > div textarea:focus,
@@ -132,12 +192,18 @@ advanced-search-options { }
 .form-view > div input[type=date]:focus,
 .form-view > div input[type=time]:focus,
 .form-view > div input[type=date]:focus,
-.form-view > div input[type=number] { border: 1px solid #42A5F5; }
+.form-view > div input[type=number] {
+    border: 1px solid #42A5F5;
+}
 
-.form-view > div textarea { height: 300px; }
+.form-view > div textarea {
+    height: 300px;
+}
 
 .form-view > div > input[type=checkbox],
-.form-view > div > input[type=file] { float: right; }
+.form-view > div > input[type=file] {
+    float: right;
+}
 
 .form-view > div input[type=submit] {
     -ms-border-radius: 30px;
@@ -148,13 +214,16 @@ advanced-search-options { }
     width: 100px;
 }
 
-hr {
+.navbar hr {
     border: 0;
     border-top: 1px solid #ccc;
     display: block;
     height: 1px;
     margin: 1em 0;
     padding: 0;
+    position: fixed;
+    top: 40px;
+    width: 100%;
 }
 
 
@@ -165,40 +234,42 @@ hr {
     width: 321px;
 }
 
-.search-bar button {
-    -ms-border-radius: 20px;
-    background: transparent;
-    border: none;
-    border-radius: 20px;
-    color: rgb(195, 0, 0);
-    font-size: 20px;
-    height: 35px;
-    margin: 0;
-    outline: none;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 35px;
-}
+    .search-bar button {
+        -ms-border-radius: 20px;
+        background: transparent;
+        border: none;
+        border-radius: 20px;
+        color: rgb(195, 0, 0);
+        font-size: 20px;
+        height: 35px;
+        margin: 0;
+        outline: none;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 35px;
+    }
 
-.search-bar button :hover {
-    color: rgb(249, 35, 35);
-    cursor: pointer;
-}
+        .search-bar button :hover {
+            color: rgb(249, 35, 35);
+            cursor: pointer;
+        }
 
-.search-bar button :active { color: rgb(128, 0, 0); }
+        .search-bar button :active {
+            color: rgb(128, 0, 0);
+        }
 
-.search-bar input[type=text] {
-    -ms-border-radius: 20px;
-    border: 1px solid rgb(4, 43, 105);
-    border-radius: 20px;
-    font-size: 18px;
-    height: 35px;
-    margin: 0;
-    padding: 0 10px;
-    width: 300px;
-}
+    .search-bar input[type=text] {
+        -ms-border-radius: 20px;
+        border: 1px solid rgb(4, 43, 105);
+        border-radius: 20px;
+        font-size: 18px;
+        height: 35px;
+        margin: 0;
+        padding: 0 10px;
+        width: 300px;
+    }
 
 
 
@@ -208,28 +279,32 @@ hr {
     right: 50px;
 }
 
-.account-section { top: 20px; }
-
-.navigation-section a,
-.account-section a {
-    border-right: 1px solid rgb(0, 18, 48);
-    color: ghostwhite;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 0;
-    margin: 0;
-    padding: 10px;
-    text-decoration: none;
+.account-section {
+    top: 20px;
 }
 
-.navigation-section a:hover,
-.account-section a:hover {
-    background: rgb(1, 34, 89);
-    color: whitesmoke;
-}
+    .navigation-section a,
+    .account-section a {
+        border-right: 1px solid rgb(0, 18, 48);
+        color: ghostwhite;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0;
+        margin: 0;
+        padding: 10px;
+        text-decoration: none;
+    }
 
-.navigation-section a:active,
-.account-section a:active { color: gray; }
+        .navigation-section a:hover,
+        .account-section a:hover {
+            background: rgb(1, 34, 89);
+            color: whitesmoke;
+        }
+
+        .navigation-section a:active,
+        .account-section a:active {
+            color: gray;
+        }
 
 .navigation-section {
     left: 630px;
@@ -237,11 +312,15 @@ hr {
     top: 20px;
 }
 
-.account-section a:first-child,
-.navigation-section a:first-child { border-left: 1px solid rgb(0, 18, 48); }
+    .account-section a:first-child,
+    .navigation-section a:first-child {
+        border-left: 1px solid rgb(0, 18, 48);
+    }
 
 @media all and (max-width: 1150px) {
-    .navigation-section { visibility: collapse; }
+    .navigation-section {
+        visibility: collapse;
+    }
 
     .account-section {
         left: 630px !important;
@@ -250,11 +329,12 @@ hr {
         top: 10px;
     }
 
-    .account-section a {
-        margin: 0;
-        position: fixed;
+        .account-section a {
+            margin: 0;
+            position: fixed;
+        }
+
+    .content.show-advanced-search-options {
+        margin-top: 110px;
     }
-
-    .content.show-advanced-search-options { margin-top: 110px; }
-
 }

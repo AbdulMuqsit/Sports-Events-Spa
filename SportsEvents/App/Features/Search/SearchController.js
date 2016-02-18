@@ -5,7 +5,7 @@
         dataRepository.getAll("countries").then(function (data) {
             $scope.countries = data;
             $scope.country = data[0];
-
+            
         }, function (data) {
             notification.error("countries could not be loaded while loading the form, please refresh the page");
         });
@@ -19,7 +19,7 @@
             notification.error("Event Types could not be loaded while loading the form, please refresh the page");
         });
     })();
-    (function refreshSorts() {
+    (function refreshSports() {
         dataRepository.getAll("sports").then(function (data) {
             $scope.sports = data;
             $scope.sport = data[0];
@@ -38,17 +38,22 @@
 
 
 
-    $('.search-bar input[type=text]').on('focus', function () {
+    $scope.focus = function () {
         $('.navbar').addClass('show-advanced-search-options');
         $('.content').addClass('show-advanced-search-options');
+        $('.navigation-section').addClass('hide');
+        $('.account-section').addClass('hide');
+
         $('.advanced-search-options').addClass('visible');
-        $scope.showAdvancedSearchOptions = true;
-    });
+        $scope.showAdvancedSearchOptions = true; //$scope.$apply();
+    };
     var hideSearchOptions = function () {
         $('.navbar').removeClass('show-advanced-search-options');
         $('.advanced-search-options').removeClass('visible');
+        $('.navigation-section').removeClass('hide');
+        $('.account-section').removeClass('hide');
         $('.content').removeClass('show-advanced-search-options');
-        $scope.showAdvancedSearchOptions = false;
+        $scope.showAdvancedSearchOptions = false; //$scope.$apply();
     }
     $scope.search = function (model) {
 

@@ -8,14 +8,14 @@
     @Styles.Render("~/Content/app")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body  ng-cloak>
     <div ng-controller="SearchController">
         <nav class="navbar">
             <a href="/home">
                 <span class="brand">Find Sports</span>
             </a>
             <div class="search-bar">
-                <input type="text" ng-model="model.text" />
+                <input  ng-focus="focus()" type="text" ng-model="model.text" />
 
                 <button ng-click="search(model)">
                     <span class="fa fa-search"></span>
@@ -66,6 +66,21 @@
                                 Select an city
                             </option>
                         </select>
+                    </div>
+                    <div>
+                        <span>Zip Code</span>
+                        <input type="text" ng-model="model.zipCode"/>
+
+                    </div>
+                    <div>
+                        <span>Begin Date</span>
+                        <input  type="date"  ng-model="model.beginDate"/>
+
+                    </div>
+                    <div>
+                        <span>Starting Price</span>
+                        <input  type="number"  ng-model="model.startingPrice" />
+
                     </div>
                 </div>
             </div>

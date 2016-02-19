@@ -73,7 +73,34 @@
             }
             this.search = function (searchPhrase, sportType, eventType, startingDate, zipCode, city, startingPrice) {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "/Search?searchPhrase=" + searchPhrase + "&sportType=" + sportType + "&eventType=" + eventType + "&startingDate=" + startingDate + "&zipCode=" + zipCode + "&city=" + city + "&startingPrice=" + startingPrice;
+                arguments
+                var url = uriColection["event"] + "/Search?";
+                if (searchPhrase) {
+                    url += "searchPhrase=" + searchPhrase + "&";
+                }
+                if (sportType) {
+                    url += "sportType=" + sportType + "&";
+                }
+                if (eventType) {
+                    url += "eventType=" + eventType + "&";
+                }
+                if (startingDate) {
+                    url += "startingDate=" + startingDate + "&";
+                }
+                if (zipCode) {
+                    url += "zipCode=" + zipCode + "&";
+                }
+                if (city) {
+                    url += "city=" + city + "&";
+                }
+                if (startingPrice) {
+                    url += "startingPrice=" + startingPrice + "&";
+                }
+
+                if (url.charAt(url.length - 1) === "&") {
+                    url = url.slice(0, url.length - 1)
+                }
+
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {

@@ -38,7 +38,7 @@ namespace SportsEvents.ApiControllers
         [Route("Search/{searchPhrase?}/{sportType?}/{eventType?}/{startingDate?}/{zipCode?}/{city?}/{startingPrice?}")]
         public async Task<IHttpActionResult> Search([FromUri] string searchPhrase = "", [FromUri]int sportType = 0, [FromUri]int eventType = 0, [FromUri]DateTime? startingDate = null , [FromUri]string zipCode = "", [FromUri]int city = 0, [FromUri]float? startingPrice = 0.0F)
         {
-            var events = await DbContext.Events.Where(e => e.Description.Contains(searchPhrase) && (e.SportId == sportType || sportType == 0) && (e.EventTypeId == eventType || eventType == 0) && (startingDate == null || e.BeginDate > startingDate) && (e.Zip == zipCode || zipCode == "") && (e.CityId == city || city == 0) && (startingPrice == null|| e.StartingPrice > startingPrice)).ToListAsync();
+            var events = await DbContext.Events.Where(e => e.Description.Contains(searchPhrase) && (sportType == 0 || e.SportId == sportType ) && (eventType == 0 || e.EventTypeId == eventType) && (startingDate == null || e.BeginDate > startingDate) && (zipCode == "" || e.Zip == zipCode) && (city == 0 || e.CityId == city) && (startingPrice == null|| e.StartingPrice > startingPrice)).ToListAsync();
             return Ok(events);   
         }
 

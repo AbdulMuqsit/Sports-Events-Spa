@@ -36,7 +36,7 @@ body {
 }
 
     .content.show-advanced-search-options {
-        margin-top: 170px;
+        /*margin-top: 170px;*/
     }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -45,6 +45,7 @@ input,
 select,
 textarea {
 }
+
 .x {
     position: fixed;
     top: 50px;
@@ -52,12 +53,13 @@ textarea {
     height: 30px;
     font-size: 30px;
 }
+
 .navbar.show-advanced-search-options {
-    height: 150px;
+    /*height: 150px;*/
 }
 
 .brand {
-    color: rgb(245, 36, 36);
+    color: orange;
     font-family: fantasy;
     font-size: 25px;
     left: 40px;
@@ -102,11 +104,22 @@ select {
 
 .advanced-search-options {
     position: fixed;
+    background: #042b69;
+    width: 500px;
+    height: 300px;
+    left: 200px;
 }
 
+.advanced-search-options div div h4 {
+    margin: auto;
+    margin-top: -20px;
+    text-align: center;
+    font-size: 20px;
+    color: orange;
+    padding: 0;
+
+}
     .advanced-search-options div {
-        position: fixed;
-        display: inline-block;
         top: 30px;
         left: 10px;
         color: white;
@@ -114,8 +127,8 @@ select {
 
         .advanced-search-options div div {
             position: relative;
-            display: inline-block;
             margin: 0 20px 10px 0;
+            margin-top: 15px;
         }
 
 .navigation-section.hide,
@@ -167,11 +180,8 @@ select {
 
 .advanced-search-options select,
 .advanced-search-options input {
-    width: auto;
-    float: none;
     height: 15px;
     font-size: 14px;
-    margin-top: 0;
 }
 
 .form-view > div select:hover,
@@ -223,7 +233,7 @@ select {
     padding: 0;
     position: fixed;
     top: 40px;
-    width: 100%;
+    width: 500px;
 }
 
 
@@ -239,7 +249,7 @@ select {
         background: transparent;
         border: none;
         border-radius: 20px;
-        color: rgb(195, 0, 0);
+        color: orange;
         font-size: 20px;
         height: 35px;
         margin: 0;

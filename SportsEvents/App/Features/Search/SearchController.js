@@ -64,8 +64,13 @@
     //$scope.city = 0;
     //$scope.StartingPrice = 0.0;
     $scope.search = function (model) {
+
+        hideSearchOptions();
         dataRepository.search(model.text, model.sport, model.eventType, model.beginDate, model.zipCode, model.city, model.startingPrice).then(function (data) {
             $rootScope.events = data;
+            if (model) {
+                delete model;
+            }
         });
 
     }

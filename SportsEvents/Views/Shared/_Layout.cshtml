@@ -34,6 +34,10 @@
                 <hr />
                 <div>
                     <div>
+                        <h4>Advanced Search Options</h4>
+                       
+                    </div>
+                    <div>
                         <span>Sports Type</span>
                         <select ng-options="sport as sport.Name for sport in sports track by sport.Id" ng-model="model.sport">
                             <option disabled>
@@ -74,12 +78,12 @@
                     </div>
                     <div>
                         <span>Begin Date</span>
-                        <input  type="date"  ng-model="model.beginDate"/>
+                        <input type="date" ng-model="model.beginDate"/>
 
                     </div>
                     <div>
                         <span>Starting Price</span>
-                        <input  type="number"  ng-model="model.startingPrice" />
+                        <input type="number" ng-model="model.startingPrice"/>
 
                     </div>
                 </div>

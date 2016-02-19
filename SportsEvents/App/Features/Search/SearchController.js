@@ -45,17 +45,17 @@
         $('.account-section').addClass('hide');
 
         $('.advanced-search-options').addClass('visible');
-        $scope.showAdvancedSearchOptions = true; //$scope.$apply();
+        $scope.showAdvancedSearchOptions = true; 
     };
-    var hideSearchOptions = function () {
+    $scope.hideSearchOptions = function () {
         $('.navbar').removeClass('show-advanced-search-options');
         $('.advanced-search-options').removeClass('visible');
         $('.navigation-section').removeClass('hide');
         $('.account-section').removeClass('hide');
         $('.content').removeClass('show-advanced-search-options');
-        $scope.showAdvancedSearchOptions = false; //$scope.$apply();
+        $scope.showAdvancedSearchOptions = false;
     }
-    hideSearchOptions();
+    $scope.hideSearchOptions();
     //$scope.searchPhrase = "";
     //$scope.sportType = 0;
     //$scope.eventType = 0;
@@ -65,11 +65,11 @@
     //$scope.StartingPrice = 0.0;
     $scope.search = function (model) {
 
-        hideSearchOptions();
+        $scope.hideSearchOptions();
         dataRepository.search(model.text, model.sport, model.eventType, model.beginDate, model.zipCode, model.city, model.startingPrice).then(function (data) {
             $rootScope.events = data;
-            if (model) {
-                delete model;
+            if ($scope.model) {
+                delete $scope.model;
             }
         });
 

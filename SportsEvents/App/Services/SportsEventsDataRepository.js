@@ -73,16 +73,16 @@
             }
             this.search = function (searchPhrase, sportType, eventType, startingDate, zipCode, city, startingPrice) {
                 var defered = $q.defer();
-                arguments
+                
                 var url = uriColection["event"] + "/Search?";
                 if (searchPhrase) {
                     url += "searchPhrase=" + searchPhrase + "&";
                 }
                 if (sportType) {
-                    url += "sportType=" + sportType + "&";
+                    url += "sportType=" + sportType.Id + "&";
                 }
                 if (eventType) {
-                    url += "eventType=" + eventType + "&";
+                    url += "eventType=" + eventType.Id + "&";
                 }
                 if (startingDate) {
                     url += "startingDate=" + startingDate + "&";
@@ -91,14 +91,14 @@
                     url += "zipCode=" + zipCode + "&";
                 }
                 if (city) {
-                    url += "city=" + city + "&";
+                    url += "city=" + city.Id + "&";
                 }
                 if (startingPrice) {
                     url += "startingPrice=" + startingPrice + "&";
                 }
 
                 if (url.charAt(url.length - 1) === "&") {
-                    url = url.slice(0, url.length - 1)
+                    url = url.slice(0, url.length - 1);
                 }
 
                 $http.get(url).then(function (data) {

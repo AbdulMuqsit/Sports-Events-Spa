@@ -22,7 +22,7 @@ using System.Text;
 /// <summary>
 /// Lorem Ipsum generator class for C#
 /// </summary>
-internal static class Ipsum
+public static class Ipsum
 {
     private static readonly Random random = new Random();
 

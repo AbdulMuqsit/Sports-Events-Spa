@@ -9,6 +9,7 @@
 /// <reference path="../app/features/user/admin/country/addcountry/addcountrycontroller.js" />
 /// <reference path="../app/features/user/admin/eventtype/addeventtype/addeventtypecontroller.js" />
 /// <reference path="../app/features/user/admin/sport/addsport/addsportcontroller.js" />
+/// <reference path="../app/features/user/organizer/controlpanel/organizercontrolpanelcontroller.js" />
 /// <reference path="../app/features/user/signup/signupcontroller.js" />
 /// <reference path="../app/services/notificationservice.js" />
 /// <reference path="../app/services/sportseventsdatarepository.js" />

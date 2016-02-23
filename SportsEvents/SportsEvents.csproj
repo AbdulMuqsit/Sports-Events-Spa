@@ -177,6 +177,7 @@
     <Compile Include="ApiControllers\EventsController.cs" />
     <Compile Include="ApiControllers\EventTypesController.cs" />
     <Compile Include="ApiControllers\OrganizersController.cs" />
+    <Compile Include="ApiControllers\SeedController.cs" />
     <Compile Include="ApiControllers\SportsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -255,6 +256,7 @@
     <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
+    <Content Include="App\Features\User\Organizer\ControlPanel\OrganizerControlPanelController.js" />
     <Content Include="App\Features\User\Organizer\Register\RegisterView.html" />
     <Content Include="App\Features\User\SignIn\SignInController.js" />
     <Content Include="App\Features\User\SignIn\SignInView.html" />
@@ -335,6 +337,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\PublishProfiles\Custom.pubxml" />
+    <None Include="Properties\PublishProfiles\web deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />

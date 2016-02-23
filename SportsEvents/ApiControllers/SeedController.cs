@@ -1,27 +1,26 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SportsEvents.Common.Entities;
+using SportsEvents.EntityFramework;
 
-namespace SportsEvents.EntityFramework.Migrations
+namespace SportsEvents.ApiControllers
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<SportsEventsDbContext>
+    [RoutePrefix("api/Seed")]
+    public class SeedController : ApiController
     {
-        public Configuration()
+        [HttpGet]
+       public IHttpActionResult Get()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
-        }
-
-        protected override void Seed(SportsEventsDbContext context)
-        {
+            var context = new SportsEventsDbContext();
             try
             {
-                base.Seed(context);
                 if (!context.Events.Any())
                 {
                     if (Debugger.IsAttached)
@@ -43,11 +42,11 @@ namespace SportsEvents.EntityFramework.Migrations
 
                     for (var i = 0; i < 20; i++)
                     {
-                        var country = new Country {Name = Ipsum.GetWord()};
+                        var country = new Country { Name = Ipsum.GetWord() };
                         ;
                         for (var j = 0; j < 20; j++)
                         {
-                            cities.Add(new City {Name = Ipsum.GetWord(), Country = country, CountryName = country.Name});
+                            cities.Add(new City { Name = Ipsum.GetWord(), Country = country, CountryName = country.Name });
                         }
                     }
 
@@ -69,7 +68,7 @@ namespace SportsEvents.EntityFramework.Migrations
                             UserName = Ipsum.GetWord(),
                             Email = Ipsum.GetWord() + "@" + Ipsum.GetWord() + ".com",
                             Address = new Address(),
-                            ContactDetails = new Common.Entities.ContactDetails {BillingAddress = new Address()}
+                            ContactDetails = new Common.Entities.ContactDetails { BillingAddress = new Address() }
                         };
 
                         usermanager.Create(user, "idkwmpsb");
@@ -78,8 +77,8 @@ namespace SportsEvents.EntityFramework.Migrations
                     var organizers = context.Users.ToList();
                     for (var i = 0; i < 20; i++)
                     {
-                        var sport = new Sport {Name = Ipsum.GetPhrase(rand.Next(1, 4))};
-                        var eventType = new EventType {Name = Ipsum.GetPhrase(rand.Next(1, 4))};
+                        var sport = new Sport { Name = Ipsum.GetPhrase(rand.Next(1, 4)) };
+                        var eventType = new EventType { Name = Ipsum.GetPhrase(rand.Next(1, 4)) };
                         context.Sports.Add(sport);
                         context.EventTypes.Add(eventType);
 
@@ -88,7 +87,7 @@ namespace SportsEvents.EntityFramework.Migrations
                             var pictures = new List<Picture>();
                             for (var k = 0; k < rand.Next(1, 5); k++)
                             {
-                                pictures.Add(new Picture {Url = "https://placehold.it/1000x800?text=" + Ipsum.GetWord()});
+                                pictures.Add(new Picture { Url = "https://placehold.it/1000x800?text=" + Ipsum.GetWord() });
                             }
 
                             var description = Ipsum.GetPhrase(rand.Next(1, 10));
@@ -136,19 +135,19 @@ namespace SportsEvents.EntityFramework.Migrations
                                 RegisteredVisitors = new List<User>(),
                                 ClickerUsers = new List<User>()
                             };
-                            for (var k = 0; k < rand.Next(organizers.Count)/2; k++)
+                            for (var k = 0; k < rand.Next(organizers.Count) / 2; k++)
                             {
                                 @event.RegisterRequestVisitors.Add(organizers[k]);
                             }
-                            for (var k = 0; k < rand.Next(organizers.Count)/2; k++)
+                            for (var k = 0; k < rand.Next(organizers.Count) / 2; k++)
                             {
                                 @event.RegisteredVisitors.Add(organizers[k]);
                             }
-                            for (var k = 0; k < rand.Next(organizers.Count)/2; k++)
+                            for (var k = 0; k < rand.Next(organizers.Count) / 2; k++)
                             {
                                 @event.ClickerUsers.Add(organizers[k]);
                             }
-                            for (var k = 0; k < rand.Next(organizers.Count)/2; k++)
+                            for (var k = 0; k < rand.Next(organizers.Count) / 2; k++)
                             {
                                 @event.BookmarkerVisitors.Add(organizers[k]);
                             }
@@ -156,15 +155,17 @@ namespace SportsEvents.EntityFramework.Migrations
                         }
                     }
                     context.Events.AddRange(events);
-                    context.SaveChanges();
+                    return Ok(context.SaveChanges());
                 }
+                return BadRequest("Events already there");
             }
 
 
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                return InternalServerError(ex);
             }
         }
+
     }
 }

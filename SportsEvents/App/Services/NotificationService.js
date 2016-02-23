@@ -15,6 +15,14 @@
                 toastr.error(title);
 
             }
+        },
+        warning: function (title, message) {
+            if (message) {
+                toastr.warning(message, title);
+            } else {
+                toastr.warning(title);
+
+            }
         }
 
     };

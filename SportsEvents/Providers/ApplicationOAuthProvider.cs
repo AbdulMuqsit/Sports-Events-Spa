@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using SportsEvents.Common.Entities;
 using SportsEvents.EntityFramework;
-using SportsEvents.Models;
 
 namespace SportsEvents.Providers
 {
@@ -33,7 +31,7 @@ namespace SportsEvents.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            User user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -41,20 +39,22 @@ namespace SportsEvents.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+            var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+                OAuthDefaults.AuthenticationType);
+            var cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
-
-            AuthenticationProperties properties = CreateProperties(user.UserName);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+            var roles = oAuthIdentity.Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(e => new RoleModel {Role = e.Value}).ToList();
+            var properties = CreateProperties(user, roles);
+            var ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
-            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            foreach (var property in context.Properties.Dictionary)
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
@@ -77,7 +77,7 @@ namespace SportsEvents.Providers
         {
             if (context.ClientId == _publicClientId)
             {
-                Uri expectedRootUri = new Uri(context.Request.Uri, "/");
+                var expectedRootUri = new Uri(context.Request.Uri, "/");
 
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {
@@ -88,13 +88,36 @@ namespace SportsEvents.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(User user, IList<RoleModel> roles)
         {
+            var rolesString = string.Empty;
+            if (roles != null)
+            {
+                for (var i = 0; i < roles.Count; i++)
+                {
+                    rolesString += roles[i].Role;
+                    if (roles.Count - 1 != i)
+                    {
+                        rolesString += ", ";
+                    }
+                }
+            }
+
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                {"userName", user.UserName},
+                {"email", user.Email},
+                {"roles", rolesString},
+             
             };
             return new AuthenticationProperties(data);
         }
+    }
+
+    [DataContract]
+    public class RoleModel
+    {
+        [DataMember(Name = "Role")]
+        public string Role { get; set; }
     }
 }

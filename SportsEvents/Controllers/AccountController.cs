@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -76,7 +77,7 @@ namespace SportsEvents.Controllers
             {
                 return BadRequest();
             }
-            
+
             var user = await UserManager.FindByNameAsync(User.Identity.Name);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
@@ -207,7 +208,6 @@ namespace SportsEvents.Controllers
                 CityId = city?.Id ?? 0,
                 CityName = city?.Name,
                 Zip = model.Zip,
-                State = model.State,
                 CountryName = city?.CountryName
             };
             user.Link = model.Link;
@@ -227,7 +227,6 @@ namespace SportsEvents.Controllers
                         CountryName = contactCity.CountryName,
                         LineOne = model.ContactLineOne,
                         LineTwo = model.ContactLineTwo,
-                        State = model.ContactState,
                         Zip = model.ContactZip
                     },
                 Email = model.ConatactEmail,
@@ -243,8 +242,11 @@ namespace SportsEvents.Controllers
             {
                 return BadRequest();
             }
-            await UserManager.AddClaimAsync(User.Identity.GetUserId(), new Claim(ClaimTypes.Role, "Organizer"));
-
+            var claimResult = await UserManager.AddClaimAsync(User.Identity.GetUserId(), new Claim(ClaimTypes.Role, "Organizer"));
+            if (!claimResult.Succeeded)
+            {
+                return GetErrorResult(claimResult);
+            }
             return Ok(user);
         }
 
@@ -439,7 +441,7 @@ namespace SportsEvents.Controllers
                 var cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                var properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                var properties = ApplicationOAuthProvider.CreateProperties(user, user.Roles.Select(r => new RoleModel() { Role = r.RoleId }).ToList());
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -508,16 +510,19 @@ namespace SportsEvents.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 Address = new Address(),
-                ContactDetails = new ContactDetails() {BillingAddress = new Address()}
+                ContactDetails = new ContactDetails() { BillingAddress = new Address() }
             };
 
             var result = await UserManager.CreateAsync(user, model.Password);
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-
+            var claimResult = await UserManager.AddClaimAsync(user.Id, new Claim(ClaimTypes.Role, "Visitor"));
+            if (!claimResult.Succeeded)
+            {
+                return GetErrorResult(claimResult);
+            }
             return Ok(user);
         }
 

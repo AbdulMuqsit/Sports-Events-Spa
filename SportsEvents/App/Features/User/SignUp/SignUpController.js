@@ -1,9 +1,9 @@
 ﻿user.controller('SignUpController', ['$scope','$http', function ($scope,$http) {
     $scope.submit = function (model) {
-        var url = "/Api/Account";
+        var url = "/Api/Account/Register";
         var user = {
             "UserName": model.userName,
-            "Password": model.pasword,
+            "Password": model.password,
             "ConfirmPassword": model.confirmPassword,
             "Email": model.email
 
@@ -11,9 +11,9 @@
        
 
         $http.post(url, user).then(function (data) {
-            toastr.success("Event Created");
+            toastr.success("Account Created");
         }, function (data) {
-            toastr.error(data);
+            toastr.error("Account could not be created");
 
         });
     }

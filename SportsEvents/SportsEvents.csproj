@@ -256,8 +256,11 @@
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
     <Content Include="App\Features\User\Organizer\Register\RegisterView.html" />
+    <Content Include="App\Features\User\SignIn\SignInController.js" />
+    <Content Include="App\Features\User\SignIn\SignInView.html" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
+    <Content Include="App\Services\AuthenticationService.js" />
     <Content Include="App\Services\NotificationService.js" />
     <Content Include="App\Services\SportsEventsDataRepository.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -1109,6 +1112,7 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\Features\User\Admin\AdminPanel\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

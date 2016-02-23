@@ -18,6 +18,7 @@ namespace SportsEvents.ApiControllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> Post(CityPostViewModel model)
         {
             try

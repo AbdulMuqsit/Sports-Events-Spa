@@ -5,15 +5,15 @@
     </div>
     <div>
         <span>Email</span>
-        <input placeholder="Email" type="text" />
+        <input placeholder="Email" type="text" ng-model="model.email"/>
     </div>
     <div>
         <span>Password</span>
-        <input placeholder="Password" type="text" />
+        <input placeholder="Password" type="password" ng-model="model.password" />
     </div>
     <div>
         <span>Confirm Password</span>
-        <input placeholder="Confirm Password" type="text" />
+        <input placeholder="Confirm Password" type="password" ng-model="model.confirmPassword"/>
     </div>
-    <input type="submit" value="Submit" onclick="Submit(model)" />
+    <input type="submit" value="Submit" ng-click="submit(model)" />
 </div>

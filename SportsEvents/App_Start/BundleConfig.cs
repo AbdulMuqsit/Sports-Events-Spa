@@ -15,7 +15,7 @@ namespace SportsEvents
 
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                "~/Scripts/angular.js", "~/Scripts/angular-route.js"));
+                "~/Scripts/angular.js", "~/Scripts/angular-route.js", "~/Scripts/angular-cookies.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/thirdParty").Include(
 

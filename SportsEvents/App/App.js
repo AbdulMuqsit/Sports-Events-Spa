@@ -3,8 +3,9 @@ var repository = angular.module('repository', []);
 var notification = angular.module('notification', []);
 var events = angular.module('events', ['customDirectives', 'repository']);
 var user = angular.module('user', ['repository','notification']);
-var admin = angular.module('admin', ['repository','notification']);
-var sportsEvents = angular.module('SportsEvents', ['repository', 'admin','events', 'user', 'customDirectives', 'ngRoute']).config([
+var admin = angular.module('admin', ['repository', 'notification']);
+var auth = angular.module('auth',["ngCookies"]);
+var sportsEvents = angular.module('SportsEvents', ['repository', 'admin','events', 'user', 'customDirectives', 'ngRoute', 'auth']).config([
         "$locationProvider", "$routeProvider",
         function ($locationProvider, $routeProvider) {
             $locationProvider.html5Mode({
@@ -21,6 +22,9 @@ var sportsEvents = angular.module('SportsEvents', ['repository', 'admin','events
             }).when("/signup", {
                 templateUrl: base + "User/SignUp/SignUpView.html",
                 controller: "SignUpController"
+            }).when("/signin", {
+                templateUrl: base + "User/SignIn/SignInView.html",
+                controller: "SignInController"
             }).when("/admin/addcountry", {
                 templateUrl: base + "User/Admin/Country/AddCountry/AddCountryView.html",
                 controller: "AddCountryController"

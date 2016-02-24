@@ -29,7 +29,6 @@ AuthenticationService.prototype.authenticate = function (model) {
         data: { grant_type: "password", username: model.userName, password: model.password }
     });
     temp.success(function(result) {
-        var token = result;
         this.cookieStore.put('identity', token);
         deffered.resolve(result);
     });

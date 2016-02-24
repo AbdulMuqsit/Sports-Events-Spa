@@ -243,6 +243,9 @@
     <Content Include="App\Features\Home\Home.css" />
     <Content Include="App\Features\Home\HomeView.html" />
     <Content Include="App\Features\Search\SearchController.js" />
+    <Content Include="App\Features\User\Admin\AdminPanel\AdminPanel.css" />
+    <Content Include="App\Features\User\Admin\AdminPanel\AdminPanelController.js" />
+    <Content Include="App\Features\User\Admin\AdminPanel\AdminPanelView.html" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityController.js" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityView.html" />
     <Content Include="App\App.js" />
@@ -262,6 +265,8 @@
     <Content Include="App\Features\User\SignIn\SignInView.html" />
     <Content Include="App\Features\User\SignUp\SignUpController.js" />
     <Content Include="App\Features\User\SignUp\SignUpView.html" />
+    <Content Include="App\Features\User\Visitor\VisitorProfileController.js" />
+    <Content Include="App\Features\User\Visitor\VisitorProfileView.html" />
     <Content Include="App\Services\AuthenticationService.js" />
     <Content Include="App\Services\NotificationService.js" />
     <Content Include="App\Services\SportsEventsDataRepository.js" />
@@ -1115,7 +1120,6 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Features\User\Admin\AdminPanel\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

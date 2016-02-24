@@ -37,6 +37,9 @@ var sportsEvents = angular.module('SportsEvents', ['repository', 'admin','events
             }).when("/admin/addeventtype", {
                 templateUrl: base + "User/Admin/EventType/AddEventType/AddEventTypeView.html",
                 controller: "AddEventTypeController"
+            }).when("/admin/adminpanelview", {
+                templateUrl: base + "User/Admin/AdminPanel/AdminPanelView.html",
+                controller: "AdminPanelController"
             }).otherwise({
                 redirectTo: "/"
             });

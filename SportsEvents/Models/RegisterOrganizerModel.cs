@@ -38,8 +38,7 @@ namespace SportsEvents.Models
         [Display(Name = "Country")]
         public int? CountryId { get; set; }
 
-        [Display(Name = "State")]
-        public string State { get; set; }
+        
 
         [Display(Name = "Zip")]
         [RegularExpression(@"^\d{5}(?:[-\s]\d{4})?$", ErrorMessage = "Invalid zip code.")]
@@ -86,9 +85,7 @@ namespace SportsEvents.Models
         [Display(Name = "City*")]
         public int ContactCityId { get; set; }
 
-        [Required(ErrorMessage = "State is required")]
-        [Display(Name = "State*")]
-        public string ContactState { get; set; }
+       
         
         [Required]
         [EmailAddress]

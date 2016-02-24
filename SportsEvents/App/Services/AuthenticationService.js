@@ -13,7 +13,7 @@
 
 AuthenticationService.prototype.authenticate = function (model) {
     var deffered = this.q.defer();
-
+    var outerScope = this;
 
     var temp = this.http({
         method: "post",
@@ -29,7 +29,8 @@ AuthenticationService.prototype.authenticate = function (model) {
         data: { grant_type: "password", username: model.userName, password: model.password }
     });
     temp.success(function(result) {
-        this.cookieStore.put('identity', token);
+        var token = result;
+        outerScope.cookieStore.put('identity', token);
         deffered.resolve(result);
     });
     return  deffered.promise;

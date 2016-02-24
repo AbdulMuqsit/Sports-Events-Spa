@@ -21,11 +21,17 @@
                     <span class="fa fa-search"></span>
                 </button>
             </div>
-            <div class="account-section">
-                <a href="/signin">Sign In</a>
-                @*<a href="/signup">Sign Up</a>*@
+            <div ng-controller="AccountSectionController" class="account-section">
+                <div ng-if="!authenticated">
+                    <a href="/signin">Sign In</a>
+                    @*<a href="/signup">Sign Up</a>*@
+                </div>
+                <div ng-if="authenticated">
+                    <a href="/my">{{userName}}</a>
+                    @*<a href="/signup">Sign Up</a>*@
+                </div>
             </div>
-            <div class="navigation-section">
+            <div  class="navigation-section">
                 <a href="/">Home</a>
                 <a href="/newsletter">News Letter</a>
                 <a href="/blog">Blog</a>

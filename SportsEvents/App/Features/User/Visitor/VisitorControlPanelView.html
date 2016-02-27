@@ -1,1 +1,33 @@
-﻿<h3>ControlPanel</h3>
+﻿<div>
+    <h3>Control Panel</h3>
+    <div >
+        <input type="button" value="Registered Events" ng-click="registeredEventsView()"/>
+        <input type="button" value="Registration Requests" ng-click="registrationRequestsView()"/>
+        <input type="button" value="Bookmarked Events" ng-click="bookmarkedEventsView()"/>
+    </div>
+
+
+    <div ng-switch="visitorView" class="selection-view">
+
+        <!-- Registered Events -->
+        <div ng-switch-when="registeredEvents">
+            <span> Registered Events </span>
+            
+            
+        </div>
+
+        <!-- Registration Requests -->
+        <div ng-switch-when="registrationRequests">
+            <span> Registration Requests </span>
+
+
+        </div>
+
+        <!-- Bookmarked Events -->
+        <div ng-switch-when="bookmarkedEvents">
+            <span> Bookmarked Events </span>
+
+
+        </div>
+
+    </div>

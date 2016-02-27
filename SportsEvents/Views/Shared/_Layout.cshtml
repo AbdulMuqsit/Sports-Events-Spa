@@ -46,7 +46,7 @@
                         <span>Sports Type</span>
                         <select ng-options="sport as sport.Name for sport in sports track by sport.Id" ng-model="model.sport">
                             <option disabled>
-                                Select an Sport
+                                Select a Sport
                             </option>
                         </select>
                     </div>
@@ -64,7 +64,7 @@
                         <span>Country</span>
                         <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country" ng-change="getCities(model.country)">
                             <option disabled>
-                                Select an country
+                                Select a country
                             </option>
                         </select>
                     </div>
@@ -72,7 +72,7 @@
                         <span>City</span>
                         <select ng-options="city as city.Name for city in cities track by city.Id" ng-model="model.city">
                             <option disabled>
-                                Select an city
+                                Select a city
                             </option>
                         </select>
                     </div>

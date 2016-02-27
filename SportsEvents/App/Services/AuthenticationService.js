@@ -30,6 +30,7 @@ AuthenticationService.prototype.authenticate = function (model) {
     });
     temp.success(function(result) {
         var token = result;
+        outerScope.identity = token;
         outerScope.cookieStore.put('identity', token);
         deffered.resolve(result);
     });

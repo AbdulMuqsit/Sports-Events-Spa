@@ -33,9 +33,37 @@ namespace SportsEvents.ApiControllers
             var events = await DbContext.Events.Where(_event => _event.OrganizerId == userId).ToListAsync();
             return Ok(events);
         }
-        //registered events
-        //requests sent
-        //bookmarked events
+        
+        [HttpGet]
+        [Route("RegisteredEvents")]
+        public async Task<IHttpActionResult> RegisteredEvents()
+        {
+            var user = await UserManager.Users.Include(u => u.RegisteredEvents).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            
+            return Ok(user?.RegisteredEvents);
+        }
+
+        [HttpGet]
+        [Route("RegistrationRequests")]
+        public async Task<IHttpActionResult> RegistrationRequests()
+        {
+            var user =
+                await UserManager.Users.Include(u => u.RegistrationRequests)
+                        .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
+            return Ok(user?.RegistrationRequests);
+        }
+
+        [HttpGet]
+        [Route("BookmarkedEvents")]
+        public async Task<IHttpActionResult> BookmarkedEvents()
+        {
+            var user = await UserManager.Users.Include(u => u.BookmarkedEvents)
+                        .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
+            return Ok(user?.BookmarkedEvents);
+        }
+
         [HttpGet]
         [Route("Search/{searchPhrase?}/{sportType?}/{eventType?}/{startingDate?}/{zipCode?}/{city?}/{startingPrice?}")]
         public async Task<IHttpActionResult> Search([FromUri] string searchPhrase = "", [FromUri]int sportType = 0, [FromUri]int eventType = 0, [FromUri]DateTime? startingDate = null , [FromUri]string zipCode = "", [FromUri]int city = 0, [FromUri]float? startingPrice = 0.0F)
@@ -93,7 +121,7 @@ namespace SportsEvents.ApiControllers
             return Ok(event_);
         }
 
-        [Route("RegistrationRequests")]
+        [Route("RequestRegistration")]
         public async Task<IHttpActionResult> RegisterationRequests(RegistrationRequestsModel model)
         {
             var user = await UserManager.Users.Include(u => u.RegistrationRequests).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);

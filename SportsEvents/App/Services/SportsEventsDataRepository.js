@@ -110,7 +110,7 @@
             
             this.registeredEvents = function() {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "RegisteredEvents";
+                var url = uriColection["event"] + "/RegisteredEvents";
                 $http.get(url).then(function(data) {
                     defered.resolve(data.data);
                 }, function(data) {
@@ -121,7 +121,7 @@
 
             this.registrationRequests = function () {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "RegistrationRequests";
+                var url = uriColection["event"] + "/RegistrationRequests";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {
@@ -132,7 +132,7 @@
 
             this.bookmarkedEvents = function () {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "BookmarkedEvents";
+                var url = uriColection["event"] + "/BookmarkedEvents";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {

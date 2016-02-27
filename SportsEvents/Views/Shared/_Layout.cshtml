@@ -23,17 +23,30 @@
             </div>
             <div ng-controller="AccountSectionController" class="account-section">
                 <div ng-if="!authenticated">
-                    <a href="/signin">Sign In</a>
-                    @*<a href="/signup">Sign Up</a>*@
+                    <a ng-mouseover="showAccountPanel()" href="/signin">Sign In<span class="fa fa-caret-down"></span></a>
+                    <div class="account-panel" ng-mouseleave="hideAccountPanel()" ng-if="showPanel">
+                        <div>
+
+                            <a href="/signup">Sign up</a>
+                        </div>
+                    </div>
                 </div>
                 <div ng-if="authenticated">
-                    <a href="/my">{{userName}}</a>
-                    @*<a href="/signup">Sign Up</a>*@
+                    <a ng-mouseover="showAccountPanel()" href="/my">{{userName}} <span class="fa fa-caret-down"></span></a>
+                    <div class="account-panel" ng-mouseleave="hideAccountPanel()" ng-if="showPanel">
+                        <div>
+                            <a>Account Settings</a>
+                            <a href="manage">My Events</a>
+                            <a href="my">Manage</a>
+                            <a ng-click="signOut()">SignOut</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-            <div  class="navigation-section">
+            <div class="navigation-section">
                 <a href="/">Home</a>
-                <a href="/newsletter">News Letter</a>
+                <a href="/addevent">Post Event</a>
                 <a href="/blog">Blog</a>
             </div>
             <div ng-show="showAdvancedSearchOptions" class="advanced-search-options">

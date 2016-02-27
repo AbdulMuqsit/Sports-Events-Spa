@@ -1,16 +1,23 @@
-﻿function AuthenticationService(http, cookieStore, q) {
+﻿function AuthenticationService(http, cookies, q,location,window) {
     var loadIdentity = function () {
-        return cookieStore.get("identity");
+        return cookies.get("identity");
     };
     this.identity = loadIdentity();
     this.userId = null;
     this.authenticationToken = null;
     this.http = http;
     this.q = q;
-    this.cookieStore = cookieStore;
+    this.cookies = cookies;
+    this.location = location;
+    this.window = window;
 }
 
+AuthenticationService.prototype.signOut=function() {
+    this.cookies.remove('identity');
+    this.location.path("/");
+    this.window.location.reload();
 
+}
 AuthenticationService.prototype.authenticate = function (model) {
     var deffered = this.q.defer();
     var outerScope = this;
@@ -41,8 +48,8 @@ AuthenticationService.prototype.authenticate = function (model) {
 
 
 auth.factory("authentication", [
-    "$http", "$cookieStore", "$q", function($http, $cookieStore, $q) {
-        var signInServiceInstance = new AuthenticationService($http, $cookieStore, $q);
+    "$http", "$cookieStore", "$q", '$location', '$window', function ($http, $cookieStore, $q, $location, $window) {
+        var signInServiceInstance = new AuthenticationService($http, $cookieStore, $q, $location,$window);
         return signInServiceInstance;
     }
 ]);

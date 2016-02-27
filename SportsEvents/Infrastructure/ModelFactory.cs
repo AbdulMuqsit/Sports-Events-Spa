@@ -1,3 +1,4 @@
+using System;
 using SportsEvents.Common.Entities;
 using SportsEvents.Models;
 
@@ -15,25 +16,24 @@ namespace SportsEvents.Infrastructure
             {
                 Description = model.Description,
                 BeginDate = model.BeginDate,
-                BeginTime = model.BeginTime,
+                BeginTime = (DateTime) model.BeginTime,
                 EndDate = model.EndDate,
                 Address = new Address()
                 {
                     CityId = model.CityId,
                     LineOne = model.LineOne,
                     LineTwo = model.LineTwo,
-                    State = model.State,
                     Zip = model.Zip
                 },
                 Details = model.Details,
-                EndTime = model.EndTime,
+                EndTime = (DateTime) model.EndTime,
                 ExternalLink = model.ExternalLink,
                 VideoLink = model.VideoLink,
                 IsFeatured = model.IsFeatured,
-                SportId = model.SportId,
+                SportId = (int) model.SportId,
                 CityId = model.CityId.Value,
                 StartingPrice = model.StartingPrice,
-                EventTypeId = model.EventTypeId,
+                EventTypeId = (int) model.EventTypeId,
 
                 Zip = model.Zip,
             };

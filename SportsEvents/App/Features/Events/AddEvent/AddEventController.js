@@ -1,5 +1,5 @@
 ﻿events.controller("AddEventController", [
-    "$http", '$scope', 'dataRepository', 'notification', function ($http, $scope, dataRepository, notification) {
+    "$http", '$scope', 'dataRepository', 'notification','authentication', function ($http, $scope, dataRepository, notification,authentication) {
         (function getCountries() {
             dataRepository.getAll("countries").then(function (data) {
                 $scope.countries = data;
@@ -99,15 +99,18 @@
                 for (var j = 0; j < model.pictures.length; j++) {
                     funcs[j]();
                 }
+                event.Pictures = picturesStirngs;
+
             }
-            event.Pictures = picturesStirngs;
-            $http.post(url, event).then(function (data) {
-                notification.success("Event Created");
-            }, function (data) {
-                notification.error("charlie foxtrot");
+            var config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
 
-            });
+        $http.post(url, event,config).then(function (data) {
+            notification.success("Event Created");
+        }, function (data) {
+            notification.error("charlie foxtrot");
 
-        };
-    }
+        });
+
+    };
+}
 ]);

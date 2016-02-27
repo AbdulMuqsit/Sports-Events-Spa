@@ -1,0 +1,12 @@
+﻿.account-panel {
+    position: fixed;
+    background: #042b69;
+    width: 150px;
+    height: 150px;
+    top: 70px;
+    right: 30px;
+}
+.account-panel a {
+        float: left;
+
+}

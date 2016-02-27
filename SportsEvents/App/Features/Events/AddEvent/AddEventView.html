@@ -1,34 +1,34 @@
-﻿<div class="form-view">
+﻿<form name="addEvent" class="form-view">
     <h2 class="header-lg">New Event</h2>
-    <span class="information-text">Please enter the new event infrmation below</span>
+    <span class="information-text">Enter the new event infrmation below, all fields containing '*' are necessary</span>
     <hr />
     <div>
 
         <div>
-            <span>Description</span>
-            <input placeholder="Description" ng-model="model.description" type="text" />
+            <span>Description*</span>
+            <input required placeholder="Description" ng-model="model.description" type="text" />
         </div>
 
 
         <div>
-            <span>Sports Type</span>
-            <select ng-options="sport as sport.Name for sport in sports track by sport.Id" ng-model="model.sport">
+            <span>Sports Type*</span>
+            <select required ng-options="sport as sport.Name for sport in sports track by sport.Id" ng-model="model.sport">
                 <option disabled>
                     Select an Sport
                 </option>
             </select>
         </div>
         <div>
-            <span>Event Type</span>
-            <select ng-options="eventType as eventType.Name for eventType in eventTypes track by eventType.Id" ng-model="model.eventType">
+            <span>Event Type*</span>
+            <select required ng-options="eventType as eventType.Name for eventType in eventTypes track by eventType.Id" ng-model="model.eventType">
                 <option disabled>
                     Select an EventType
                 </option>
             </select>
         </div>
         <div>
-            <span>Starting Price</span>
-            <input placeholder="Starting price" type="number" step="0.1" ng-model="model.startingPrice" />
+            <span>Starting Price*</span>
+            <input required placeholder="Starting price" type="number" step="0.1" ng-model="model.startingPrice" />
         </div>
         <div style="height: 300px">
             <span>Details</span>
@@ -39,20 +39,20 @@
 
     <div>
         <div>
-            <span>Starting Date</span>
-            <input placeholder="Starting Date" type="date" ng-model="model.beginDate" />
+            <span>Starting Date*</span>
+            <input required placeholder="Starting Date" type="date" ng-model="model.beginDate" />
         </div>
         <div>
-            <span>Ending Date</span>
-            <input placeholder="End Date" type="date" ng-model="model.endDate" />
+            <span>Ending Date*</span>
+            <input required placeholder="End Date" type="date" ng-model="model.endDate" />
         </div>
         <div>
-            <span>Starting Time</span>
-            <input placeholder="Start Time" type="time" ng-model="model.beginTime" />
+            <span>Starting Time*</span>
+            <input required placeholder="Start Time" type="time" ng-model="model.beginTime" />
         </div>
         <div>
-            <span>Ending Time</span>
-            <input placeholder="End Time" type="time" ng-model="model.endTime" />
+            <span>Ending Time*</span>
+            <input required placeholder="End Time" type="time" ng-model="model.endTime" />
         </div>
     </div>
     <hr />
@@ -82,24 +82,24 @@
 
     <div>
         <div>
-            <span>Address Line One</span>
-            <input placeholder="Line One" type="text" ng-model="model.lineOne" />
+            <span>Address Line One*</span>
+            <input required placeholder="Line One" type="text" ng-model="model.lineOne" />
         </div>
         <div>
             <span>Address Line Two</span>
             <input placeholder="Line Two" type="text" ng-model="model.lineTwo" />
         </div>
         <div>
-            <span>Country</span>
-            <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country" ng-change="getCities(model.country)">
+            <span>Country*</span>
+            <select required ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country" ng-change="getCities(model.country)">
                 <option disabled>
                     Select an country
                 </option>
             </select>
         </div>
         <div>
-            <span>City</span>
-            <select ng-options="city as city.Name for city in cities track by city.Id" ng-model="model.city">
+            <span>City*</span>
+            <select required ng-options="city as city.Name for city in cities track by city.Id" ng-model="model.city">
                 <option disabled>
                     Select a city
                 </option>
@@ -107,14 +107,14 @@
         </div>
 
         <div>
-            <span>Zip Code</span>
-            <input type="text" placeholder="Enter Zip Code" ng-model="model.zip" />
+            <span>Zip Code*</span>
+            <input required type="text" placeholder="Enter Zip Code" ng-model="model.zip" />
         </div>
 
     </div>
     <hr />
 
     <div>
-        <input type="button" ng-click="submit(model)" value="Create Event" />
+        <input type="button" ng-click="submit(model)" ng-disabled="addEvent.$invalid" value="Create Event" />
     </div>
-</div>
+</form>

@@ -66,10 +66,10 @@ namespace SportsEvents.ApiControllers
 
         [HttpGet]
         [Route("Search/{searchPhrase?}/{sportType?}/{eventType?}/{startingDate?}/{zipCode?}/{city?}/{startingPrice?}")]
-        public async Task<IHttpActionResult> Search([FromUri] string searchPhrase = "", [FromUri]int sportType = 0, [FromUri]int eventType = 0, [FromUri]DateTime? startingDate = null , [FromUri]string zipCode = "", [FromUri]int city = 0, [FromUri]float? startingPrice = 0.0F)
+        public async Task<IHttpActionResult> Search([FromUri] string searchPhrase = "", [FromUri]int sportType = 0, [FromUri]int eventType = 0, [FromUri]DateTime? startingDate = null, [FromUri]string zipCode = "", [FromUri]int city = 0, [FromUri]float? startingPrice = 0.0F)
         {
-            var events = await DbContext.Events.Where(e => e.Description.Contains(searchPhrase) && (sportType == 0 || e.SportId == sportType ) && (eventType == 0 || e.EventTypeId == eventType) && (startingDate == null || e.BeginDate > startingDate) && (zipCode == "" || e.Zip == zipCode) && (city == 0 || e.CityId == city) && (startingPrice == null|| e.StartingPrice > startingPrice)).ToListAsync();
-            return Ok(events);   
+            var events = await DbContext.Events.Where(e => e.Description.Contains(searchPhrase) && (sportType == 0 || e.SportId == sportType) && (eventType == 0 || e.EventTypeId == eventType) && (startingDate == null || e.BeginDate > startingDate) && (zipCode == "" || e.Zip == zipCode) && (city == 0 || e.CityId == city) && (startingPrice == null || e.StartingPrice > startingPrice)).ToListAsync();
+            return Ok(events);
         }
 
         [HttpPost]
@@ -82,16 +82,23 @@ namespace SportsEvents.ApiControllers
                 {
                     return BadRequest(ModelState);
                 }
+                var city = DbContext.Cities.FindAsync(model.CityId);
+                var sport = DbContext.Sports.FindAsync(model.SportId);
+                var eventType = DbContext.EventTypes.FindAsync(model.EventTypeId);
+
+                await Task.WhenAll(city, sport, eventType);
                 var _event = ModelFactory.Get(model);
 
-                _event.CityId = model.CityId.Value;
-                _event.SportId = model.SportId;
-                _event.EventTypeId = model.EventTypeId;
+                _event.CityId = city.Result.Id;
+                _event.SportName = sport.Result.Name;
+                _event.SportId = sport.Result.Id;
+                _event.EventTypeId = eventType.Result.Id;
+                _event.EventTypeName = eventType.Result.Name;
                 _event.OrganizerId = User.Identity.GetUserId();
                 _event.OrganizerName = User.Identity.Name;
 
                 //saving to database
-
+                DbContext.Events.Add(_event);
                 var result = await DbContext.SaveChangesAsync();
 
 
@@ -110,15 +117,40 @@ namespace SportsEvents.ApiControllers
         [Route("BookmarkEvents")]
         public async Task<IHttpActionResult> BookmarkEvents(BookmarkEventsModel model)
         {
-            var user = await UserManager.Users.Include(u => u.BookmarkedEvents).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-            var event_ = await DbContext.Events.FindAsync(model.id);
-            if (user.BookmarkedEvents == null)
+            try
             {
-                user.BookmarkedEvents = new List<Event>();
+                var user = await UserManager.Users.Include(u => u.BookmarkedEvents).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+                var event_ = await DbContext.Events.Include(e => e.BookmarkerVisitors).FirstOrDefaultAsync(e => e.Id == model.Id);
+                if (user.BookmarkedEvents == null)
+                {
+                    user.BookmarkedEvents = new List<Event>();
+                }
+                if (user.BookmarkedEvents.All(e => e.Id != event_.Id))
+                {
+                    user.BookmarkedEvents.Add(event_);
+                    var result = await DbContext.SaveChangesAsync();
+                    if (result <= 0)
+                    {
+                        return InternalServerError();
+                    }
+                }
+                if (event_.BookmarkerVisitors.All(e => e.Id != user.Id))
+                {
+                    event_.BookmarkerVisitors.Add(user);
+                    var identityResult = await UserManager.UpdateAsync(user);
+                    if (!identityResult.Succeeded)
+                    {
+                        return InternalServerError();
+                    }
+                }
+
+                return Ok();
             }
-            user.BookmarkedEvents.Add(event_);
-            await UserManager.UpdateAsync(user);
-            return Ok(event_);
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
         }
 
         [Route("RequestRegistration")]
@@ -138,22 +170,22 @@ namespace SportsEvents.ApiControllers
         [Route("AcceptRegistrationRequests")]
         public async Task<IHttpActionResult> AcceptRegistrationRequests(AcceptRegistrationRequestsModel model)
         {
-            var user = await UserManager.Users.Include(u => u.RegisteredEvents).Include(u=>u.RegistrationRequests).Where(u=>u.UserName == model.userName).FirstOrDefaultAsync();
-            var event_ = await DbContext.Events.Include(ev => ev.RegisteredVisitors).Include(ev => ev.RegisterRequestVisitors).FirstOrDefaultAsync(ev=>ev.Id == model.eventId);
+            var user = await UserManager.Users.Include(u => u.RegisteredEvents).Include(u => u.RegistrationRequests).Where(u => u.UserName == model.userName).FirstOrDefaultAsync();
+            var event_ = await DbContext.Events.Include(ev => ev.RegisteredVisitors).Include(ev => ev.RegisterRequestVisitors).FirstOrDefaultAsync(ev => ev.Id == model.eventId);
             var organizer = await UserManager.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             var organizerEvents = DbContext.Events.Where(ev => ev.OrganizerName == User.Identity.Name).ToList();
 
-            if (!organizerEvents.Any(ev=>ev.Id == model.eventId))
+            if (!organizerEvents.Any(ev => ev.Id == model.eventId))
             {
                 return BadRequest();
             }
-            if (!event_.RegisterRequestVisitors.Any(u=>u.UserName==model.userName))
+            if (!event_.RegisterRequestVisitors.Any(u => u.UserName == model.userName))
             {
                 return BadRequest();
             }
-            if (!user.RegistrationRequests.Any(ev=>ev.Id==model.eventId))
+            if (!user.RegistrationRequests.Any(ev => ev.Id == model.eventId))
             {
-                return BadRequest();                
+                return BadRequest();
             }
             event_.RegisterRequestVisitors.Remove(user);
             event_.RegisteredVisitors.Add(user);

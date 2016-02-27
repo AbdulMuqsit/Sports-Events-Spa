@@ -1,0 +1,35 @@
+﻿.admin-panel {
+    
+    
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.39);
+    position: relative;
+    font-size: 19px;
+    text-align: center;
+    align-content: center;
+}
+.links {
+
+    width: 200px;
+    left: 33%;
+    position: relative;
+    margin: 20px auto 20px 0;
+    font-size: 18px;
+    background: #eee;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.selection-panel {
+    float: left;
+    width:110px;
+    background: #042b69;
+    font-size: 19px;
+}
+
+.selection-view{
+    width: 600px;
+    height: 100%;
+    background: white;
+    margin: 100px 0 15px 150px;
+
+}

@@ -245,6 +245,9 @@
     <Content Include="App\Features\Layout\AccountSection.css" />
     <Content Include="App\Features\Layout\SearchController.js" />
     <Content Include="App\Features\Layout\AccountSectionController.js" />
+    <Content Include="App\Features\User\Admin\AdminPanel\AdminPanel.css" />
+    <Content Include="App\Features\User\Admin\AdminPanel\AdminPanelController.js" />
+    <Content Include="App\Features\User\Admin\AdminPanel\AdminPanelView.html" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityController.js" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityView.html" />
     <Content Include="App\App.js" />
@@ -1121,7 +1124,6 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Features\User\Admin\AdminPanel\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

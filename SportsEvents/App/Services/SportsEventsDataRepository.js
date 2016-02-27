@@ -25,7 +25,6 @@
             "sports": baseUri + entityNames["sports"]
 
 
-
         };
         var subCollectionUri = function (type, id, collection) {
             return baseUri + entityNames[type] + "/" + id + "/" + entityNames[collection];
@@ -181,6 +180,39 @@
                     url = url.slice(0, url.length - 1);
                 }
 
+                $http.get(url).then(function (data) {
+                    defered.resolve(data.data);
+                }, function (data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
+            
+            this.registeredEvents = function() {
+                var defered = $q.defer();
+                var url = uriColection["event"] + "RegisteredEvents";
+                $http.get(url).then(function(data) {
+                    defered.resolve(data.data);
+                }, function(data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
+
+            this.registrationRequests = function () {
+                var defered = $q.defer();
+                var url = uriColection["event"] + "RegistrationRequests";
+                $http.get(url).then(function (data) {
+                    defered.resolve(data.data);
+                }, function (data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
+
+            this.bookmarkedEvents = function () {
+                var defered = $q.defer();
+                var url = uriColection["event"] + "BookmarkedEvents";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {

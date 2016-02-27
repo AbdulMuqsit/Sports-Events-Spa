@@ -6,6 +6,7 @@
 /// <reference path="../app/features/home/homecontroller.js" />
 /// <reference path="../app/features/layout/accountsectioncontroller.js" />
 /// <reference path="../app/features/layout/searchcontroller.js" />
+/// <reference path="../app/features/user/admin/adminpanel/adminpanelcontroller.js" />
 /// <reference path="../app/features/user/admin/city/addcity/addcitycontroller.js" />
 /// <reference path="../app/features/user/admin/country/addcountry/addcountrycontroller.js" />
 /// <reference path="../app/features/user/admin/eventtype/addeventtype/addeventtypecontroller.js" />

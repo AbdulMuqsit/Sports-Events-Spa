@@ -23,11 +23,11 @@ namespace SportsEvents.Models
 
         [Display(Name = "Starting Time")]
         [Required(ErrorMessage = "{0} is required.")]
-        public DateTime BeginTime { get; set; }
+        public DateTime? BeginTime { get; set; }
 
         [Display(Name = "Ending Time")]
         [Required(ErrorMessage = "{0} is required.")]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         [Display(Name = "Address Line One")]
         [Required(ErrorMessage = "{0} is required.")]
@@ -43,7 +43,6 @@ namespace SportsEvents.Models
         [Required(ErrorMessage = "{0} is required.")]
         public string Zip { get; set; }
 
-        public string State { get; set; }
 
         [Required]
         [MaxLength(150, ErrorMessage = "Length exceeded. Maximum 150 characters allowed.")]
@@ -53,10 +52,12 @@ namespace SportsEvents.Models
         public string Details { get; set; }
 
         public string Icon { get; set; }
-        public List<string> Pictures { get; set; }
+       // public List<string> Pictures { get; set; }
         public string VideoLink { get; set; }
         public string ExternalLink { get; set; }
-        public int SportId { get; set; }
-        public int EventTypeId { get; set; }
+        [Required]
+        public int? SportId { get; set; }
+        [Required]
+        public int? EventTypeId { get; set; }
     }
 }

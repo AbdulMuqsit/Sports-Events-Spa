@@ -20,6 +20,10 @@
     </div>
     <p class="details">{{event.Details | truncate:150}}</p>
 
+    <div class="interaction-section">
+        <span ng-click="bookmark(event)" class="fa fa-heart-o"></span>
+        <span ng-click="register(event.Id)" class="fa fa-pencil-square-o"></span>
 
+    </div>
 </div>
 <input type="button" value="Load More" ng-click="loadMore()" />

@@ -1,5 +1,5 @@
 ﻿repository.factory('dataRepository', [
-    '$http', '$q', function ($http, $q) {
+    '$http', '$q', 'authentication', function ($http, $q, authentication) {
         var baseUri = "/api/";
         var entityNames = {
             "city": "Cities",
@@ -31,6 +31,86 @@
             return baseUri + entityNames[type] + "/" + id + "/" + entityNames[collection];
         }
         function dataRepository() {
+
+            //general http functions
+            function get(url) {
+                var config = null;
+                if (authentication.identity) {
+                    config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
+
+                }
+                var defered = $q.defer();
+                $http.get(url, config).then(function (data) {
+                    defered.resolve(data.data);
+                }, function (data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
+            function post(url, model) {
+                var config = null;
+                if (authentication.identity) {
+                    config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
+
+                }
+                var defered = $q.defer();
+                $http.post(url, model, config).then(function (data) {
+                    defered.resolve(data.data);
+                }, function (data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
+            //events repository
+
+            this.events = {
+                getBookmarkedEvents: function () {
+                    var url = uriColection["event"] + "/";
+
+                    return get(url);
+                },
+
+                getRegisteredEvents: function () {
+                    var url = uriColection["event"];
+
+                    return get(url);
+                },
+                getMyEvents: function () {
+                    var url = uriColection["event"] + "/MyEvents";
+
+                    return get(url);
+                },
+
+                getRegisteredUsers: function () {
+                    var url = uriColection["event"] + "/MyEvents";
+
+                    return get(url);
+                }, getClickerUsers: function () {
+                    var url = uriColection["event"] + "/MyEvents";
+
+                    return get(url);
+                }, getRegistrationRequests: function () {
+                    var url = uriColection["event"] + "/MyEvents";
+
+                    return get(url);
+                },
+
+                bookmark(eventId) {
+                    var url = uriColection['event'] + '/BookmarkEvents';
+                    var model = {
+                        Id: eventId
+                    };
+                    return post(url, model);
+                },
+
+                register(eventId) {
+                    var url = uriColection['event'] + '/RegistrationRequests';
+                    var model = {
+                        Id: eventId
+                    };
+                    return post(url, model);
+                }
+            }
             this.add = function (type, entity) {
                 var defered = $q.defer();
                 $http.post(uriColection[type], entity).then(function (data) {
@@ -73,7 +153,7 @@
             }
             this.search = function (searchPhrase, sportType, eventType, startingDate, zipCode, city, startingPrice) {
                 var defered = $q.defer();
-                
+
                 var url = uriColection["event"] + "/Search?";
                 if (searchPhrase) {
                     url += "searchPhrase=" + searchPhrase + "&";

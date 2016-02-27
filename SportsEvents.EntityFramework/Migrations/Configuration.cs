@@ -73,6 +73,7 @@ namespace SportsEvents.EntityFramework.Migrations
                         };
 
                         usermanager.Create(user, "idkwmpsb");
+                        
                     }
                     context.Advertisements.AddRange(advertisements);
                     var organizers = context.Users.ToList();

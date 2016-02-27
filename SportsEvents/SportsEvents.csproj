@@ -242,6 +242,7 @@
     <Content Include="App\CustomFilters\LimitToDirective.js" />
     <Content Include="App\Features\Home\Home.css" />
     <Content Include="App\Features\Home\HomeView.html" />
+    <Content Include="App\Features\Layout\AccountSection.css" />
     <Content Include="App\Features\Layout\SearchController.js" />
     <Content Include="App\Features\Layout\AccountSectionController.js" />
     <Content Include="App\Features\User\Admin\City\AddCity\AddCityController.js" />
@@ -258,6 +259,7 @@
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
     <Content Include="App\Features\User\Organizer\ControlPanel\OrganizerControlPanelController.js" />
+    <Content Include="App\Features\User\Organizer\ControlPanel\OrganizerControlPanelView.html" />
     <Content Include="App\Features\User\Organizer\Register\RegisterOrganizerController.js" />
     <Content Include="App\Features\User\Organizer\Register\RegisterOrganizerView.html" />
     <Content Include="App\Features\User\SignIn\SignInController.js" />

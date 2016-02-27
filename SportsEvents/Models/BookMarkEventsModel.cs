@@ -10,7 +10,7 @@ namespace SportsEvents.Models
     {
         [Display(Name = "Event Id")]
         [Required(ErrorMessage ="{0} is Required.") ]
-        public int id { get; set; }
+        public int Id { get; set; }
 
 
     }

@@ -3,43 +3,47 @@
     <h3>My Events</h3>
     <div>
         <div>
-            <input type="radio" ng-click="switchView('myEvents')" name="switch" value="My Events" />
-            <input type="radio" ng-click="switchView('registrationRequests')" name="switch" value="Registration Requests" />
-            <input type="radio" ng-click="switchView('registeredUsers')" name="switch" value="Registered Users" />
-            <input type="radio" ng-click="switchView('bookmarkerUsers')" name="switch" value="Bookmarker Users" />
-            <input type="radio" ng-click="switchView('clicks')" name="switch" value="Clicks" />
+            <input type="radio" checked ng-click="switchView('myEvents')" ng-model="view" name="switch" value="myEvents" />
+            <input type="radio" ng-click="switchView('registrationRequests')" ng-model="view" name="switch" value="registrationRequests" />
+            <input type="radio" ng-click="switchView('registeredUsers')" ng-model="view" name="switch" value="registeredUsers" />
+            <input type="radio" ng-click="switchView('bookmarkerUsers')" ng-model="view" name="switch" value="bookmarkerUsers" />
+            <input type="radio" ng-click="switchView('clicks')" ng-model="view" name="switch" value="clicks" />
 
         </div>
         <div ng-switch="view">
-            <div ng-when-when="myEvents">
+            <div ng-switch-when="myEvents">
                 <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
                     <span>{{event.Description}}</span>
                 </div>
                 <span ng-if="myEvents.length<=0">No Events Found</span>
                 <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
             </div>
-            <div ng-when-when="registrationRequests">
+            <div ng-switch-when="registrationRequests">
+                <div ng-if="registrationRequests.length>0" ng-repeat="event in registrationRequests">
+                    <span>{{event.Description}}</span>
+                    <div ng-repeat="user in event.Users">
+                        <span>{{user.UserName}}</span>
+                    </div>
+                </div>
+                <span ng-if="registrationRequests.length<=0">No Events Found</span>
+                <span ng-if="!registrationRequests">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
+            </div>
+            <div ng-switch-when="registeredUsers">
+                <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
+                    <span>{{event.Description}}</span>
+                    <div ng-repeat="user in RegisteredVisitors"></div>
+                </div>
+                <span ng-if="myEvents.length<=0">No Events Found</span>
+                <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
+            </div>
+            <div ng-switch-when="bookmarkerUsers">
                 <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
                     <span>{{event.Description}}</span>
                 </div>
                 <span ng-if="myEvents.length<=0">No Events Found</span>
                 <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
             </div>
-            <div ng-when-when="registeredUsers">
-                <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
-                    <span>{{event.Description}}</span>
-                </div>
-                <span ng-if="myEvents.length<=0">No Events Found</span>
-                <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
-            </div>
-            <div ng-when-when="bookmarkerUsers">
-                <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
-                    <span>{{event.Description}}</span>
-                </div>
-                <span ng-if="myEvents.length<=0">No Events Found</span>
-                <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
-            </div>
-            <div ng-when-when="clicks">
+            <div ng-switch-when="clicks">
                 <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
                     <span>{{event.Description}}</span>
                 </div>

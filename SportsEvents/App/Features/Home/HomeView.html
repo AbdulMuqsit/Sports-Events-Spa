@@ -7,9 +7,9 @@
     </a>
     <span class="begin-date">{{event.BeginDate  | date:'MM/dd/yyyy'}}</span>
     <span class="end-date">{{event.EndDate  | date:'MM/dd/yyyy'}}</span>
-     <span class="organizer-name"><span>by</span> {{event.OrganizerName}}</span>
+    <span class="organizer-name"><span>by</span> {{event.OrganizerName}}</span>
 
-     <span class="starting-price"><span>starting</span>  {{(event.StartingPrice | number:2) + " €"}}</span>
+    <span class="starting-price"><span>starting</span>  {{(event.StartingPrice | number:2) + " €"}}</span>
     <div class="types">
         <a ng-click="navigateToEventType(event)" class="event-type-name">
             <span><span>of</span> {{event.EventTypeName}}</span>
@@ -21,9 +21,10 @@
     <p class="details">{{event.Details | truncate:150}}</p>
 
     <div class="interaction-section">
-        <span ng-click="bookmark(event)" class="fa fa-heart-o"></span>
-        <span ng-click="register(event.Id)" class="fa fa-pencil-square-o"></span>
+
+        <span ng-click="bookmark(event)" class="fa" ng-class="{'fa-heart-o':!event.Bookmarked,'fa-heart':event.Bookmarked}"></span>
+        <span ng-click="register(event)" class="fa" ng-class="{ 'fa-pencil':!(event.Registered || event.RequestedRegistration), 'fa-pencil-square-o':event.RequestedRegistration,'fa-pencil-square':event.Registered}">{{Registered}}</span>
 
     </div>
 </div>
-<input type="button" value="Load More" ng-click="loadMore()" />
+<input type="button" class="load-more" value="Load More" ng-click="loadMore()" />

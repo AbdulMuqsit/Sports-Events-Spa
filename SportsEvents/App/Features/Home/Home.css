@@ -1,103 +1,165 @@
 ﻿
 .calender-event {
     width: 600px;
-    height: 150px;
+    height: 220px;
     margin: 0 0 15px 150px;
     position: relative;
     background: white;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.39);
 }
-.calender-event .icon > img{
-    width: 70px;
-    height: 70px;
-    background: saddlebrown;
-}
-.calender-event .description {
-    position: absolute;
-    top: 5px;
-    left: 80px;
 
-    font-size: 18px;
+    .calender-event .icon > img {
+        width: 70px;
+        height: 70px;
+        background: saddlebrown;
+    }
 
-}
-.calender-event .begin-date {
-    position: absolute;
-    top: 30px;
-    left: 80px;
-    font-size: 16px;
+    .calender-event .description {
+        position: absolute;
+        top: 5px;
+        color: rgb(88, 144, 255);
+        left: 80px;
+        font-size: 22px;
+    }
 
-}
-.calender-event .end-date {
-    position: absolute;
-    top: 30px;
-    left: 170px;
-    font-size: 16px;
+    .calender-event .begin-date {
+        position: absolute;
+        top: 35px;
+        left: 80px;
+        font-size: 14px;
+    }
 
-}
-.calender-event span>span {
-    color: gray;
-}
-.calender-event .types {
-      position: absolute;
-    top: 55px;
-    left: 80px;
-    border-top: 1px solid lightgray;
-}
-.calender-event .sports-name,
-.calender-event .event-type-name {
-    position: relative;
-    
-    font-size: 16px;
+    .calender-event .end-date {
+        position: absolute;
+        top: 35px;
+        left: 160px;
+        font-size: 14px;
+    }
 
+    .calender-event span > span {
+        color: gray;
+    }
 
-}
-.calender-event .sports-name
- {
-    border-left: 1px solid lightgray;
-    
-    padding: 0 5px;
-    margin: 0;
-    
-}
-.calender-event .starting-price {
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    font-size: 16px;
+    .calender-event .types {
+        position: absolute;
+        top: 80px;
+        cursor: pointer;
+        color: rgb(88, 144, 255);
+        padding-top: 10px;
+        left: 5px;
+        width: 97%;
+        border-top: 1px solid #d3d3d3;
+        border-top: 1px solid rgba(211, 211, 211, 0.50);
+    }
 
-}
+    .calender-event .sports-name,
+    .calender-event .event-type-name {
+        position: relative;
+        font-size: 18px;
+    }
 
-.calender-event .details {
-    position: absolute;
-    border-top: 1px solid lightgray;
-    top: 65px;
-    left: 5px;
+    .calender-event .sports-name {
+        border-left: 1px solid #d3d3d3;
+        border-left: 1px solid rgba(211, 211, 211, 0.50);
+        padding: 0 5px;
+        margin: 0;
+    }
+
+    .calender-event .starting-price {
+        position: absolute;
+        top: 90px;
         right: 10px;
-    padding-top: 5px;
+        color: darkgreen;
+        font-size: 16px;
+    }
 
-    font-size: 16px;
+    .calender-event .details {
+        position: absolute;
+        border-top: 1px solid #d3d3d3;
+        border-top: 1px solid rgba(211, 211, 211, 0.50);
+        border-bottom: 1px solid #d3d3d3;
+        border-bottom: 1px solid rgba(211, 211, 211, 0.50);
+        top: 105px;
+        left: 5px;
+        right: 10px;
+        padding: 10px 0;
+        font-size: 16px;
+    }
 
-}
+    .calender-event .organizer-name {
+        position: absolute;
+        color: rgb(88, 144, 255);
+        border-bottom: 1px solid #d3d3d3;
+        border-bottom: 1px solid rgba(211, 211, 211, 0.50);
+        top: 10px;
+        cursor: pointer;
+        right: 10px;
+        font-size: 16px;
+    }
 
-.calender-event .organizer-name {
-    position: absolute;
-    border-bottom: 1px solid lightgray;
-    top: 30px;
-    right: 10px;
-    font-size: 16px;
+    .calender-event .icon {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
 
-}
-.calender-event .icon {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-}
 .interaction-section {
     position: absolute;
     bottom: 10px;
-    right:10px
+    right: 10px;
 }
-.interaction-section span {
-    margin-left: 10px;
-    cursor: pointer;
+
+    .interaction-section span {
+        margin-left: 10px;
+        cursor: pointer;
+        color: gray;
+        font-size: 14px;
+    }
+
+        .interaction-section span.fa-heart {
+            color: orange;
+        }
+
+        
+        .interaction-section span.fa-pencil-square,
+        .interaction-section span.fa-pencil-square-o {
+            color: rgb(88, 144, 255);
+        }
+
+/*actions wala bar apko bhi nzr ara? jo top pe hota? yeah nai ok 
+    ab dono screens aarai nzr but size bht bht chota hogya hy dono ka, not readable? ni pr chle ga, vs ko thora sa zoomed in kr k rakho 236% ha :P kam kr lo phr to, abi b nzr ni aa rha? abhi to clear ara is screen pr,theek h thora sa ziada kro (Y) :) :) ap kya kr rai? xamarin pr search tutorials, pltheuralsight check kro, udr ha yeah udhr hi ok (y) :), work, there??..., hey yeah, commit sync kiya tha? visitorview k bad nai kia, kr do :) ok :) 
+    there? okay, udhr type ni hora, ok easraphones lgay hoy? yea yes :PPPP cute awaz :P meri ni pyari ap k seriously :P ni jaoooooo :D mre bharosy r chor k ja rae :P kia pta ok jao, proper salan le k aana mtlb proper khana na pr... :( you said phone bnd ho jana, its really really slow what ae you saying aa rai hy me kr dun? ik bat poochni thi, yad aagai.. yad hy ap ik card lae thy use kr lya? mujhe pta tha.. nikalo abhi use kro, wo khtam hojae ga wese bhi.... kro kro shabash meri taraf se gift :P nikalo -_- hahaha ruko ik min, jana nai mri awaz aari 4219  ye kiakia hy kya?, inception :P :D :D meriyah awaz aaarai hy,
+    I'm going... :)
+    awaz ai thi abi ap ki awaz ai thi 1 second k leya, there? ab aarai? meri aai rai?  ?yeah ok, ap ki ni aa ri ok go, ok :) :)
+
+    Welcome back
+    kia lae?
+    konsa salan
+    sardi lag rai? awaz se lag ra
+    tabyat kesi hy sweetness.... jaldi so jao, ktna rehta h :/ ktna
+
+ :/ :/ :/ :( jaldi khtam kr k so na tbyat nai theek nai  apki. apki awaz kat gai yup.
+    aagai h and my answer iis JI NAHIII :D not fuzool me :P 
+    pta nai kia ho ra hy?? ab aa ari phle ni aarai thi room me andhera hy so typing bhi ulti seedhi ho rai, though i don't look while typing but still'
+    hahaha hue hue hue naaaa jaoooooo acha jao jao what aaaf coursee ji na:P :P : Pfuzook bat likhi thi mtlb over naraz ho gae? naraz ni ho na sweets......................................................................... hahahaha apki sceen dekh rai. nai na khana le k ao bhook lagi :P don't ruin the conversation :P kia ji ok'Hello kia lae you like mutton? normal i do. ab chicken phle ni tha yeah brabar hy bas 
+    khana =? kafi kch koi ik cheez sb se ziada ni na psnd 3, 4 cheezen hn.. btati hn.. biryani, xamarin forms pr ik video dekh rai thi.. do you know about prism? kia cheez hy ese hi.. krta kia hy
+    xml and axml me difference hy?ziada?
+    bolo awaz nai aarai
+    hello yes ok koi designer hota hy axml ka? oh okay yeah wahan bna k copy paste bhi kia ja skta. kdhr se aata configure krna patta ya alag se instal yeah what ni wo awaz kat gai thi, aksar ye slow ho jata and apka half sentence miss ho jata hy xamarin? yeah yeahokay code open hota hy na designer to hota hi nai you said ok drag and drop bhi hota.
+    okay... mujhe biryani pasnd, chinese rice nai khae hue? what why? talking about chinese fried rice kia hojata hy :D :D they are tasty kbhi try bhi kye hn? phr ap ne meri ammi k hath k nai khae.. i'll bring :).. us k ilawa nihari, karahi, or ks ki why??? i'll tell him to return money.. kyun nai hy  hy masla kia mtlb dobara parho pta nai shyd microsoft ki trf se email? me is se monday ko poochun gi. aai hogi tab silent pr hy, mujhe apne text or email kitune me confusion hojati mix up ho jati hn :P awaz nai aarai ab aarai hy nai 
+    i love this sound. :P karahi nai psnd? biryani? pulao? mujhe pulao tab psnd hy agr bht acha bna ho, korma? nai? ok yeah but me withoud salad and raita nai kha sakti pulao, and sab se ziada psnd mujhe spaghetties hn yah ^_^ why why or apne hath k baigan ya chicjen jalfrezi pasand, ksi or k hat k nai because koi or achy nai bnata wo ya may be jstrah mujhe psnd hn. apko? yeah mre hath k nai khae na islye ^_^ ok or kia psnd.. meri wali me nai hoti :P
+    yeah baten na kro larki :D :D :D :D :P :D HAHA am messing with your mind you are so easy to  mess with :P acha btao or kia psnd chaney  :( never ate that dalon me chicken kbhi nai khaya :P karahi ziada achi hoti ok or mujhe sirf qurbani wala beef psnd hy jo khud zibah kia ho wo fresh hota hy bazar wala beef ksi kaam ka ni hota seriously hahahhahahahaha whattt :O :O kbhi khana hi nai chahye bhr ka yeah usi ki bat kr rai, bakra khud khareed k phle us k sath kai din khele :P bhr ghumae phr wohi zibah, me kai din se abu se kh rai hn k bakra la den , he said  la dun ga WHATTTTT i am not bakri, i am  LIONESS blke no iam LION <- to waqat kyun zaya kr rae? theek farmaya??? jo bola abhi ok bye theek bol rai hn waqat zaya kr rae ho to phr bye bye :/ :D :D  :D what :D :D  advantage.. or ap bol rae ho second lgta mujhe itna likhna par ra :/ ye sab upr mene hi likha hy sirf :P bar ni mil ra tha yeah.. ok kam kro ok work work
+
+
+
+
+
+
+*/
+
+
+.load-more {
+    position: relative;
+    margin: 50px 0 50px 400px;
+    float: none !important;
 }

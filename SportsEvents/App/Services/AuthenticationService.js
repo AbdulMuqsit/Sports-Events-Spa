@@ -14,6 +14,7 @@
 
 AuthenticationService.prototype.signOut=function() {
     this.cookies.remove('identity');
+    var cookie = this.cookies.get("identity");
     this.location.path("/");
     this.window.location.reload();
 
@@ -38,7 +39,7 @@ AuthenticationService.prototype.authenticate = function (model) {
     temp.success(function(result) {
         var token = result;
         outerScope.identity = token;
-        outerScope.cookieStore.put('identity', token);
+        outerScope.cookies.put('identity', token);
         deffered.resolve(result);
     });
     return  deffered.promise;

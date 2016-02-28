@@ -1,4 +1,4 @@
-﻿sportsEvents.controller('HomeController', ['$scope', 'dataRepository', '$rootScope', function ($scope, dataRepository, $rootScope) {
+﻿sportsEvents.controller('HomeController', ['$scope', 'dataRepository', '$rootScope', 'authentication', '$location', function ($scope, dataRepository, $rootScope, authentication, $location) {
 
     $scope.page = 0;
     $scope.take = 20;
@@ -15,16 +15,24 @@
     }
 
     $scope.bookmark = function (event) {
+        if (!authentication.identity) {
+            $location.path('/signin');
+            return;
+        }
         dataRepository.events.bookmark(event.Id).then(function (data) {
-            event.bookmarked = true;
+            event.Bookmarked = true;
         });
 
 
     }
 
     $scope.register = function (event) {
+        if (!authentication.identity) {
+            $location.path('/signin');
+            return;
+        }
         dataRepository.events.register(event.Id).then(function (data) {
-            event.registered = true;
+            event.RequestedRegistration = true;
         });
     }
     $scope.loadMore();

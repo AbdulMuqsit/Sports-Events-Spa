@@ -22,8 +22,36 @@ namespace SportsEvents.ApiControllers
         [HttpGet]
         [Route("Calender/{page?}/{take?}")]
         public async Task<IHttpActionResult> GetCalender([FromUri]int page = 0, [FromUri]int take = 20)
+
         {
-            return Ok(await DbContext.Events.Where(e => e.BeginDate > DateTime.UtcNow).OrderBy(e => e.BeginDate).Skip(page * take).Take(take).ToListAsync());
+
+            var authenticated = User.Identity.IsAuthenticated;
+            var userId = User.Identity.GetUserId();
+            var events =
+          await
+              DbContext.Events.Include(e => e.RegisterRequestVisitors).Include(e => e.RegisteredVisitors).Include(e => e.BookmarkerVisitors).Where(e => e.BeginDate > DateTime.UtcNow)
+                  .OrderBy(e => e.BeginDate)
+                  .Skip(page * take)
+                  .Take(take)
+                  .Select(e => new
+                  {
+                      e.Id,
+                      e.Description,
+                      e.OrganizerName,
+                      e.Details,
+                      e.EventTypeName,
+                      e.SportName,
+                      e.BeginDate,
+                      e.EndDate,
+                      e.StartingPrice,
+                      Bookmarked = authenticated && e.BookmarkerVisitors.Any(u => u.Id == userId),
+                      Registered = authenticated && e.RegisteredVisitors.Any(u => u.Id == userId),
+                      RequestedRegistration = authenticated && e.RegisterRequestVisitors.Any(u => u.Id == userId)
+                  }).ToListAsync();
+
+
+
+            return Ok(events);
         }
         [HttpGet]
         [Route("MyEvents")]
@@ -33,13 +61,13 @@ namespace SportsEvents.ApiControllers
             var events = await DbContext.Events.Where(_event => _event.OrganizerId == userId).ToListAsync();
             return Ok(events);
         }
-        
+
         [HttpGet]
         [Route("RegisteredEvents")]
         public async Task<IHttpActionResult> RegisteredEvents()
         {
             var user = await UserManager.Users.Include(u => u.RegisteredEvents).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-            
+
             return Ok(user?.RegisteredEvents);
         }
 
@@ -114,8 +142,8 @@ namespace SportsEvents.ApiControllers
             }
         }
 
-        [Route("BookmarkEvents")]
-        public async Task<IHttpActionResult> BookmarkEvents(BookmarkEventsModel model)
+        [Route("BookmarkEvent")]
+        public async Task<IHttpActionResult> BookmarkEvent(BookmarkEventsModel model)
         {
             try
             {
@@ -124,6 +152,10 @@ namespace SportsEvents.ApiControllers
                 if (user.BookmarkedEvents == null)
                 {
                     user.BookmarkedEvents = new List<Event>();
+                }
+                if (event_.BookmarkerVisitors == null)
+                {
+                    event_.BookmarkerVisitors = new List<User>();
                 }
                 if (user.BookmarkedEvents.All(e => e.Id != event_.Id))
                 {
@@ -154,17 +186,39 @@ namespace SportsEvents.ApiControllers
         }
 
         [Route("RequestRegistration")]
+        [HttpPost]
+        [Authorize(Roles = "Visitor")]
         public async Task<IHttpActionResult> RegisterationRequests(RegistrationRequestsModel model)
         {
             var user = await UserManager.Users.Include(u => u.RegistrationRequests).FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-            var event_ = await DbContext.Events.FindAsync(model.id);
+            var event_ = await DbContext.Events.Include(e => e.RegisterRequestVisitors).FirstOrDefaultAsync(e => e.Id == model.Id);
             if (user.RegistrationRequests == null)
             {
                 user.RegistrationRequests = new List<Event>();
             }
-            user.BookmarkedEvents.Add(event_);
-            await UserManager.UpdateAsync(user);
-            return Ok(event_);
+            if (event_.RegisterRequestVisitors == null)
+            {
+                event_.RegisterRequestVisitors = new List<User>();
+            }
+            if (user.RegistrationRequests.All(e => e.Id != event_.Id))
+            {
+                user.RegistrationRequests.Add(event_);
+                var result = await DbContext.SaveChangesAsync();
+                if (result <= 0)
+                {
+                    return InternalServerError();
+                }
+            }
+            if (user.RegistrationRequests.All(e => e.Id != model.Id))
+            {
+                user.RegistrationRequests.Add(event_);
+                var identityResult = await UserManager.UpdateAsync(user);
+                if (!identityResult.Succeeded)
+                {
+                    return InternalServerError();
+                }
+            }
+            return Ok();
         }
 
         [Route("AcceptRegistrationRequests")]

@@ -10,7 +10,8 @@
             "eventType": "EventTypes",
             "sport": "Sports",
             "eventTypes": "EventTypes",
-            "sports": "Sports"
+            "sports": "Sports",
+            "organizer": "Organizer"
         }
 
         var uriColection = {
@@ -22,7 +23,8 @@
             "eventType": baseUri + entityNames["eventType"],
             "sport": baseUri + entityNames["sport"],
             "eventTypes": baseUri + entityNames["eventTypes"],
-            "sports": baseUri + entityNames["sports"]
+            "sports": baseUri + entityNames["sports"],
+            "organizer": baseUri + entityNames["organizer"]
 
 
         };
@@ -71,7 +73,6 @@
 
                 getRegisteredEvents: function () {
                     var url = uriColection["event"];
-
                     return get(url);
                 },
                 getMyEvents: function () {
@@ -79,23 +80,27 @@
 
                     return get(url);
                 },
-
-                getRegisteredUsers: function () {
-                    var url = uriColection["event"] + "/MyEvents";
+                 getRegisteredUsers: function () {
+                    var url = uriColection["organizer"] + "/RegisteredVisitors";
 
                     return get(url);
                 }, getClickerUsers: function () {
-                    var url = uriColection["event"] + "/MyEvents";
+                    var url = uriColection["organizer"] + "/ClickerUsers";
 
                     return get(url);
                 }, getRegistrationRequests: function () {
+                    var url = uriColection["organizer"] + "/RegistrationRequests";
+
+                    return get(url);
+                },
+                getBookmarkerVisitors: function () {
                     var url = uriColection["event"] + "/MyEvents";
 
                     return get(url);
                 },
 
                 bookmark(eventId) {
-                    var url = uriColection['event'] + '/BookmarkEvents';
+                    var url = uriColection['event'] + '/BookmarkEvent';
                     var model = {
                         Id: eventId
                     };
@@ -103,7 +108,7 @@
                 },
 
                 register(eventId) {
-                    var url = uriColection['event'] + '/RegistrationRequests';
+                    var url = uriColection['event'] + '/RequestRegistration';
                     var model = {
                         Id: eventId
                     };
@@ -143,7 +148,12 @@
             this.getCalender = function (page, take) {
                 var defered = $q.defer();
                 var url = uriColection["event"] + "/Calender?page=" + page + "&take=" + take;
-                $http.get(url).then(function (data) {
+                var config = null;
+                if (authentication.identity) {
+                    config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
+
+                }
+                $http.get(url, config).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {
                     defered.reject(data);
@@ -187,13 +197,13 @@
                 });
                 return defered.promise;
             }
-            
-            this.registeredEvents = function() {
+
+            this.registeredEvents = function () {
                 var defered = $q.defer();
                 var url = uriColection["event"] + "RegisteredEvents";
-                $http.get(url).then(function(data) {
+                $http.get(url).then(function (data) {
                     defered.resolve(data.data);
-                }, function(data) {
+                }, function (data) {
                     defered.reject(data);
                 });
                 return defered.promise;
@@ -201,7 +211,7 @@
 
             this.registrationRequests = function () {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "RegistrationRequests";
+                var url = uriColection["events"] + "RegistrationRequests";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {

@@ -261,6 +261,7 @@
     <Content Include="App\Features\User\Admin\EventType\AddEventType\AddEventTypeController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportController.js" />
     <Content Include="App\Features\User\Admin\Sport\AddSport\AddSportView.html" />
+    <Content Include="App\Features\User\Organizer\ControlPanel\OrganizerControlPanel.css" />
     <Content Include="App\Features\User\Organizer\ControlPanel\OrganizerControlPanelController.js" />
     <Content Include="App\Features\User\Organizer\ControlPanel\OrganizerControlPanelView.html" />
     <Content Include="App\Features\User\Organizer\Register\RegisterOrganizerController.js" />

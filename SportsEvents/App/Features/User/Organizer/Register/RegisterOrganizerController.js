@@ -1,5 +1,5 @@
 ﻿user.controller("RegisterOrganizerController", [
-    "$scope", "$http", 'dataRepository', 'authentication', function ($scope, $http, dataRepository, authentication) {
+    "$scope", "$http", 'dataRepository', 'authentication', '$location', '$cookieStore', 'notification', function ($scope, $http, dataRepository, authentication, $location, $cookieStore, notification) {
 
 
 
@@ -29,8 +29,8 @@
                 "LastName": model.lastName,
                 "LineOne": model.lineOne,
                 "LineTwo": model.lineTwo,
-                "CountryId": model.country.Id,
-                "CityId": model.city.Id,
+                "CountryId": model.country ? model.country.Id : null,
+                "CityId": model.city ? model.city.Id : null,
                 "ContactFirstName": model.contctFirstName,
                 "ContactLastName": model.contactLastName,
                 "ContactLineOne": model.contactLineOne,
@@ -50,8 +50,12 @@
             var config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
 
             $http.post(url, organizer, config).then(function (data) {
-                authentication.identity.roles = authentication.identity.roles.concat(",Organizer");
-                toastr.success("Information saved");
+                $cookieStore.remove('identity');
+                delete authentication.identity;
+                $location.path("/signin/addevent");
+                notification.success("Information saved please log in agian to access your updated account");
+
+
             }, function (data) {
                 toastr.error("Something went wrong");
 

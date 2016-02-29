@@ -22,7 +22,7 @@
 
     <div class="interaction-section">
 
-        <span ng-click="bookmark(event)" class="fa" ng-class="{'fa-heart-o':!event.Bookmarked,'fa-heart':event.Bookmarked}"></span>
+        <span ng-click="bookmark(event)" class="fa" ng-class="{'fa-bookmark-o':!event.Bookmarked,'fa-bookmark':event.Bookmarked}"></span>
         <span ng-click="register(event)" class="fa" ng-class="{ 'fa-pencil':!(event.Registered || event.RequestedRegistration), 'fa-pencil-square-o':event.RequestedRegistration,'fa-pencil-square':event.Registered}">{{Registered}}</span>
 
     </div>

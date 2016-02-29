@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201602120801473_UpdateStuff.Designer.cs">
       <DependentUpon>201602120801473_UpdateStuff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602282214083_Pics.cs" />
+    <Compile Include="Migrations\201602282214083_Pics.Designer.cs">
+      <DependentUpon>201602282214083_Pics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="netfx\Testing\Ipsum.cs" />
     <Compile Include="SportsEventsDbContext.cs" />
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602120801473_UpdateStuff.resx">
       <DependentUpon>201602120801473_UpdateStuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602282214083_Pics.resx">
+      <DependentUpon>201602282214083_Pics.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

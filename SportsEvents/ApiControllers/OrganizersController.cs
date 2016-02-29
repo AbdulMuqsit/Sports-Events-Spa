@@ -31,7 +31,21 @@ namespace SportsEvents.ApiControllers
             }).ToListAsync();
             return Ok(events);
         }
+        [HttpGet]
+        [Authorize]
+        [Route("BookmarkerVisitors")]
+        public async Task<IHttpActionResult> GetBookmarkerVisitors()
+        {
+            var userId = User.Identity.GetUserId();
+            var events = await DbContext.Events.Include(_event => _event.BookmarkerVisitors).Where(_event => _event.OrganizerId == userId && _event.BookmarkerVisitors.Any()).Select(_event => new
+            {
+                _event.Id,
+                _event.Description,
+                Users = _event.BookmarkerVisitors.Select(user => new { user.Id, user.UserName })
 
+            }).ToListAsync();
+            return Ok(events);
+        }
         [HttpGet]
         [Authorize]
 
@@ -51,7 +65,7 @@ namespace SportsEvents.ApiControllers
         [HttpGet]
         [Authorize]
 
-        [Route("ClickerUsers")]
+        [Route("ClickerVisitors")]
         public async Task<IHttpActionResult> GetClickerUsers()
         {
             var userId = User.Identity.GetUserId();

@@ -1,54 +1,133 @@
-﻿<div>
-    <h3>Post New Event</h3>
-    <h3>My Events</h3>
+﻿<div class="organizer-control-panel">
+
     <div>
-        <div>
-            <input type="radio" checked ng-click="switchView('myEvents')" ng-model="view" name="switch" value="myEvents" />
-            <input type="radio" ng-click="switchView('registrationRequests')" ng-model="view" name="switch" value="registrationRequests" />
-            <input type="radio" ng-click="switchView('registeredUsers')" ng-model="view" name="switch" value="registeredUsers" />
-            <input type="radio" ng-click="switchView('bookmarkerUsers')" ng-model="view" name="switch" value="bookmarkerUsers" />
-            <input type="radio" ng-click="switchView('clicks')" ng-model="view" name="switch" value="clicks" />
+        <div class="controls">
+            <div class="control">
+
+                <input type="radio" checked="checked" ng-click="switchView('myEvents')" ng-model="view" id="myEvents" name="myEvents" value="myEvents" /><label for="myEvents">My Events</label>
+
+            </div>
+            <div class="control">
+                <input type="radio" id="registrationRequests" ng-click="switchView('registrationRequests')" ng-model="view" name="registrationRequests" value="registrationRequests" /><label for="registrationRequests">Registration Requests</label>
+
+
+            </div>
+
+            <div class="control">
+
+                <input type="radio" id="registeredUsers" ng-click="switchView('registeredUsers')" ng-model="view" name="registeredUsers" value="registeredUsers" /><label for="registeredUsers">Registered Users</label>
+
+            </div>
+
+            <div class="control">
+
+                <input type="radio" ng-click="switchView('bookmarkerUsers')" id="bookmarkerUsers" ng-model="view" name="bookmarkerUsers" value="bookmarkerUsers" /><label for="bookmarkerUsers">Bookmarker Users</label>
+
+            </div>
+
+            <div class="control">
+
+                <input type="radio" ng-click="switchView('clicks')" id="clicks" ng-model="view" name="clicks" value="clicks" /><label for="clicks">Clicks</label>
+
+            </div>
+
 
         </div>
-        <div ng-switch="view">
-            <div ng-switch-when="myEvents">
+        <div class="container" ng-switch="view">
+            <div class="myEvents" ng-switch-when="myEvents">
                 <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
-                    <span>{{event.Description}}</span>
-                </div>
-                <span ng-if="myEvents.length<=0">No Events Found</span>
-                <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
-            </div>
-            <div ng-switch-when="registrationRequests">
-                <div ng-if="registrationRequests.length>0" ng-repeat="event in registrationRequests">
-                    <span>{{event.Description}}</span>
-                    <div ng-repeat="user in event.Users">
-                        <span>{{user.UserName}}</span>
+                    <span>{{event.Description}}</span><br />
+                    <div class="stats">
+                        <span class="count"><i class="fa fa-bookmark"></i> {{event.BookmarksCount}}</span>
+                        <span class="count"><i class="fa fa-pencil-square-o"></i> {{event.RegistrationRequestsCount}}</span>
+                        <span class="count"><i class="fa fa-pencil-square"></i> {{event.RegisteredVisitorsCount}}</span>
+                        <span class="count"><i class="fa fa-mouse-pointer"></i> {{event.ClicksCount}}</span>
+                    </div>
+                    <div class="actions">
+                        <span ng-click="delete(event)"><i class="fa fa-2x fa-trash"></i></span>
+                        <span ng-click="edit(event)"><i class="fa fa-2x fa-pencil"></i></span>
+
                     </div>
                 </div>
-                <span ng-if="registrationRequests.length<=0">No Events Found</span>
-                <span ng-if="!registrationRequests">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
-            </div>
-            <div ng-switch-when="registeredUsers">
-                <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
-                    <span>{{event.Description}}</span>
-                    <div ng-repeat="user in RegisteredVisitors"></div>
-                </div>
                 <span ng-if="myEvents.length<=0">No Events Found</span>
                 <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
             </div>
-            <div ng-switch-when="bookmarkerUsers">
-                <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
-                    <span>{{event.Description}}</span>
+            <div  class="registrationRequests" ng-switch-when="registrationRequests">
+
+                <div ng-if="registrationRequests.length>0 && event.Users.length>0" ng-class="{'change-height':event.showRegistrationRequests}" ng-repeat="event in registrationRequests">
+                    <span>
+                        {{event.Description}}
+
+                    </span><i ng-click="event.showRegistrationRequests = !event.showRegistrationRequests" class="fa fa-chevron-circle-down"></i>
+                    <br />
+
+                    <span class="count"><i class="fa fa-pencil-square-o"></i>: {{event.Users.length}}</span>
+
+                    <div ng-if="event.showRegistrationRequests && view==='registrationRequests'">
+                        <h5>Registration Requests</h5>
+                        <div ng-repeat="user in event.Users">
+                            <span>{{user.UserName}}</span>
+                            <div class="actions">
+                                <a ng-click="acceptRegistration(event,user)">Accept</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <span ng-if="myEvents.length<=0">No Events Found</span>
-                <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
+                <span ng-if="registrationRequests.length<=0">No Registration Requests Found</span>
+                <span ng-if="!registrationRequests">Loading Registration Requests... <i class="fa fa-spinner fa-spin"></i></span>
             </div>
-            <div ng-switch-when="clicks">
-                <div ng-if="myEvents.length>0" ng-repeat="event in myEvents">
+            <div class="registeredUsers" ng-switch-when="registeredUsers">
+                <div ng-if="registeredUsers.length>0" ng-class="{'change-height':event.showRegisteredUsers}" ng-repeat="event in registeredUsers">
                     <span>{{event.Description}}</span>
+                    <i ng-click="event.showRegisteredUsers = !event.showRegisteredUsers" class="fa fa-chevron-circle-down"></i><br />
+                    <span class="count"><i class="fa fa-pencil-square-square"></i> {{event.Users.length}}</span>
+
+                    <div ng-if="event.showRegisteredUsers && view==='registeredUsers'">
+                        <h5>Registered Users</h5>
+
+                        <div ng-repeat="user in event.Users">
+                            <span>{{user.UserName}}</span>
+
+                        </div>
+                    </div>
                 </div>
-                <span ng-if="myEvents.length<=0">No Events Found</span>
-                <span ng-if="!myEvents">Loading Events... <i class="fa fa-spinner fa-spin"></i></span>
+                <span ng-if="registeredUsers.length<=0">No Registered Users Found</span>
+                <span ng-if="!registeredUsers">Loading Registered Users... <i class="fa fa-spinner fa-spin"></i></span>
+            </div>
+            <div class="bookmarkerVisitors" ng-switch-when="bookmarkerUsers">
+                <div ng-if="bookmarkerVisitors.length>0" ng-class="{'change-height':event.showBookmarkerVisitors}" ng-repeat="event in bookmarkerVisitors">
+                    <span>{{event.Description}}</span>
+                    <i ng-click="event.showBookmarkerVisitors = !event.showBookmarkerVisitors" class="fa fa-chevron-circle-down"></i><br />
+                    <span class="count"><i class="fa fa-bookmark"></i> {{event.Users.length}}</span>
+
+                    <div ng-if="event.showBookmarkerVisitors && view==='bookmarkerUsers'">
+                        <h5>Bookmarker Visitors</h5>
+
+                        <div ng-repeat="user in event.Users">
+                            <span>{{user.UserName}}</span>
+                        </div>
+                    </div>
+                </div>
+                <span ng-if="bookmarkerVisitors.length<=0">No Bookmarker Users Found</span>
+                <span ng-if="!bookmarkerVisitors">Loading Bookmarker Users... <i class="fa fa-spinner fa-spin"></i></span>
+            </div>
+            <div class="clickerUsers" ng-switch-when="clicks">
+                <div ng-if="clickerUsers.length>0" ng-class="{'change-height':event.showClickerUsers}" ng-repeat="event in clickerUsers">
+                    <span>{{event.Description}}</span>
+                    <i ng-click="event.showClickerUsers = !event.showClickerUsers" class="fa fa-chevron-circle-down"></i>
+                    <br />
+                    <span class="count"><i class="fa fa-mouse-pointer"></i> {{event.Users.length}}</span>
+
+                    <div ng-if="event.showClickerUsers && view==='clicks'">
+                        <h5>Clicker Users</h5>
+
+                        <div ng-repeat="user in event.Users">
+                            <span>{{user.UserName}}</span>
+                        </div>
+                    </div>
+                </div>
+                <span ng-if="clickerUsers.length<=0">No Clicked Events Found</span>
+                <span ng-if="!clickerUsers">Loading Clicked Events... <i class="fa fa-spinner fa-spin"></i></span>
             </div>
         </div>
     </div>

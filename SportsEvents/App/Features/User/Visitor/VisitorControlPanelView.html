@@ -7,27 +7,34 @@
     </div>
 
 
-    <div ng-switch="visitorView" class="selection-view">
+<div ng-switch="visitorView" class="selection-view">
 
-        <!-- Registered Events -->
-        <div ng-switch-when="registeredEvents">
-            <span> Registered Events </span>
-            
-            
-        </div>
-
-        <!-- Registration Requests -->
-        <div ng-switch-when="registrationRequests">
-            <span> Registration Requests </span>
-
-
-        </div>
-
-        <!-- Bookmarked Events -->
-        <div ng-switch-when="bookmarkedEvents">
-            <span> Bookmarked Events </span>
-
-
+    <!-- Registered Events -->
+    <div ng-switch-when="registeredEvents">
+        <span> Registered Events </span>
+        <div ng-model="model.regEvent" ng-repeat="regEvents in regEvents">
+            <span>{{regEvents.Description}}</span>
         </div>
 
     </div>
+
+    <!-- Registration Requests -->
+    <div ng-switch-when="registrationRequests">
+        <span> Registration Requests </span>
+        <div ng-model="model.regRequest" ng-repeat="regRequest in regRequests">
+            <span>{{regRequest.Description}}</span>
+        </div>
+
+    </div>
+
+    <!-- Bookmarked Events -->
+    <div ng-switch-when="bookmarkedEvents">
+        <span> Bookmarked Events </span>
+        <div ng-model="model.bmEvent" ng-repeat="bmEvent in bmEvents">
+            <span>{{bmEvent.Description}}</span>
+        </div>
+
+    </div>
+
+</div>
+</div>

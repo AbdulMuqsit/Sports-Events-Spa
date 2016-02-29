@@ -82,5 +82,6 @@ namespace SportsEvents.Common.Entities
     {
         public int Id { get; set; }
         public string Url { get; set; }
+        public Event Event { get; set; }
     }
 }

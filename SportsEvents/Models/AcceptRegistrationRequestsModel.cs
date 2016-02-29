@@ -10,13 +10,12 @@ namespace SportsEvents.Models
     {
         [Display(Name = "User Id")]
         [Required(ErrorMessage = "{0} is Required.")]
-        public int userId { get; set; }
+        public string UserId { get; set; }
 
         [Display(Name = "Event id")]
         [Required(ErrorMessage = "{0} is Required.")]
-        public int eventId { get; set; }
+        public int EventId { get; set; }
 
-        [Display(Name = "User Name")]
-        public string userName { get; set; }
+       
     }
 }

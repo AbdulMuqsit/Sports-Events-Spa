@@ -1,5 +1,5 @@
 ﻿events.controller("AddEventController", [
-    "$http", '$scope', 'dataRepository', 'notification','authentication', function ($http, $scope, dataRepository, notification,authentication) {
+    "$http", '$scope', 'dataRepository', 'notification', 'authentication', '$location', function ($http, $scope, dataRepository, notification, authentication, $location) {
         (function getCountries() {
             dataRepository.getAll("countries").then(function (data) {
                 $scope.countries = data;
@@ -104,13 +104,14 @@
             }
             var config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
 
-        $http.post(url, event,config).then(function (data) {
-            notification.success("Event Created");
-        }, function (data) {
-            notification.error("charlie foxtrot");
+            $http.post(url, event, config).then(function (data) {
+                $location.path("/manage");
+                notification.success("Event Created");
+            }, function (data) {
+                notification.error("charlie foxtrot");
 
-        });
+            });
 
-    };
-}
+        };
+    }
 ]);

@@ -116,12 +116,13 @@
         font-size: 14px;
     }
 
-        .interaction-section span.fa-heart {
+        .interaction-section span.fa-pencil-square,
+        .interaction-section span.fa-bookmark {
             color: orange;
         }
 
-        
-        .interaction-section span.fa-pencil-square,
+
+
         .interaction-section span.fa-pencil-square-o {
             color: rgb(88, 144, 255);
         }

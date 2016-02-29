@@ -62,43 +62,59 @@
                 });
                 return defered.promise;
             }
+            function httpDelete(url) {
+                var config = null;
+                if (authentication.identity) {
+                    config = { headers: { 'Authorization': "bearer " + authentication.identity.access_token } };
+
+                }
+                var defered = $q.defer();
+                $http.delete(url, config).then(function (data) {
+                    defered.resolve(data.data);
+                }, function (data) {
+                    defered.reject(data);
+                });
+                return defered.promise;
+            }
             //events repository
 
             this.events = {
-                getBookmarkedEvents: function () {
-                    var url = uriColection["event"] + "/";
 
-                    return get(url);
-                },
-
-                getRegisteredEvents: function () {
-                    var url = uriColection["event"];
-                    return get(url);
-                },
                 getMyEvents: function () {
                     var url = uriColection["event"] + "/MyEvents";
 
                     return get(url);
                 },
-                 getRegisteredUsers: function () {
+                getRegisteredUsers: function () {
                     var url = uriColection["organizer"] + "/RegisteredVisitors";
 
                     return get(url);
-                }, getClickerUsers: function () {
-                    var url = uriColection["organizer"] + "/ClickerUsers";
+                },
+                getClickerUsers: function () {
+                    var url = uriColection["organizer"] + "/ClickerVisitors";
 
                     return get(url);
-                }, getRegistrationRequests: function () {
+                },
+                getRegistrationRequests: function () {
                     var url = uriColection["organizer"] + "/RegistrationRequests";
 
                     return get(url);
                 },
                 getBookmarkerVisitors: function () {
-                    var url = uriColection["event"] + "/MyEvents";
+                    var url = uriColection["organizer"] + "/BookmarkerVisitors";
 
                     return get(url);
                 },
 
+                getBookmarkedEvents: function () {
+                    var url = uriColection["event"] + "/";
+
+                    return get(url);
+                },
+                getRegisteredEvents: function () {
+                    var url = uriColection["event"];
+                    return get(url);
+                },
                 bookmark(eventId) {
                     var url = uriColection['event'] + '/BookmarkEvent';
                     var model = {
@@ -106,13 +122,27 @@
                     };
                     return post(url, model);
                 },
-
                 register(eventId) {
                     var url = uriColection['event'] + '/RequestRegistration';
                     var model = {
                         Id: eventId
                     };
                     return post(url, model);
+                },
+
+                acceptRegistration(eventId, userId) {
+                    var url = uriColection['event'] + '/AcceptRegistrationRequests';
+                    var model = {
+                        EventId: eventId,
+                        UserId: userId
+                    };
+                    return post(url, model);
+                },
+
+                delete (id) {
+                    var url = uriColection['event'] + '/' + id;
+
+                    return httpDelete(url);
                 }
             }
             this.add = function (type, entity) {
@@ -200,7 +230,7 @@
 
             this.registeredEvents = function () {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "RegisteredEvents";
+                var url = uriColection["event"] + "/RegisteredEvents";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {
@@ -211,7 +241,7 @@
 
             this.registrationRequests = function () {
                 var defered = $q.defer();
-                var url = uriColection["events"] + "RegistrationRequests";
+                var url = uriColection["event"] + "/RegistrationRequests";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {
@@ -222,7 +252,7 @@
 
             this.bookmarkedEvents = function () {
                 var defered = $q.defer();
-                var url = uriColection["event"] + "BookmarkedEvents";
+                var url = uriColection["event"] + "/BookmarkedEvents";
                 $http.get(url).then(function (data) {
                     defered.resolve(data.data);
                 }, function (data) {

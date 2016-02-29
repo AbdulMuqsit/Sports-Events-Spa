@@ -1,0 +1,215 @@
+﻿.organizer-control-panel {
+    position: relative;
+    height: 550px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(150,150,150,0.5);
+    border-top: 1px solid rgba(150,150,150,0.5);
+}
+
+.registrationRequests a {
+    float: right;
+    margin: -15px;
+    cursor: pointer;
+    color: rgb(56, 121, 216);
+}
+
+    .registrationRequests a:hover {
+        color: #3879d8;
+        color: rgb(00, 121, 255);
+        text-decoration: underline;
+    }
+
+    .registrationRequests a:active {
+        color: rgb(56, 121, 216);
+    }
+
+.organizer-control-panel .container > div > div > div > div > span {
+    color: rgb(56, 121, 216);
+    cursor: pointer;
+}
+
+    .organizer-control-panel .container > div > div > div > div > span:hover {
+        color: rgb(56, 121, 216);
+        color: #3879d8;
+        color: rgb(00, 121, 255);
+    }
+
+.organizer-control-panel .controls {
+    float: left;
+    width: 150px;
+}
+
+    .organizer-control-panel .controls input {
+        -moz-appearance: button; /* Firefox */
+        -ms-appearance: button;
+        -webkit-appearance: button; /* Chrome, Safari, Opera */
+        background: #efefef;
+        height: 30px;
+        color: #333;
+        width: 150px;
+    }
+
+        .organizer-control-panel .controls input:checked {
+            background: #022152;
+            color: white;
+        }
+
+    .organizer-control-panel .controls .control {
+        height: 30px;
+        position: relative;
+        width: 150px;
+        margin: 5px 0;
+    }
+
+    .organizer-control-panel .controls label {
+        font-size: 16px;
+        left: 10px;
+        position: absolute;
+        top: 7px;
+    }
+
+    .organizer-control-panel .controls input:checked + label {
+        color: white;
+    }
+
+.organizer-control-panel .container {
+    margin: 0 160px;
+    position: relative;
+    padding-left: 0;
+    border-left: 1px solid rgba(150,150,150,0.5);
+}
+
+    .organizer-control-panel .container > div {
+        height: 550px;
+        overflow-y: auto;
+    }
+
+        .organizer-control-panel .container > div > div {
+            border: 1px solid lightgray;
+        }
+
+    .organizer-control-panel .container .myEvents > div {
+        background: white;
+        color: #555;
+        height: 50px;
+        margin: 5px;
+        padding: 5px;
+        width: 500px;
+    }
+
+
+
+    .organizer-control-panel .container .myEvents .actions {
+        float: right;
+        margin-top: -50px;
+        padding: 17px 0;
+        border-left: 1px solid rgba(150,150,150,0.5);
+        s;
+    }
+
+        .organizer-control-panel .container .myEvents .actions span {
+            margin: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #293955;
+        }
+
+            .organizer-control-panel .container .myEvents .actions span:hover {
+                color: #022152;
+            }
+
+                .organizer-control-panel .container .myEvents .actions span:hover:active {
+                    color: blue;
+                }
+
+.organizer-control-panel .myEvents > div > span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.organizer-control-panel .stats {
+    margin-top: 10px;
+}
+
+    .organizer-control-panel .stats span {
+        margin: 0 50px 0 0;
+    }
+
+        .organizer-control-panel .stats span:nth-child(1) i {
+            color: rgb(101, 167, 48);
+        }
+
+        .organizer-control-panel .stats span:nth-child(2) i {
+            color: orange;
+        }
+
+        .organizer-control-panel .stats span:nth-child(3) i {
+            color: red;
+        }
+
+        .organizer-control-panel .stats span:nth-child(4) i {
+            color: brown;
+        }
+
+
+.organizer-control-panel .registrationRequests > div,
+.organizer-control-panel .registeredUsers > div,
+.organizer-control-panel .bookmarkerVisitors > div,
+.organizer-control-panel .clickerUsers > div {
+    background: white;
+   
+    color: #555;
+    height: 40px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 500px;
+}
+
+    .organizer-control-panel .registrationRequests > div > div,
+    .organizer-control-panel .registeredUsers > div > div,
+    .organizer-control-panel .bookmarkerVisitors > div > div,
+    .organizer-control-panel .clickerUsers > div > div {
+        border-top: 1px solid lightgray;
+        padding-bottom: 5px;
+    }
+
+        .organizer-control-panel .registrationRequests > div > div > div,
+        .organizer-control-panel .registeredUsers > div > div > div,
+        .organizer-control-panel .bookmarkerVisitors > div > div > div,
+        .organizer-control-panel .clickerUsers > div > div > div {
+            height: 30px;
+            padding-top: 15px;
+            width: 300px;
+            font-size: 14px;
+            font-weight: 500;
+            border-top: 1px solid whitesmoke;
+            border-bottom: 1px solid whitesmoke;
+        }
+
+.organizer-control-panel .count {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.container div > div > i {
+    float: right;
+    cursor: pointer;
+    margin: 10px 0;
+    font-size: 22px;
+    color: midnightblue;
+}
+
+    .container div > div > i:hover {
+        color: blue;
+    }
+
+
+.make-visible {
+    visibility: visible !important;
+}
+
+.change-height {
+    height: auto !important;
+}

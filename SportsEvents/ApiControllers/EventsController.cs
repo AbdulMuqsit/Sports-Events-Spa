@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using SportsEvents.Common.Entities;
 using SportsEvents.Infrastructure;
 using SportsEvents.Models;
+using System.Web;
+using System.Diagnostics;
+using System.IO;
+using OfficeOpenXml;
 
 namespace SportsEvents.ApiControllers
 {
@@ -342,6 +348,63 @@ namespace SportsEvents.ApiControllers
                 return Ok();
             }
             catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+        }
+
+        [Route("BulkRead")]
+        [HttpPost]
+        public async Task<IHttpActionResult> BulkRead()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            string rootPath = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new  MultipartFormDataStreamProvider(rootPath);
+
+            try
+            {
+                await Request.Content.ReadAsMultipartAsync(provider);
+                var file = HttpContext.Current.Request.Files[0];
+                if (file == null)
+                {
+                    return BadRequest();
+                }
+                //if file[0] == null return badrequest
+                //using (var stream = new MemoryStream())
+                //{
+                //    file.InputStream.CopyTo(stream);
+                //}
+                //byte[] file = File.ReadAllBytes(@"C:\file.xlsx");
+
+                var stream = new MemoryStream();
+                file.InputStream.CopyTo(stream);
+
+                using (ExcelPackage package = new ExcelPackage(stream))
+                {
+                    if (package.Workbook.Worksheets.Count == 0)
+                    {
+                    }
+                    else
+                    {
+                        foreach (ExcelWorksheet worksheet in package.Workbook.Worksheets)
+                        {
+
+
+                        }
+                    }
+                }
+                throw new NotImplementedException();
+
+            }
+
+ 
+            catch
+                (Exception ex)
             {
 
                 return InternalServerError(ex);

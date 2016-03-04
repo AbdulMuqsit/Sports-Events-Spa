@@ -1,0 +1,21 @@
+﻿.sign-in-form {
+    width: 320px;
+    position: relative;
+    display: block;
+}
+.sign-in-form div {
+    position: relative;
+}
+.sign-in-form input[type=text],
+.sign-in-form input[type=password] {
+    float: left!important;
+    margin: 10px;
+}
+.sign-in-form .submit {
+    margin-left: 10px;
+}
+.sign-in-form input[type=button],
+.sign-in-form input[type=submit] {
+    width: 100%;
+    display: inline-block;
+}

@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using OfficeOpenXml;
 using SportsEvents.Common.Entities;
 using SportsEvents.Infrastructure;
 using SportsEvents.Models;
-using System.Web;
-using System.Diagnostics;
-using System.IO;
-using OfficeOpenXml;
 
 namespace SportsEvents.ApiControllers
 {
@@ -40,7 +41,7 @@ namespace SportsEvents.ApiControllers
                         .Include(e => e.BookmarkerVisitors)
                         .Where(e => e.BeginDate > DateTime.UtcNow)
                         .OrderBy(e => e.BeginDate)
-                        .Skip(page * take)
+                        .Skip(page*take)
                         .Take(take)
                         .Select(e => new
                         {
@@ -170,7 +171,17 @@ namespace SportsEvents.ApiControllers
 
                 if (result > 0)
                 {
-                    return Ok(new { _event.Description, _event.Details, _event.Id, _event.SportName, _event.EventTypeName, _event.OrganizerName });
+                    return
+                        Ok(
+                            new
+                            {
+                                _event.Description,
+                                _event.Details,
+                                _event.Id,
+                                _event.SportName,
+                                _event.EventTypeName,
+                                _event.OrganizerName
+                            });
                 }
                 return InternalServerError();
             }
@@ -273,11 +284,11 @@ namespace SportsEvents.ApiControllers
             try
             {
                 var user =
-                       await
-                           UserManager.Users.Include(u => u.RegisteredEvents)
-                               .Include(u => u.RegistrationRequests)
-                               .Where(u => u.Id == model.UserId)
-                               .FirstOrDefaultAsync();
+                    await
+                        UserManager.Users.Include(u => u.RegisteredEvents)
+                            .Include(u => u.RegistrationRequests)
+                            .Where(u => u.Id == model.UserId)
+                            .FirstOrDefaultAsync();
                 var event_ =
                     await
                         DbContext.Events.Include(ev => ev.RegisteredVisitors)
@@ -323,7 +334,6 @@ namespace SportsEvents.ApiControllers
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
@@ -349,7 +359,6 @@ namespace SportsEvents.ApiControllers
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
@@ -363,8 +372,8 @@ namespace SportsEvents.ApiControllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string rootPath = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new  MultipartFormDataStreamProvider(rootPath);
+            var rootPath = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(rootPath);
 
             try
             {
@@ -383,30 +392,163 @@ namespace SportsEvents.ApiControllers
 
                 var stream = new MemoryStream();
                 file.InputStream.CopyTo(stream);
-
-                using (ExcelPackage package = new ExcelPackage(stream))
+                var headers = new List<string>
                 {
+                    "Sport",
+                    "type",
+                    "Price starting at",
+                    "Date Begin",
+                    "Date end",
+                    "Time start",
+                    "Time end",
+                    "weekday",
+                    "event location street",
+                    "event location Zip",
+                    "event location City",
+                    "event location state",
+                    "event description",
+                    "Detailed event description",
+                    "upload own icon",
+                    "upload picture 1",
+                    "upload picture 2",
+                    "upload picture 3",
+                    "imbed video link",
+                    "External link to your event",
+                    "Recurring Event Rythm",
+                    "Date end recurring event"
+                };
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    //var count = package.Workbook.Worksheets.end;
                     if (package.Workbook.Worksheets.Count == 0)
                     {
+                        return BadRequest("This file has no worksheets.");
                     }
-                    else
+                    foreach (var worksheet in package.Workbook.Worksheets)
                     {
-                        foreach (ExcelWorksheet worksheet in package.Workbook.Worksheets)
+                        if (worksheet.Dimension == null)
                         {
+                            return BadRequest("Worksheet is empty.");
+                        }
+                        var totalRows = worksheet.Dimension.End.Row;
+                        var totalCols = worksheet.Dimension.End.Column;
+                        var indexer = new Dictionary<string, int>();
+                        List<Event> eventList = new List<Event>();
 
+                        var sports = await DbContext.Sports.ToListAsync();
+                        var eventTypes = await DbContext.EventTypes.ToListAsync();
+                        var cities = await DbContext.Cities.ToListAsync();
+                        var countries = await DbContext.Countries.ToListAsync();
 
+                        DataTable dt = new DataTable(worksheet.Name);
+                        var dr = dt.Rows[0];
+                        List<string> titles = new List<string>(); //titles in excel sheet
+
+                        var index = 0;
+                        do
+                        {
+                            titles.Add(dr[index].ToString());
+                            index++;
+                        } while (!String.IsNullOrWhiteSpace(dr[index].ToString()));
+
+                        foreach (var header in headers)
+                        {
+                            if (titles.IndexOf(header) < 0)
+                            {
+                                return BadRequest();
+                            }
+                            else
+                            {
+                                indexer.Add(header, titles.IndexOf(header));
+                            }
+                        }
+                        
+                        for (var i = 1; i <= totalRows; i++)
+                        {
+                            var _event = new Event
+                            {
+                                SportName = worksheet.Cells[i, indexer["Sport"]].Text,
+                                EventTypeName = worksheet.Cells[i, indexer["type"]].Text,
+                                StartingPrice = double.Parse(worksheet.Cells[i, indexer["Price starting at"]].Text),
+                                BeginDate = DateTime.Parse(worksheet.Cells[i, indexer["Date Begin"]].Text),
+                                EndDate = DateTime.Parse(worksheet.Cells[i, indexer["Date end"]].Text),
+                                BeginTime = DateTime.Parse(worksheet.Cells[i, indexer["Time start"]].Text),
+                                EndTime = DateTime.Parse(worksheet.Cells[i, indexer["Time end"]].Text),
+                                Zip = worksheet.Cells[i, indexer["event location Zip"]].Text,
+                                Description = worksheet.Cells[i, indexer["event description"]].Text,
+                                Details = worksheet.Cells[i, indexer["detailed event description"]].Text,
+                                VideoLink = worksheet.Cells[i, indexer["imbed video link"]].Text,
+                                ExternalLink = worksheet.Cells[i, indexer["External link to your event"]].Text
+                            };
+
+                            var sport = sports.FirstOrDefault(s => s.Name == worksheet.Cells[i, indexer["Sport"]].Text);
+                            if (sport!=null)
+                            {
+                                _event.SportId = sport.Id;
+                            }
+                            else
+                            {
+                                return BadRequest("Sport not found for row number "+i);
+                            }
+
+                            var eventType =
+                                eventTypes.FirstOrDefault(et => et.Name == worksheet.Cells[i, indexer["type"]].Text);
+                            if (eventType!=null)
+                            {
+                                _event.EventTypeId = eventType.Id;
+                            }
+                            else
+                            {
+                                return BadRequest("Event Type not found for row number " + i);
+                            }
+
+                            var city = cities.FirstOrDefault(c => c.Name == worksheet.Cells[i, indexer["event location City"]].Text);
+                            if (city!=null)
+                            {
+                                _event.CityId = city.Id;
+                            }
+                            else
+                            {
+                                return BadRequest("City not found for row number " + i);
+                            }
+                            
+                            //List<Picture> picList = new List<Picture>();
+                            //picList.Add(worksheet.Cells[i, indexer["upload picture 1"]].Value);
+                            //picList.Add(worksheet.Cells[i, indexer["upload picture 2"]].Value);
+                            //picList.Add(worksheet.Cells[i, indexer["upload picture 3"]].Value);
+
+                            eventList.Add(_event);
+                        }
+
+                        //--------these are not in our db
+                        //"weekday",
+                        //"event location street",
+                        //"Recurring Event Rythm",
+                        //"Date end recurring event"
+                        //"event location state",
+                        
+                        //--------don't know how to implement them
+                        //"upload own icon",
+                        //"upload picture 1",
+                        //"upload picture 2",
+                        //"upload picture 3",
+
+                        DbContext.Events.AddRange(eventList);
+                        int savingResult = await DbContext.SaveChangesAsync();
+                        if (savingResult < 0)
+                        { 
+                            return BadRequest("Worksheet "+ worksheet.Name + " was not saved");
                         }
                     }
                 }
-                throw new NotImplementedException();
-
+                return Ok();
             }
 
- 
+
             catch
                 (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }

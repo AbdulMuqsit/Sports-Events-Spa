@@ -8,7 +8,7 @@ body {
     -ms-min-width: 1000px;
     -o-min-width: 1000px;
     -webkit-min-width: 1000px;
-    background: whitesmoke;
+    background: #e9eaed;
     min-width: 1000px;
     padding-bottom: 20px;
     _width: expression( document.body.clientWidth > 1000 ? "1000px" : "auto" );
@@ -29,6 +29,8 @@ body {
 span.information-text {
     margin: 10px 0 !important;
     font-size: 14px !important;
+    color: #666;
+    font-size: 14px;
 }
 
 div.information-text {
@@ -105,9 +107,15 @@ input {
         border-radius: 5px;
         color: white;
         float: right;
-        padding: 10px;
+        cursor: pointer;
+        padding: 5px;
     }
-
+      input[type=button]:hover,
+    input[type=submit] :hover{
+        -ms-border-radius: 5px;
+        background: rgb(4, 43, 155);
+      
+    }
     input[disabled],
     input[disabled] {
         background: gray !important;
@@ -173,7 +181,10 @@ select {
 .form-view {
     width: 500px;
 }
-
+.form-view .header-lg {
+    font-family: 'Freight Sans Bold', helvetica, arial, sans-serif !important;
+    font-size: 36px;
+}
     .form-view hr {
         border: 1px;
         border-top: 1px solid #ccc;
@@ -225,12 +236,12 @@ div.information-text > span {
 .form-view > div input[type=tel],
 .form-view > div input[type=email],
 .form-view > div input[type=password] {
-    -ms-border-radius: 10px;
-    border: 1px solid #d5d5d5;
-    border-radius: 10px;
+    -ms-border-radius: 3px;
+    border: 0.9px solid #d5d5d5;
+    border-radius: 3px;
     float: right;
     font-size: 16px;
-    height: 25px;
+    height: 20px;
     margin-top: -5px;
     max-width: 300px;
     outline: none;
@@ -251,7 +262,7 @@ div.information-text > span {
 .form-view > div input[type=date]:hover,
 .form-view > div input[type=time]:hover,
 .form-view > div input[type=date]:hover,
-.form-view > div input[type=number] {
+.form-view > div input[type=number]:hover {
     border: 1px solid #acd3f2;
 }
 
@@ -262,7 +273,8 @@ div.information-text > span {
 .form-view > div input[type=date]:focus,
 .form-view > div input[type=time]:focus,
 .form-view > div input[type=date]:focus,
-.form-view > div input[type=number] {
+.form-view > div input[type=number]:focus,
+.form-view > div input[type=password]:focus {
     border: 1px solid #42A5F5;
 }
 
@@ -284,7 +296,7 @@ div.information-text > span {
     width: 100px;
 }
 
-.navbar hr {
+.navbar > hr {
     border: 0;
     border-top: 1px solid #ccc;
     display: block;
@@ -349,7 +361,7 @@ div.information-text > span {
 }
 
 .account-section {
-    top: 20px;
+    top: 10px;
 }
 
     .navigation-section a,
@@ -382,21 +394,12 @@ div.information-text > span {
     top: 20px;
 }
 
-    .account-section a:first-child,
     .navigation-section a:first-child {
         border: none;
         border-left: 1px solid #091f53;
     }
+    
 
-.account-section > div > a {
-    width: 100px;
-    display: inline-block
-}
-
-.account-section a {
-    border: none;
-    border-bottom: 1px solid #091f53;
-}
 
 @media all and (max-width: 1150px) {
     .navigation-section {
@@ -410,10 +413,7 @@ div.information-text > span {
         top: 10px;
     }
 
-        .account-section a {
-            margin: 0;
-            position: fixed;
-        }
+    
 
     .content.show-advanced-search-options {
         margin-top: 110px;

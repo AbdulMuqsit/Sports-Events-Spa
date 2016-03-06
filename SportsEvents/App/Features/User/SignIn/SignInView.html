@@ -1,16 +1,14 @@
-﻿<div class="form-view">
+﻿<form class="sign-in-form form-view">
     <h2 class="header-lg">Sign In</h2>
 
     <span class="information-text"></span>
     <div>
-        <span>User Name</span>
-        <input type="text" placeholder="User Name" ng-model="model.userName"/>
+         <input type="text" autocomplete="username" placeholder="User Name" ng-model="model.userName"/>
     </div>
     <div>
-        <span>Password</span>
-        <input placeholder="Password" type="password" ng-model="model.password"/>
+        <input autocomplete="password" placeholder="Password" type="password" ng-model="model.password"/>
     </div>
-    <div>
+    <div class="submit">
         <input type="button" value="Sign In" ng-click="signIn(model)"/>
     </div>
-</div>
+</form>

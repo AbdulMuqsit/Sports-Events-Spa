@@ -22,13 +22,27 @@
                 </button>
             </div>
             <div ng-controller="AccountSectionController" class="account-section">
-                <div ng-if="!authenticated">
+                <div class="not-authenticated" ng-if="!authenticated">
                     <a ng-mouseover="showAccountPanel()" href="/signin">Sign In<span class="fa fa-caret-down"></span></a>
-                    <div class="account-panel" ng-mouseleave="hideAccountPanel()" ng-if="showPanel">
-                        <div>
-
-                            <a href="/signup">Sign up</a>
-                        </div>
+                    <div ng-controller="SignInController" class="account-panel" ng-mouseleave="hideAccountPanel()" ng-if="showPanel">
+                        <form class="inline-search form-view" name="signInForm">
+                            <span class="information-text">Have an account?</span>
+                            <div>
+                                <input autocomplete="username" required type="text" placeholder="User Name" ng-model="model.userName" />
+                            </div>
+                            <div>
+                                <input autocomplete="password" required placeholder="Password" type="password" ng-model="model.password" />
+                            </div>
+                            <div>
+                                <input type="button" ng-disabled="signInForm.$invalid" value="Sign In" ng-click="signIn(model)" />
+                            </div>
+                            <br />
+                            <hr />
+                            <span class="information-text">Do not have an account?</span>
+                            <a class="sign-up" href="/signup">
+                                <input type="button" value="Sign up" />
+                            </a>
+                        </form>
                     </div>
                 </div>
                 <div ng-if="authenticated">
@@ -42,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="navigation-section">
                 <a href="/">Home</a>

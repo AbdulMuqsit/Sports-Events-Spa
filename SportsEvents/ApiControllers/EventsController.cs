@@ -22,16 +22,20 @@ namespace SportsEvents.ApiControllers
     public class EventsController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> GetAsync()
         {
             return Ok(await DbContext.Events.ToListAsync());
         }
 
         [HttpGet]
         [Route("Calender/{page?}/{take?}")]
-        public async Task<IHttpActionResult> GetCalender([FromUri] int page = 0, [FromUri] int take = 20)
+        public async Task<IHttpActionResult> GetCalenderAsync([FromUri] int page = 0, [FromUri] int take = 20)
 
         {
+            using (var stream = new MemoryStream() )
+            {
+                
+            }
             var authenticated = User.Identity.IsAuthenticated;
             var userId = User.Identity.GetUserId();
             var events =
@@ -57,7 +61,7 @@ namespace SportsEvents.ApiControllers
                             Bookmarked = authenticated && e.BookmarkerVisitors.Any(u => u.Id == userId),
                             Registered = authenticated && e.RegisteredVisitors.Any(u => u.Id == userId),
                             RequestedRegistration = authenticated && e.RegisterRequestVisitors.Any(u => u.Id == userId)
-                        }).ToListAsync();
+                        }).ToListAsync().ConfigureAwait(false);
 
 
             return Ok(events);
@@ -237,6 +241,8 @@ namespace SportsEvents.ApiControllers
             }
         }
 
+
+
         [Route("RequestRegistration")]
         [HttpPost]
         [Authorize(Roles = "Visitor")]
@@ -245,10 +251,10 @@ namespace SportsEvents.ApiControllers
             var user =
                 await
                     UserManager.Users.Include(u => u.RegistrationRequests)
-                        .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+                        .FirstOrDefaultAsync(u => u.UserName == User.Identity.Name).ConfigureAwait(false);
             var event_ =
                 await
-                    DbContext.Events.Include(e => e.RegisterRequestVisitors).FirstOrDefaultAsync(e => e.Id == model.Id);
+                    DbContext.Events.Include(e => e.RegisterRequestVisitors).FirstOrDefaultAsync(e => e.Id == model.Id).ConfigureAwait(false);
             if (user.RegistrationRequests == null)
             {
                 user.RegistrationRequests = new List<Event>();
@@ -260,7 +266,7 @@ namespace SportsEvents.ApiControllers
             if (user.RegistrationRequests.All(e => e.Id != event_.Id))
             {
                 user.RegistrationRequests.Add(event_);
-                var result = await DbContext.SaveChangesAsync();
+                var result = await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 if (result <= 0)
                 {
                     return InternalServerError();
@@ -269,7 +275,7 @@ namespace SportsEvents.ApiControllers
             if (user.RegistrationRequests.All(e => e.Id != model.Id))
             {
                 user.RegistrationRequests.Add(event_);
-                var identityResult = await UserManager.UpdateAsync(user);
+                var identityResult = await UserManager.UpdateAsync(user).ConfigureAwait(false);
                 if (!identityResult.Succeeded)
                 {
                     return InternalServerError();
@@ -288,12 +294,12 @@ namespace SportsEvents.ApiControllers
                         UserManager.Users.Include(u => u.RegisteredEvents)
                             .Include(u => u.RegistrationRequests)
                             .Where(u => u.Id == model.UserId)
-                            .FirstOrDefaultAsync();
+                               .FirstOrDefaultAsync().ConfigureAwait(false);
                 var event_ =
                     await
                         DbContext.Events.Include(ev => ev.RegisteredVisitors)
                             .Include(ev => ev.RegisterRequestVisitors)
-                            .FirstOrDefaultAsync(ev => ev.Id == model.EventId);
+                            .FirstOrDefaultAsync(ev => ev.Id == model.EventId).ConfigureAwait(false);
 
                 var organizerEvents = DbContext.Events.Where(ev => ev.OrganizerName == User.Identity.Name).ToList();
 
@@ -317,14 +323,14 @@ namespace SportsEvents.ApiControllers
                 var dbEntityEntryEvent = DbContext.Entry(event_);
                 dbEntityEntryEvent.State = EntityState.Modified;
 
-                var dbEntityEntryUser = DbContext.Entry(user);
-                dbEntityEntryUser.State = EntityState.Modified;
-                var result = await DbContext.SaveChangesAsync();
+                var dbEnttityEntryUser = DbContext.Entry(user);
+                dbEnttityEntryUser.State = EntityState.Modified;
+                var result = await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 if (result <= 0)
                 {
                     return InternalServerError();
                 }
-                var identityResult = await UserManager.UpdateAsync(user);
+                var identityResult = await UserManager.UpdateAsync(user).ConfigureAwait(false);
                 if (!identityResult.Succeeded)
                 {
                     return InternalServerError();
@@ -485,7 +491,7 @@ namespace SportsEvents.ApiControllers
                                 indexer.Add(header, titles.IndexOf(header) +1);
                             }
                         }
-
+                        
 
                         for (var i = 1; i < totalRows; i++)
                         {
@@ -535,7 +541,7 @@ namespace SportsEvents.ApiControllers
                             {
                                 return BadRequest("City not found for row number " + i);
                             }
-
+                            
                             //List<Picture> picList = new List<Picture>();
                             //picList.Add(worksheet.Cells[i, indexer["upload picture 1"]].Value);
                             //picList.Add(worksheet.Cells[i, indexer["upload picture 2"]].Value);
@@ -550,7 +556,7 @@ namespace SportsEvents.ApiControllers
                         //"Recurring Event Rythm",
                         //"Date end recurring event"
                         //"event location state",
-
+                        
                         //--------don't know how to implement them
                         //"upload own icon",
                         //"upload picture 1",
@@ -560,7 +566,7 @@ namespace SportsEvents.ApiControllers
                         DbContext.Events.AddRange(eventList);
                         int savingResult = await DbContext.SaveChangesAsync();
                         if (savingResult < 0)
-                        {
+                        { 
                             return BadRequest("Worksheet " + worksheet.Name + " was not saved");
                         }
                     }

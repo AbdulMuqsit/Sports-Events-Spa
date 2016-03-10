@@ -1,35 +1,198 @@
 ﻿.admin-panel {
-    
-    
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.39);
     position: relative;
-    font-size: 19px;
-    text-align: center;
-    align-content: center;
-}
-.links {
-
-    width: 200px;
-    left: 33%;
-    position: relative;
-    margin: 20px auto 20px 0;
-    font-size: 18px;
-    background: #eee;
-    text-align: center;
-    border-radius: 10px;
+    height: 550px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(150,150,150,0.5);
+    border-top: 1px solid rgba(150,150,150,0.5);
 }
 
-.selection-panel {
-    float: left;
-    width:110px;
-    background: #042b69;
-    font-size: 19px;
+
+    .admin-panel .container > div > div > div > div > span {
+        color: rgb(56, 121, 216);
+        cursor: pointer;
+    }
+
+        .admin-panel .container > div > div > div > div > span:hover {
+            color: rgb(56, 121, 216);
+            color: #3879d8;
+            color: rgb(00, 121, 255);
+        }
+
+    .admin-panel .controls {
+        float: left;
+        width: 150px;
+    }
+
+        .admin-panel .controls input[type=radio] {
+            -moz-appearance: button; /* Firefox */
+            -ms-appearance: button;
+            -webkit-appearance: button; /* Chrome, Safari, Opera */
+            background: #efefef;
+            height: 30px;
+            color: #333;
+            width: 150px;
+        }
+
+            .admin-panel .controls input[type=radio]:checked {
+                background: #022152;
+                color: white;
+            }
+
+        .admin-panel .controls .control {
+            height: 30px;
+            position: relative;
+            width: 150px;
+            margin: 5px 0;
+        }
+
+        .admin-panel .controls label {
+            font-size: 16px;
+            left: 10px;
+            position: absolute;
+            top: 7px;
+        }
+
+        .admin-panel .controls input:checked + label {
+            color: white;
+        }
+
+    .admin-panel .container {
+        margin: 0 160px;
+        position: relative;
+        padding-left: 0;
+        border-left: 1px solid rgba(150,150,150,0.5);
+    }
+
+        .admin-panel .container > div {
+            height: 550px;
+            overflow-y: auto;
+        }
+
+            .admin-panel .container > div > div {
+                border: 1px solid lightgray;
+            }
+
+        .admin-panel .container .myEvents > div {
+            background: white;
+            color: #555;
+            height: 50px;
+            margin: 5px;
+            padding: 5px;
+            width: 500px;
+        }
+
+
+
+        .admin-panel .container .myEvents .actions {
+            float: right;
+            margin-top: -50px;
+            padding: 17px 0;
+            border-left: 1px solid rgba(150,150,150,0.5);
+            s;
+        }
+
+            .admin-panel .container .myEvents .actions span {
+                margin: 10px;
+                font-size: 13px;
+                cursor: pointer;
+                color: #293955;
+            }
+
+                .admin-panel .container .myEvents .actions span:hover {
+                    color: #022152;
+                }
+
+                    .admin-panel .container .myEvents .actions span:hover:active {
+                        color: blue;
+                    }
+
+    .admin-panel .myEvents > div > span {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .admin-panel .stats {
+        margin-top: 10px;
+    }
+
+        .admin-panel .stats span {
+            margin: 0 50px 0 0;
+        }
+
+            .admin-panel .stats span:nth-child(1) i {
+                color: rgb(101, 167, 48);
+            }
+
+            .admin-panel .stats span:nth-child(2) i {
+                color: orange;
+            }
+
+            .admin-panel .stats span:nth-child(3) i {
+                color: red;
+            }
+
+            .admin-panel .stats span:nth-child(4) i {
+                color: brown;
+            }
+
+
+    .admin-panel .countries > div,
+    .admin-panel .cities > div,
+    .admin-panel .sports > div,
+    .admin-panel .eventTypes > div {
+        background: white;
+        color: #555;
+        height: 40px;
+        margin: 5px;
+        padding: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 500px;
+    }
+
+        .admin-panel .countries > div > div,
+        .admin-panel .cities > div > div,
+        .admin-panel .sports > div > div,
+        .admin-panel .eventTypes > div div {
+            border-top: 1px solid lightgray;
+            padding-bottom: 5px;
+        }
+
+    .admin-panel .registrationRequests > div > div > div,
+    .admin-panel .registeredUsers > div > div > div,
+    .admin-panel .bookmarkerVisitors > div > div > div,
+    .admin-panel .clickerUsers > div > div > div {
+        height: 30px;
+        padding-top: 15px;
+        width: 300px;
+        font-size: 14px;
+        font-weight: 500;
+        border-top: 1px solid whitesmoke;
+        border-bottom: 1px solid whitesmoke;
+    }
+
+    .admin-panel .count {
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+.container div > div > i {
+    float: right;
+    cursor: pointer;
+    margin: 10px 0;
+    font-size: 22px;
+    color: midnightblue;
 }
 
-.selection-view{
-    width: 600px;
-    height: 100%;
-    background: white;
-    margin: 100px 0 15px 150px;
+    .container div > div > i:hover {
+        color: blue;
+    }
 
+
+.make-visible {
+    visibility: visible !important;
+}
+
+.change-height {
+    height: auto !important;
 }

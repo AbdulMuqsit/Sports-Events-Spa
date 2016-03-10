@@ -1,25 +1,38 @@
 ﻿<div class="admin-panel">
-    <h3> Admin Panel</h3>
-    <div class="selection-panel">
-        <input type="button" value="Countries" ng-click="countryView()" />
-        <input type="button" value="Cities" ng-click="cityView()" />
-        <input type="button" value="Sports" ng-click="sportView()" />
-        <input type="button" value="EventTypes" ng-click="eventTypeView()" />
-    </div>
+    <div>
+        <div class="controls">
+            <div class="control">
+                <input id="countries" name="countries" value="countries"  type="radio" ng-model="view" checked="checked" ng-click="switchView('countries')" />
+                <label for="countries">Countries</label>
+            </div><div class="control">
 
-    <div ng-switch="view" class="selection-view">
+                <input type="radio" ng-model="view" value="cities" ng-click="switchView('cities')"  id="cities" name="countries"  />
+
+                      <label for="cities">Cities</label>
+
+            </div><div class="control">
+                <input type="radio" ng-model="view" value="sports" ng-click="switchView('sports')"  id="sports" name="sports"  />
+                      <label for="sports">Sports</label>
+
+            </div><div class="control">
+                <input type="radio" ng-model="view" value="eventTypes" ng-click="switchView('eventTypes')"   id="eventTypes" name="eventTypes"/>
+                      <label for="eventTypes">Event Types</label>
+
+            </div>
+        </div>
+    </div>
+    <div ng-switch="view" class="container">
 
         <!-- Countries -->
-        <div ng-switch-when="countries">
-            <span> Countries </span>
+        <div class="countries" ng-switch-when="countries">
             <div ng-model="model.country" ng-repeat="country in countries">
                 <span>{{country.Name}}</span>
             </div>
-            <input type="button" value="Add"ng-click="addCountry()" />
+            <input type="button" value="Add" ng-click="switchView('addCountry')" />
         </div>
 
         <!--Cities-->
-        <div ng-switch-when="cities">
+        <div class="cities" ng-switch-when="cities">
             <div>
                 <span>Choose Country</span>
                 <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country" ng-change="getCities(model.country)">
@@ -35,44 +48,45 @@
 
                 </div>
             </div>
-            <input type="button" value="Add" ng-click="addCity()" />
+            <input type="button" value="Add" ng-click="switchView('addCity')" />
         </div>
 
         <!-- Sports -->
-        <div ng-switch-when="sports">
+        <div class="sports" ng-switch-when="sports">
             <span> sports </span>
             <div ng-model="model.sport" ng-repeat="sport in sports">
                 <span>{{sport.Name}}</span>
             </div>
-            <input type="button" value="Add" ng-click="addSport()" />
+            <input type="button" value="Add" ng-click="switchView('addSport')" />
         </div>
 
         <!-- Event Types -->
-        <div ng-switch-when="eventTypes">
+        <div class="eventTypes" ng-switch-when="eventTypes">
             <span> eventTypes</span>
             <div ng-model="model.eventType" ng-repeat="eventType in eventTypes">
                 <span>{{eventType.Name}}</span>
             </div>
-            <input type="button" value="Add" ng-click="addEventType()" />
+            <input type="button" value="Add" ng-click="switchView('addEventType')" />
         </div>
 
         <!-- ----------------------------------------------------------------------------------------- -->
-
         <!-- Add Country -->
-        <div ng-switch-when="addCountry" ng-controller="AddCountryController">
-            <div>
+        <div class="addCountry form-view" ng-switch-when="addCountry" ng-controller="AddCountryController">
+            <h2 class="header-lg">Add new Country</h2>
+
+            <div >
                 <span>Name</span>
-                <input placeholder="Country Name" type="text" ng-model="model.countryName" />
+                <input placeholder="Country Name" type="text" ng-model="model.countryName"/>
             </div>
             <input type="submit" value="Submit" ng-click="submit(model)"/>
-            
+
         </div>
 
         <!-- Add City -->
-        <div ng-switch-when="addCity" ng-controller="AddCityController">
+        <div class="addCity" ng-switch-when="addCity" ng-controller="AddCityController">
             <div>
                 <span>City  Name</span>
-                <input placeholder="City Name" ng-model="model.name" type="text"/>
+                <input placeholder="City Name" ng-model="model.name" type="text" />
             </div>
             <div>
                 <span>Country</span>
@@ -80,26 +94,26 @@
                 <select ng-options="country as country.Name for country in countries track by country.Id" ng-model="model.country"></select>
             </div>
 
-            <input type="submit" value="Submit" ng-click="submit(model)"/>
+            <input type="submit" value="Submit" ng-click="submit(model)" />
         </div>
 
         <!-- Add Sport -->
-        <div ng-switch-when="addSport" ng-controller="AddSportController">
+        <div class="addSport" ng-switch-when="addSport" ng-controller="AddSportController">
             <div>
                 <span>Sport Name</span>
-                <input placeholder="Sport Name" type="text" ng-model="model.name"/>
+                <input placeholder="Sport Name" type="text" ng-model="model.name" />
             </div>
-            <input type="submit" value="Submit" ng-click="submit(model)"/>
+            <input type="submit" value="Submit" ng-click="submit(model)" />
         </div>
 
         <!-- Add Event Type -->
-        <div ng-switch-when="addEventType" ng-controller="AddEventTypeController">
+        <div class="addEventType" ng-switch-when="addEventType" ng-controller="AddEventTypeController">
             <div>
                 <span>Event Type</span>
-                <input type="text" placeholder="Event Type" ng-model="model.name"/>
+                <input type="text" placeholder="Event Type" ng-model="model.name" />
             </div>
 
-            <input type="submit" value="Submit" ng-click="submit(model)"/>
+            <input type="submit" value="Submit" ng-click="submit(model)" />
         </div>
 
         <!-- Default -->

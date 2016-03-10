@@ -1,5 +1,6 @@
 ﻿user.controller('AdminPanelController', [ 
     '$scope', '$http', 'dataRepository', function($scope, $http,  dataRepository) {
+        $scope.view = 'countries';
 
         (function getCountries() {
             dataRepository.getAll("countries").then(function (data) {
@@ -38,40 +39,15 @@
         };
 
 
-        //$scope.items = ['countries','cities', 'sports', 'eventTypes'];
-        //$scope.view = $scope.items[0];
 
-        $scope.countryView = function() {
-            $scope.view = 'countries';
-        };
 
-        $scope.cityView = function () {
-            $scope.view = 'cities';
-        };
+        $scope.switchView = function (key) {
+            $scope.view = key;
 
-        $scope.sportView = function () {
-            $scope.view = 'sports';
-        };
-
-        $scope.eventTypeView = function () {
-            $scope.view = 'eventTypes';
-        };
+        }
 
         //-------------------------------------------
 
-        $scope.addCountry = function () {
-            $scope.view = 'addCountry';
-        };
-
-        $scope.addCity = function () {
-            $scope.view = 'addCity';
-        };
-
-        $scope.addSport = function () {
-            $scope.view = 'addSport';
-        };
-        $scope.addEventType = function() {
-            $scope.view = 'addEventType';
-        };
+      
     }
 ])

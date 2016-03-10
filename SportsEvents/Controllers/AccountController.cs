@@ -71,14 +71,14 @@ namespace SportsEvents.Controllers
         }
 
         [Route("UpdateUser")]
-        public async Task<IHttpActionResult> UpdateUser(UpdateUserViewModel model)
+        public async Task<IHttpActionResult> UpdateUserAsync(UpdateUserViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var user = await UserManager.FindByNameAsync(User.Identity.Name).ConfigureAwait(false);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
@@ -87,7 +87,7 @@ namespace SportsEvents.Controllers
             City city = null;
             if (model.CityId != null)
             {
-                city = await DbContext.Cities.FindAsync(model.CityId.Value);
+                city = await DbContext.Cities.FindAsync(model.CityId.Value).ConfigureAwait(false);
             }
             user.Address = new Address
             {
@@ -99,7 +99,7 @@ namespace SportsEvents.Controllers
                 Zip = model.Zip,
                 State = model.State,
             };
-            var result = await UserManager.UpdateAsync(user);
+            var result = await UserManager.UpdateAsync(user).ConfigureAwait(false);
             if (!result.Succeeded)
             {
                 return BadRequest();
@@ -107,14 +107,14 @@ namespace SportsEvents.Controllers
             return Ok(user);
         }
         [Route("UpdateOrganizer")]
-        public async Task<IHttpActionResult> UpdateOrganizer(UpdateOrganizerViewModel model)
+        public async Task<IHttpActionResult> UpdateOrganizerAsync(UpdateOrganizerViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var user = await UserManager.FindByNameAsync(User.Identity.Name).ConfigureAwait(false);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
@@ -122,11 +122,11 @@ namespace SportsEvents.Controllers
             user.Email = model.Email;
 
             City city = null;
-            var contactCity = await DbContext.Cities.FindAsync(model.ContactCityId);
+            var contactCity = await DbContext.Cities.FindAsync(model.ContactCityId).ConfigureAwait(false);
 
             if (model.CityId != null)
             {
-                city = await DbContext.Cities.FindAsync(model.CityId.Value);
+                city = await DbContext.Cities.FindAsync(model.CityId.Value).ConfigureAwait(false);
             }
             user.Address = new Address
             {
@@ -164,7 +164,7 @@ namespace SportsEvents.Controllers
                 Phone = model.ContactPhone
             };
 
-            var result = await UserManager.UpdateAsync(user);
+            var result = await UserManager.UpdateAsync(user).ConfigureAwait(false);
 
             if (!result.Succeeded)
             {
@@ -176,17 +176,17 @@ namespace SportsEvents.Controllers
 
         [HttpPost]
         [Route("RegisterOrganizer")]
-        public async Task<IHttpActionResult> RegisterOrganizer(RegisterOrganizerViewModel model)
+        public async Task<IHttpActionResult> RegisterOrganizerAsync(RegisterOrganizerViewModel model)
         {
             if (ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             City city = null;
-            var contactCity = await DbContext.Cities.FindAsync(model.ContactCityId);
+            var contactCity = await DbContext.Cities.FindAsync(model.ContactCityId).ConfigureAwait(false);
 
-            var user = await UserManager.FindByNameAsync(User.Identity.Name);
-            var identity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
+            var user = await UserManager.FindByNameAsync(User.Identity.Name).ConfigureAwait(false);
+            var identity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType).ConfigureAwait(false);
 
             if (identity.HasClaim(ClaimTypes.Role, "Organizer"))
             {
@@ -194,7 +194,7 @@ namespace SportsEvents.Controllers
             }
             if (model.CityId != null)
             {
-                city = await DbContext.Cities.FindAsync(model.CityId.Value);
+                city = await DbContext.Cities.FindAsync(model.CityId.Value).ConfigureAwait(false);
             }
 
 
@@ -236,13 +236,13 @@ namespace SportsEvents.Controllers
             };
 
 
-            var result = await UserManager.UpdateAsync(user);
+            var result = await UserManager.UpdateAsync(user).ConfigureAwait(false);
 
             if (!result.Succeeded)
             {
                 return BadRequest();
             }
-            var claimResult = await UserManager.AddClaimAsync(User.Identity.GetUserId(), new Claim(ClaimTypes.Role, "Organizer"));
+            var claimResult = await UserManager.AddClaimAsync(User.Identity.GetUserId(), new Claim(ClaimTypes.Role, "Organizer")).ConfigureAwait(false);
             if (!claimResult.Succeeded)
             {
                 return GetErrorResult(claimResult);
@@ -252,9 +252,9 @@ namespace SportsEvents.Controllers
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
-        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
+        public async Task<ManageInfoViewModel> GetManageInfoAsync(string returnUrl, bool generateState = false)
         {
-            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId()).ConfigureAwait(false);
 
             if (user == null)
             {
@@ -292,7 +292,7 @@ namespace SportsEvents.Controllers
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        public async Task<IHttpActionResult> ChangePasswordAsync(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -300,7 +300,7 @@ namespace SportsEvents.Controllers
             }
 
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
-                model.NewPassword);
+                model.NewPassword).ConfigureAwait(false);
 
             if (!result.Succeeded)
             {
@@ -312,14 +312,14 @@ namespace SportsEvents.Controllers
 
         // POST api/Account/SetPassword
         [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
+        public async Task<IHttpActionResult> SetPasswordAsync(SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+            var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword).ConfigureAwait(false);
 
             if (!result.Succeeded)
             {
@@ -331,7 +331,7 @@ namespace SportsEvents.Controllers
 
         // POST api/Account/AddExternalLogin
         [Route("AddExternalLogin")]
-        public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
+        public async Task<IHttpActionResult> AddExternalLoginAsync(AddExternalLoginBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -358,7 +358,7 @@ namespace SportsEvents.Controllers
             }
 
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(),
-                new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey));
+                new UserLoginInfo(externalData.LoginProvider, externalData.ProviderKey)).ConfigureAwait(false);
 
             if (!result.Succeeded)
             {
@@ -370,7 +370,7 @@ namespace SportsEvents.Controllers
 
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
-        public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
+        public async Task<IHttpActionResult> RemoveLoginAsync(RemoveLoginBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -381,12 +381,12 @@ namespace SportsEvents.Controllers
 
             if (model.LoginProvider == LocalLoginProvider)
             {
-                result = await UserManager.RemovePasswordAsync(User.Identity.GetUserId());
+                result = await UserManager.RemovePasswordAsync(User.Identity.GetUserId()).ConfigureAwait(false);
             }
             else
             {
                 result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(),
-                    new UserLoginInfo(model.LoginProvider, model.ProviderKey));
+                    new UserLoginInfo(model.LoginProvider, model.ProviderKey)).ConfigureAwait(false);
             }
 
             if (!result.Succeeded)
@@ -402,7 +402,7 @@ namespace SportsEvents.Controllers
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
         [Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        public async Task<IHttpActionResult> GetExternalLoginAsync(string provider, string error = null)
         {
             if (error != null)
             {
@@ -428,7 +428,7 @@ namespace SportsEvents.Controllers
             }
 
             var user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
-                externalLogin.ProviderKey));
+                externalLogin.ProviderKey)).ConfigureAwait(false);
 
             var hasRegistered = user != null;
 
@@ -437,9 +437,9 @@ namespace SportsEvents.Controllers
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 
                 var oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+                    OAuthDefaults.AuthenticationType).ConfigureAwait(false);
                 var cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    CookieAuthenticationDefaults.AuthenticationType);
+                    CookieAuthenticationDefaults.AuthenticationType).ConfigureAwait(false);
 
                 var properties = ApplicationOAuthProvider.CreateProperties(user, user.Roles.Select(r => new RoleModel() { Role = r.RoleId }).ToList());
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);

@@ -45,7 +45,7 @@ namespace SportsEvents.ApiControllers
                         .Include(e => e.BookmarkerVisitors)
                         .Where(e => e.BeginDate > DateTime.UtcNow)
                         .OrderBy(e => e.BeginDate)
-                        .Skip(page*take)
+                        .Skip(page * take)
                         .Take(take)
                         .Select(e => new
                         {
@@ -290,10 +290,10 @@ namespace SportsEvents.ApiControllers
             try
             {
                 var user =
-                       await
-                           UserManager.Users.Include(u => u.RegisteredEvents)
-                               .Include(u => u.RegistrationRequests)
-                               .Where(u => u.Id == model.UserId)
+                    await
+                        UserManager.Users.Include(u => u.RegisteredEvents)
+                            .Include(u => u.RegistrationRequests)
+                            .Where(u => u.Id == model.UserId)
                                .FirstOrDefaultAsync().ConfigureAwait(false);
                 var event_ =
                     await
@@ -369,6 +369,31 @@ namespace SportsEvents.ApiControllers
             }
         }
 
+        [Route("FeatureEvent")]
+        [HttpPost]
+        public async Task<IHttpActionResult> FeatureEvent(FeatureEventModel model)
+        {
+            try
+            {
+                var _event = await DbContext.Events.FirstOrDefaultAsync(ev => ev.Id == model.EventId);
+                _event.IsFeatured = true;
+
+                var dbEntityEntryEvent = DbContext.Entry(_event);
+                dbEntityEntryEvent.State = EntityState.Modified;
+
+                var result = await DbContext.SaveChangesAsync();
+                if (result <= 0)
+                {
+                    return InternalServerError();
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [Route("BulkRead")]
         [HttpPost]
         public async Task<IHttpActionResult> BulkRead()
@@ -414,7 +439,6 @@ namespace SportsEvents.ApiControllers
                     "event location state",
                     "event description",
                     "Detailed event description",
-                    "upload own icon",
                     "upload picture 1",
                     "upload picture 2",
                     "upload picture 3",
@@ -447,16 +471,14 @@ namespace SportsEvents.ApiControllers
                         var cities = await DbContext.Cities.ToListAsync();
                         var countries = await DbContext.Countries.ToListAsync();
 
-                        DataTable dt = new DataTable(worksheet.Name);
-                        var dr = dt.Rows[0];
                         List<string> titles = new List<string>(); //titles in excel sheet
 
-                        var index = 0;
+                        var index = 1;
                         do
                         {
-                            titles.Add(dr[index].ToString());
+                            titles.Add(worksheet.Cells[1, index].Text.Trim(' ','<','>'));
                             index++;
-                        } while (!String.IsNullOrWhiteSpace(dr[index].ToString()));
+                        } while (!String.IsNullOrWhiteSpace(worksheet.Cells[1, index].Text) && index < totalCols);
 
                         foreach (var header in headers)
                         {
@@ -466,11 +488,12 @@ namespace SportsEvents.ApiControllers
                             }
                             else
                             {
-                                indexer.Add(header, titles.IndexOf(header));
+                                indexer.Add(header, titles.IndexOf(header) +1);
                             }
                         }
                         
-                        for (var i = 1; i <= totalRows; i++)
+
+                        for (var i = 1; i < totalRows; i++)
                         {
                             var _event = new Event
                             {
@@ -489,18 +512,18 @@ namespace SportsEvents.ApiControllers
                             };
 
                             var sport = sports.FirstOrDefault(s => s.Name == worksheet.Cells[i, indexer["Sport"]].Text);
-                            if (sport!=null)
+                            if (sport != null)
                             {
                                 _event.SportId = sport.Id;
                             }
                             else
                             {
-                                return BadRequest("Sport not found for row number "+i);
+                                return BadRequest("Sport not found for row number " + i);
                             }
 
                             var eventType =
                                 eventTypes.FirstOrDefault(et => et.Name == worksheet.Cells[i, indexer["type"]].Text);
-                            if (eventType!=null)
+                            if (eventType != null)
                             {
                                 _event.EventTypeId = eventType.Id;
                             }
@@ -510,7 +533,7 @@ namespace SportsEvents.ApiControllers
                             }
 
                             var city = cities.FirstOrDefault(c => c.Name == worksheet.Cells[i, indexer["event location City"]].Text);
-                            if (city!=null)
+                            if (city != null)
                             {
                                 _event.CityId = city.Id;
                             }
@@ -544,7 +567,7 @@ namespace SportsEvents.ApiControllers
                         int savingResult = await DbContext.SaveChangesAsync();
                         if (savingResult < 0)
                         { 
-                            return BadRequest("Worksheet "+ worksheet.Name + " was not saved");
+                            return BadRequest("Worksheet " + worksheet.Name + " was not saved");
                         }
                     }
                 }
